@@ -32,10 +32,19 @@
 		<div class="container">
 			<div class="row">
 				<aside id="sidebar" ng-controller="sidebarController">
-					<div class="col-xs-4">
-					<img src="assets/img/test.jpg">
-					<p>Logged in as <b>{{ username }}</b> </p>
-					
+					<div class="col-xs-4 text-center">
+						<img src="assets/img/test.jpg">
+						<p>Logged in as <b>{{ username }}</b> </p>
+						<div class="tabs">
+							<h4 ng-class="{ active: isSet(1) }"><a ng-click="setTab(1)">Public</a></h4>
+							<h4 ng-class="{ active: isSet(2) }"><a ng-click="setTab(2)">Private</a></h4>
+						</div>
+						<div ng-show="isSet(1)">
+							<p>Här är en lista på alla användare</p>
+						</div>
+						<div ng-show="isSet(2)">
+							<p> Här är en lista på alla mina chatter</p>
+						</div>
 					</div>
 				</aside>
 				<section class="content">
@@ -62,6 +71,7 @@
 	
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="assets/js/scripts.js"></script>
 </body>
 </html>
