@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
-app.controller('sidebarController', ['$scope', function($scope){
+app.controller('sidebarController', ['$scope', 'user' ,function($scope, user){
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 
@@ -43,6 +43,8 @@ app.controller('sidebarController', ['$scope', function($scope){
 	  }
   ];
 
+
+  	$scope.u = user;
 }]);
 
 app.service('testUser', function() {
