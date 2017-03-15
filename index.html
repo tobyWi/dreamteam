@@ -40,10 +40,22 @@
 							<h4 ng-class="{ active: isSet(2) }"><a ng-click="setTab(2)">Private</a></h4>
 						</div>
 						<div ng-show="isSet(1)">
-							<p>Här är en lista på alla användare</p>
+							<ul class="all-users">
+								<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}<i class="fa fa-circle" ng-class="{{ user.online ? 'online' : 'offline'; }}"></i></div></li>
+							</ul>
 						</div>
 						<div ng-show="isSet(2)">
-							<p> Här är en lista på alla mina chatter</p>
+							<ul class="all-users">
+								<li ng-click="toggle()">Best friends</li>
+								<p ng-show="x" class="mini private"><img src="assets/img/test.jpg" />Lorem</p>
+								<p ng-show="x" class="mini private"><img src="assets/img/test.jpg" />Ipsum</p>
+								<p ng-show="x" class="mini private"><img src="assets/img/test.jpg" />Frankenstein</p>
+								<li>John</li>
+								<li>Stephanie</li>
+								<li ng-click="toggle()">Group</li>
+								<p ng-show="x" class="mini private"><img src="assets/img/test.jpg" />Lorem</p>
+								<p ng-show="x" class="mini private"><img src="assets/img/test.jpg" />Ipsum</p>
+							</ul>
 						</div>
 					</div>
 				</aside>
