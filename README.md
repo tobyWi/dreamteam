@@ -1,5 +1,4 @@
-REGLER FÖR GRUPPEN + INFO
-1) Komma till skolan även på onsdagar och fredagar 9-16
+
 2) Pusha till git i slutet av varje arbetsdag
 3) Meddela gruppen ifall man är sjuk så fort man vet att man inte kommer till inplanerat möte
 4) Ha en slack-chatt?
@@ -49,5 +48,4 @@ USER STORIES
 Som admin
 1.	Blockera medlemmar
 2.	Blockera emailadresser från att skapa nya konton
-3.	Se privata konversationer om någon anmält något därifrån
-4.	Ge varningar till medlemmar som misskött sig 
+3.	Se privata konversationer om någon anmältl medlemmar som misskött sig 
