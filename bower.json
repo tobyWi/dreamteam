@@ -23,6 +23,8 @@
   "dependencies": {
     "angular": "^1.6.3",
     "bootstrap-css-only": "^3.3.7",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "ui-bootstrap": "^2.5.0",
+    "angular-bootstrap": "^2.5.0"
   }
 }
