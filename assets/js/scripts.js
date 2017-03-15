@@ -45,3 +45,35 @@ app.controller('sidebarController', ['$scope', function($scope){
 
 }]);
 
+<<<<<<< HEAD
+=======
+
+
+app.service('user', function() {
+	var user = [{
+    name: 'user',
+    password: 'xxxxx',
+    avatar: 'assets/img/test.jpg',
+    online: true
+  },
+  {
+	name: 'user1',
+	password: 'xxxxx',
+	avatar: 'assets/img/test.jpg',
+    online: true
+  },
+  {
+	name: 'user2',
+	password: 'xxxxx',
+	avatar: 'assets/img/test.jpg',
+    online: true
+  },
+  {
+	name: 'user3',
+	password: 'xxxxx',
+	avatar: 'assets/img/test.jpg',
+    online: true
+  }
+  ];
+} 
+>>>>>>> 01532484e990723bea2b062e226a5c2d061aa7fa
