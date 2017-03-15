@@ -13,3 +13,33 @@ app.controller('sidebarController', ['$scope', function($scope){
     };
 
 }]);
+
+
+
+app.service('user', function() {
+	var user = [{
+    name: 'user',
+    password: 'xxxxx',
+    avatar: 'assets/img/test.jpg',
+    online: true
+  },
+  {
+	name: 'user1',
+	password: 'xxxxx',
+	avatar: 'assets/img/test.jpg',
+    online: true
+  },
+  {
+	name: 'user2',
+	password: 'xxxxx',
+	avatar: 'assets/img/test.jpg',
+    online: true
+  },
+  {
+	name: 'user3',
+	password: 'xxxxx',
+	avatar: 'assets/img/test.jpg',
+    online: true
+  }
+  ];
+} 
