@@ -42,8 +42,6 @@ app.controller('sidebarController', ['$scope', 'user' ,function($scope, user){
 	    online: false
 	  }
   ];
-
-
   	$scope.u = user;
 }]);
 
