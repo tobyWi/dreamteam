@@ -1,3 +1,32 @@
 body {
-	background: beige;
+	background: #E6DADA; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, #E6DADA , #274046); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to left, #E6DADA , #274046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */   
+	font-family: 'Lato', sans-serif;
+	color: white;
 }
+
+main {
+	min-height: 500px;
+}
+
+/* Header Styles */
+
+#header {
+	height: 70px;
+	line-height: 70px;
+	border-bottom: 1px solid black;
+}
+
+#footer {
+	border-top: 1px solid black;
+	height: 70px;
+	line-height: 70px;
+}
+
+
+
+.aligncenter {
+	text-align: center;
+}
+
