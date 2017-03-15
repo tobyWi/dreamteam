@@ -1,23 +1,13 @@
-<<<<<<< HEAD
+
 body, main {
 	background: beige;
 	height: 100%;
 }
 
-#sidebar {
-	border-right: 1px solid black;
-	height: 100%;
-	background-color: white;
-}
-
-#sidebar img {
-	max-width: 100%;
-}
-=======
 body {
-	background: #E6DADA; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to left, #E6DADA , #274046); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to left, #E6DADA , #274046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */   
+	background: #E6DADA;
+	background: -webkit-linear-gradient(to left, #E6DADA , #274046); 
+	background: linear-gradient(to left, #E6DADA , #274046);  
 	font-family: 'Lato', sans-serif;
 	color: white;
 }
@@ -46,4 +36,14 @@ main {
 	text-align: center;
 }
 
->>>>>>> 2b55032796f3687e3e375e967a174cd95ccddff5
+/* Sidebar Styles */
+
+#sidebar {
+	border-right: 1px solid black;
+	height: 100%;
+	background-color: white;
+}
+
+#sidebar img {
+	max-width: 100%;
+}
