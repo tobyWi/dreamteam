@@ -1,3 +1,51 @@
-body {
+
+body, main {
 	background: beige;
+	height: 100%;
 }
+
+body {
+	background: #E6DADA;
+	background: -webkit-linear-gradient(to left, #E6DADA , #274046); 
+	background: linear-gradient(to left, #E6DADA , #274046);  
+	font-family: 'Lato', sans-serif;
+	color: white;
+}
+
+main {
+	min-height: 500px;
+}
+
+/* Header Styles */
+
+#header {
+	height: 70px;
+	line-height: 70px;
+	border-bottom: 1px solid black;
+}
+
+#footer {
+	border-top: 1px solid black;
+	height: 70px;
+	line-height: 70px;
+}
+
+
+
+.aligncenter {
+	text-align: center;
+}
+
+/* Sidebar Styles */
+
+#sidebar {
+	border-right: 1px solid black;
+	height: 100%;
+	background-color: white;
+}
+
+#sidebar img {
+	max-width: 100%;
+}
+
+
