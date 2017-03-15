@@ -45,7 +45,7 @@ app.controller('sidebarController', ['$scope', function($scope){
 
 }]);
 
-app.service('user', function() {
+app.service('testUser', function() {
 	var user = [{
     name: 'user',
     password: 'xxxxx',
