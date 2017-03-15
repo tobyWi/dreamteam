@@ -10,8 +10,6 @@
 	<link href="assets/css/style.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-
-<<<<<<< HEAD
 	<header id="header">
 		<div class="container">
 			<div class="row">
@@ -27,9 +25,24 @@
 		</div>
 	</header>
 
-	<main>
-		
+	
+	<main class="main">
+		<div class="container">
+			<div class="row">
+				<sidebar id="sidebar">
+					<div class="col-xs-4">
+						<p>Sidebar!</p>
+					</div>
+				</sidebar>
+				<section class="content">
+					<div class="col-xs-8">
+						<p>Main content, ng-view</p>
+					</div>
+				</section>
+			</div>
+		</div>
 	</main>
+	
 
 	<footer id="footer">
 		<div class="container">
@@ -41,10 +54,8 @@
 		</div>
 	</footer>
 
-	<script src="assets/js/scripts.js"></script>
-=======
+	
 	<script src="bower_components/angular/angular.js"></script>
-	<script src="assets/js/script.js"></script>
->>>>>>> d9e4722362656139ef050f201bf033a75c7a634c
+	<script src="assets/js/scripts.js"></script>
 </body>
 </html>
