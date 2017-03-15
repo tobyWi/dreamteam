@@ -71,4 +71,4 @@ app.service('user', function() {
     online: true
   }
   ];
-} 
+});
