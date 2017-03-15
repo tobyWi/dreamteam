@@ -45,10 +45,6 @@ app.controller('sidebarController', ['$scope', function($scope){
 
 }]);
 
-<<<<<<< HEAD
-=======
-
-
 app.service('user', function() {
 	var user = [{
     name: 'user',
@@ -76,4 +72,3 @@ app.service('user', function() {
   }
   ];
 } 
->>>>>>> 01532484e990723bea2b062e226a5c2d061aa7fa
