@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
-app.controller('sidebarController', ['$scope', 'user' ,function($scope, user){
+app.controller('sidebarController', ['$scope', function($scope){
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 
@@ -41,8 +41,7 @@ app.controller('sidebarController', ['$scope', 'user' ,function($scope, user){
 		avatar: 'assets/img/test.jpg',
 	    online: false
 	  }
-  ];
-  	$scope.u = user;
+  ];		
 }]);
 
 app.service('testUser', function() {
