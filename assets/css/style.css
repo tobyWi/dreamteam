@@ -42,10 +42,42 @@ main {
 	border-right: 1px solid black;
 	height: 100%;
 	background-color: white;
+	color: black;
 }
 
 #sidebar img {
 	max-width: 100%;
 }
 
+#sidebar .tabs h4 {
+	text-transform: uppercase;
+	display: inline;
+	margin: 0 5px;
+}
 
+#sidebar .all-users {
+	list-style: none;
+	padding: 0;
+	text-align: left;
+}
+
+#sidebar .all-users li {
+	line-height: 40px;
+	border: 1px solid black;
+}
+
+#sidebar .all-users .mini img {
+	width: auto;
+	height: 40px;
+}
+
+#sidebar .all-users .private {
+	padding-left: 20px;
+}
+
+#sidebar .all-users .mini i online {
+	color: green;
+}
+#sidebar .all-users .mini i offline {
+	color: red;
+}
