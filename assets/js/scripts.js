@@ -1,7 +1,6 @@
 var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
-app.controller('sidebarController', ['$scope', 'user' ,function($scope, user){
-
+app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, testUser){
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 
@@ -12,8 +11,6 @@ app.controller('sidebarController', ['$scope', 'user' ,function($scope, user){
     $scope.isSet = function(tabNum){
       return $scope.tab === tabNum;
     };
-
-
     $scope.users = [{
 	    name: 'user',
 	    password: 'xxxxx',
@@ -38,13 +35,10 @@ app.controller('sidebarController', ['$scope', 'user' ,function($scope, user){
 		avatar: 'assets/img/test.jpg',
 	    online: false
 	  }
-  ];
-
-
-  	$scope.u = user;
+  ];		
 }]);
 
-app.service('user', function() {
+app.service('testUser', function() {
 	var user = [{
     name: 'user',
     password: 'xxxxx',
@@ -71,3 +65,61 @@ app.service('user', function() {
   }
   ];
 });
+
+
+app.controller('validation', ['$scope', function($scope){
+
+  $scope.RegistrationController = function() {
+    var model = this;
+
+    model.message = "";
+
+    model.user = {
+      username: "",
+      password: "",
+      confirmPassword: ""
+    };
+
+    model.submit = function(isValid) {
+      console.log("h");
+      if (isValid) {
+        model.message = "Submitted " + model.user.username;
+      } else {
+        model.message = "There are still invalid fields below";
+      }
+    };
+
+  };
+
+  var compareTo = function() {
+    return {
+      require: "ngModel",
+      scope: {
+        otherModelValue: "=compareTo"
+      },
+      link: function(scope, element, attributes, ngModel) {
+
+        ngModel.$validators.compareTo = function(modelValue) {
+          return modelValue == scope.otherModelValue;
+        };
+
+        scope.$watch("otherModelValue", function() {
+          ngModel.$validate();
+        });
+      }
+    };
+  };
+
+  regapp.directive("compareTo", compareTo);
+  regapp.controller("RegistrationController", RegistrationController);
+
+}]);
+
+
+
+
+
+
+
+
+
