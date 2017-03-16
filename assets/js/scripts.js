@@ -20,17 +20,13 @@ app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, test
       return $scope.tab === tabNum;
     };
 
-<<<<<<< HEAD
 
     $scope.x = false;
     $scope.toggle = function() {
         $scope.x = !$scope.x;
     };
-    
-  $scope.users = [{
-=======
+
     $scope.users = [{
->>>>>>> a55b2e674a7b38cf9c777507a7c428d7521c9ead
 	    name: 'user',
 	    password: 'xxxxx',
 	    avatar: 'assets/img/test.jpg',
@@ -53,15 +49,11 @@ app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, test
 		password: 'xxxxx',
 		avatar: 'assets/img/test.jpg',
 	    online: false
-<<<<<<< HEAD
+
 	}
 	];		
+	
 
-  	
-=======
-	  }
-	];		
->>>>>>> a55b2e674a7b38cf9c777507a7c428d7521c9ead
 }]);
 
 app.service('testUser', function() {
