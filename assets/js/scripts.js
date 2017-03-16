@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'services']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
 app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, testUser){
 
