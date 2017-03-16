@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap-css-only/css/bootstrap.css">
+</head>
+<body>
+	<div ng-controller="TestController">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<form name="login" novalidate>
+						<label>
+							Username <input ng-model="credentials.user" />
+						</label>
+
+						<label>
+							Password <input ng-minlength="5" ng-model="credentials.password" required type="password">
+						</label>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" >
+					<button ng-click="submit(credentials)" type="button"> Logga in
+				</button>
+			</div>
+		</div>
+	</div>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.js" ></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-route/angular-route.js" ></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js" ></script>
+	<script src="script.js"></script>
+
+</body>
+</html>
