@@ -1,3 +1,4 @@
+/* Main Styles */
 
 body, main {
 	background: beige;
@@ -73,11 +74,12 @@ main {
 	padding-left: 20px;
 }
 
-#sidebar .all-users i.mini online {
-	color: green;
-}
-#sidebar .all-users i.mini offline {
+.red {
 	color: red;
+}
+
+.green {
+	color: green;
 }
 
 #sidebar .all-users .group-users {
