@@ -1,10 +1,5 @@
 var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'services']);
 
-app.controller('sidebarController', ['$scope', function($scope, testUsers){
-
-	console.log(get);
-
-
 app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, testUser){
 
 	$scope.username = 'Somebody';
@@ -62,26 +57,26 @@ app.service('testUser', function() {
     password: 'xxxxx',
     avatar: 'assets/img/test.jpg',
     online: true
-  },
-  {
-	name: 'user1',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user2',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user3',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  }
-  ];
+    },
+    {
+        name: 'user1',
+        password: 'xxxxx',
+        avatar: 'assets/img/test.jpg',
+        online: true
+    },
+    {
+        name: 'user2',
+        password: 'xxxxx',
+        avatar: 'assets/img/test.jpg',
+        online: true
+    },
+    {
+        name: 'user3',
+        password: 'xxxxx',
+        avatar: 'assets/img/test.jpg',
+        online: true
+    }
+    ];
 });
 
 
