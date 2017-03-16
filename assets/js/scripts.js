@@ -1,6 +1,9 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'services']);
 
-app.controller('sidebarController', ['$scope', function($scope){
+app.controller('sidebarController', ['$scope', function($scope, testUsers){
+
+	console.log(get);
+
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 
@@ -16,58 +19,37 @@ app.controller('sidebarController', ['$scope', function($scope){
     $scope.toggle = function() {
         $scope.x = !$scope.x;
     };
+    
 
     $scope.users = [{
 	    name: 'user',
 	    password: 'xxxxx',
 	    avatar: 'assets/img/test.jpg',
 	    online: true
-	  },
-	  {
+	},
+	{
 		name: 'user1',
 		password: 'xxxxx',
 		avatar: 'assets/img/test.jpg',
 	    online: true
-	  },
-	  {
+	},
+	{
 		name: 'user2',
 		password: 'xxxxx',
 		avatar: 'assets/img/test.jpg',
 	    online: false
-	  },
-	  {
+	},
+	{
 		name: 'user3',
 		password: 'xxxxx',
 		avatar: 'assets/img/test.jpg',
 	    online: false
-	  }
-  ];		
+	}
+	];		
+
+  	
 }]);
 
-app.service('testUser', function() {
-	var user = [{
-    name: 'user',
-    password: 'xxxxx',
-    avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user1',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user2',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user3',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  }
-  ];
-});
+
+
+
