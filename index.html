@@ -41,19 +41,20 @@
 						</div>
 						<div ng-show="isSet(1)">
 							<ul class="all-users">
-								<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}<i class="fa fa-circle" ng-class="{{ user.online ? 'online' : 'offline'; }}"></i></div></li>
+								<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}
+								<span ng-class="{{ user.online? 'online' : 'offline'; }}"><i class="fa fa-circle"></i></span></div></li>
 							</ul>
 						</div>
 						<div ng-show="isSet(2)">
 							<ul class="all-users">
 								<li ng-click="toggle()">Group One
-									<ul class="group-users" ng-model="g">
+									<ul class="group-users">
 										<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}</div></li>
 									</ul>
 								</li>
 								<li>John Doe</li>
 								<li ng-click="toggle()">Another Group
-									<ul class="group-users" ng-model="p">
+									<ul class="group-users">
 										<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}</div></li>
 									</ul>
 								</li>

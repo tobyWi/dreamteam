@@ -3,6 +3,8 @@ var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, testUser){
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
+	$scope.online = 'green';
+	$scope.offline = 'red';
 
     $scope.setTab = function(newTab){
       $scope.tab = newTab;
@@ -11,6 +13,7 @@ app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, test
     $scope.isSet = function(tabNum){
       return $scope.tab === tabNum;
     };
+
     $scope.users = [{
 	    name: 'user',
 	    password: 'xxxxx',
@@ -35,7 +38,7 @@ app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, test
 		avatar: 'assets/img/test.jpg',
 	    online: false
 	  }
-  ];		
+	];		
 }]);
 
 app.service('testUser', function() {
