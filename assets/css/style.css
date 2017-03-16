@@ -75,9 +75,9 @@ main {
 	padding-left: 20px;
 }
 
-#sidebar .all-users .mini i online {
+#sidebar .all-users i.mini online {
 	color: green;
 }
-#sidebar .all-users .mini i offline {
+#sidebar .all-users i.mini offline {
 	color: red;
 }

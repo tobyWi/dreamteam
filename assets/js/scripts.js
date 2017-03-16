@@ -41,8 +41,7 @@ app.controller('sidebarController', ['$scope', function($scope){
 		avatar: 'assets/img/test.jpg',
 	    online: false
 	  }
-  ];
-
+  ];		
 }]);
 
 app.service('testUser', function() {
