@@ -1,6 +1,19 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+var app = angular.module('app', ['ui.bootstrap', 'ngRoute']);
 
-app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, testUser){
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/register', {
+        controller: 'registerController',
+        templateUrl: 'partials/register.html'
+    }).when('/chat', {
+        controller: 'chatController',
+        templateUrl: 'partials/chat.html'
+    }).otherwise({
+        controller: 'sidebarController',
+        templateUrl: 'partials/login.html'
+    });
+}]);
+
+app.controller('sidebarController', ['$scope', function($scope){
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 	$scope.online = 'green';
@@ -41,37 +54,17 @@ app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, test
 	];		
 }]);
 
-app.service('testUser', function() {
-	var user = [{
-    name: 'user',
-    password: 'xxxxx',
-    avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user1',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user2',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  },
-  {
-	name: 'user3',
-	password: 'xxxxx',
-	avatar: 'assets/img/test.jpg',
-    online: true
-  }
-  ];
-});
+app.controller('chatController', [function(){
+	
+}]);
+
+app.controller('loginController', [function(){
+	
+}]);
 
 
-app.controller('validation', ['$scope', function($scope){
-
+app.controller('registerController', ['$scope', function($scope){
+ /*
   $scope.RegistrationController = function() {
     var model = this;
 
@@ -115,7 +108,7 @@ app.controller('validation', ['$scope', function($scope){
 
   regapp.directive("compareTo", compareTo);
   regapp.controller("RegistrationController", RegistrationController);
-
+	*/
 }]);
 
 

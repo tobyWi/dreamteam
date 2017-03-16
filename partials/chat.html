@@ -1,0 +1,65 @@
+<header id="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-9">
+					<h1>CHATT</h1>
+				</div>
+				<div class="col-xs-12 col-sm-3">
+					<button type="button" class="btn btn-default"><a href="#!/login">Log Out</a></button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-4 text-center">
+					<aside id="sidebar" ng-controller="sidebarController">
+						<img src="assets/img/test.jpg">
+						<p>Logged in as <b>{{ username }}</b> </p>
+						<div class="tabs">
+							<h4 ng-class="{ active: isSet(1) }"><a ng-click="setTab(1)">Public</a></h4>
+							<h4 ng-class="{ active: isSet(2) }"><a ng-click="setTab(2)">Private</a></h4>
+						</div>
+						<div ng-show="isSet(1)">
+							<ul class="all-users">
+								<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}
+								<span ng-class="{{ user.online? 'online' : 'offline'; }}"><i class="fa fa-circle"></i></span></div></li>
+							</ul>
+						</div>
+						<div ng-show="isSet(2)">
+							<ul class="all-users">
+								<li ng-click="toggle()">Group One
+									<ul class="group-users">
+										<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}</div></li>
+									</ul>
+								</li>
+								<li>John Doe</li>
+								<li ng-click="toggle()">Another Group
+									<ul class="group-users">
+										<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}</div></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</aside>
+				</div>
+				<div class="col-xs-8">
+					<section class="content">
+						<p>ng-view</p>
+					</section>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="aligncenter">Copyright &copy; Group 1 2017</div>
+				</div>
+			</div>
+		</div>
+	</footer>
