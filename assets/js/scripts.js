@@ -4,10 +4,9 @@ app.controller('sidebarController', ['$scope', function($scope, testUsers){
 
 	console.log(get);
 
-<<<<<<< HEAD
-=======
+
 app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, testUser){
->>>>>>> dcbd5f26b1984a60a56f3acb7ff9f17d9fd27463
+
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 
@@ -18,17 +17,14 @@ app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, test
     $scope.isSet = function(tabNum){
       return $scope.tab === tabNum;
     };
-<<<<<<< HEAD
+
 
     $scope.x = false;
     $scope.toggle = function() {
         $scope.x = !$scope.x;
     };
     
-
-=======
->>>>>>> dcbd5f26b1984a60a56f3acb7ff9f17d9fd27463
-    $scope.users = [{
+  $scope.users = [{
 	    name: 'user',
 	    password: 'xxxxx',
 	    avatar: 'assets/img/test.jpg',
@@ -57,8 +53,6 @@ app.controller('sidebarController', ['$scope', 'testUser' ,function($scope, test
   	
 }]);
 
-<<<<<<< HEAD
-=======
 app.service('testUser', function() {
 	var user = [{
     name: 'user',
@@ -135,13 +129,5 @@ app.controller('validation', ['$scope', function($scope){
   regapp.controller("RegistrationController", RegistrationController);
 
 }]);
-
-
-
-
-
-
->>>>>>> dcbd5f26b1984a60a56f3acb7ff9f17d9fd27463
-
 
 
