@@ -30,8 +30,6 @@ main {
 	line-height: 70px;
 }
 
-
-
 .aligncenter {
 	text-align: center;
 }
@@ -80,4 +78,8 @@ main {
 }
 #sidebar .all-users i.mini offline {
 	color: red;
+}
+
+#sidebar .all-users .group-users {
+	display: none;
 }
