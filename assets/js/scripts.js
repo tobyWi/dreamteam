@@ -3,6 +3,8 @@ var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/login");
 
+    // test
+
     $stateProvider.state( {
       name: 'login',
       url: '/login',
