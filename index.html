@@ -10,13 +10,19 @@
 	<link href="bower_components/font-awesome/css/font-awesome.css" type="text/css" rel="stylesheet" />
 	<link href="assets/css/style.css" type="text/css" rel="stylesheet" />
 </head>
-<body>
+<body ng-controller="mainController">
 
-	<ng-view></ng-view>
+	<ul ng-hide="true">
+		<li ng-show="currentPath == ''"><a ui-sref="login">Login</a></li>
+		<li ng-show="currentPath == ''"><a ui-sref="register">Register</a></li>
+		<li ng-show="currentPath == '/login'"><a ui-sref="chat">Chat</a></li>
+	</ul>
+
+	<ui-view></ui-view>
 
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="assets/js/scripts.js"></script>
 </body>
 </html>
