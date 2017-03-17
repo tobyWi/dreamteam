@@ -12,7 +12,7 @@
 	</header>
 
 	<main class="main">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-4 text-center">
 					<aside id="sidebar" ng-controller="sidebarController">
@@ -50,21 +50,21 @@
 					<div class="col-xs-8 chatarea">
 						<div class="row">
 							<div class="col-xs-6 message-box">
-								<div class="col-xs-4 ">
-									{{message.imgFriend}}
+								<div class="col-xs-4">
+									<img src="assets/img/test1.jpg" class="image-float-left">
 								</div>
-								<div class="col-xs-8">
-									<img src="{{message.text}}">
+									<div class="col-xs-8 ">
+									<p> hejhej test :) </p>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-6 message-box">
-								<div class="col-xs-8 ">
-									{{message.text}}
-								</div>
 								<div class="col-xs-4">
-									<img src="{{message.imgUser}}">
+									<img src="assets/img/test1.jpg" class="image-float-left">
+								</div>
+								<div class="col-xs-8 ">
+									<p> Jag är en groda :-) </p>
 								</div>
 							</div>
 						</div>
@@ -76,7 +76,7 @@
 										{{message.text}}
 									</div>
 									<div class="col-xs-4">
-										<img src="{{message.imgUser}}">
+										<img src="{{message.imgUser}}" class="image-float-right">
 									</div>
 								</div>
 							</div>
@@ -90,6 +90,7 @@
 					</div>
 				</div>
 		</section>
+		</div>
 		</div>
 	</main>
 

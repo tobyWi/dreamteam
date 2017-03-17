@@ -100,10 +100,15 @@ main {
 	background-color: white;
 }
 .message-box img {
-	float: right;
 	height: 40px;
 	width: auto;
 	border-radius: 50px;
+}
+.image-float-right {
+	float: right;	
+}
+.image-float-left {
+	float: left;	
 }
 
 .content {
