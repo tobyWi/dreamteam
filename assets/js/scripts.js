@@ -7,12 +7,8 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
 		name: 'login',
 		url: '/login',
 		templateUrl: 'partials/login.html',
-		controller: 'loginController',
-		resolve: {
-		  user: function (UserService) {
-			return UserService.getUser();
-			}
-		}
+		controller: 'loginController'
+		
 	});
 
 	$stateProvider.state( {
