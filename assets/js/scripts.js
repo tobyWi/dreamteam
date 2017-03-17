@@ -8,7 +8,7 @@ app.config(['$routeProvider', function($routeProvider) {
         controller: 'chatController',
         templateUrl: 'partials/chat.html'
     }).otherwise({
-        controller: 'sidebarController',
+        controller: 'loginController',
         templateUrl: 'partials/login.html'
     });
 }]);
@@ -65,12 +65,19 @@ app.controller('sidebarController', ['$scope', function($scope){
 
 }]);
 
-
-app.controller('chatController', [function(){
+app.controller('chatController', ['$scope', function($scope){
 	
 }]);
 
-app.controller('loginController', [function(){
+app.controller('loginController', ['$scope', function($scope){
+	$scope.submit = function (credentials) {
+			if (credentials.user === 'user2' && 
+			credentials.password === 'test123') {
+			alert();
+		} else {
+			alert('Vi hittar inget användarnamn. Registrera dig hos oss, det är helt gratis!!');
+		}
+	};
 	
 }]);
 

@@ -1,13 +1,13 @@
 
 
 
-Creaters:
+Creators:
 
-Izabella Hertel
-David Riano
-Jakob Roslund
-Colin Sweeney
-Markus Borg
-Fredrik Mellin
-Tobias Wiklund
+Izabella Hertel | 
+Daniel Riano | 
+Jakob Roslund | 
+Colin Sweeney | 
+Markus Borg | 
+Fredrik Mellin | 
+Tobias Wiklund | 
 
