@@ -66,7 +66,17 @@ app.controller('sidebarController', ['$scope', function($scope){
 }]);
 
 app.controller('chatController', ['$scope', function($scope){
-	
+
+  $scope.messages = [];
+  $scope.sendMessage = function(){
+    $scope.messages.push({
+      text: $scope.text,
+      imgUser: 'assets/img/test.jpg',
+      imgFriend: ''
+    }); 
+    $scope.text = '';
+  }
+  
 }]);
 
 app.controller('loginController', ['$scope', function($scope){

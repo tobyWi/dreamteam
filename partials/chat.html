@@ -45,8 +45,57 @@
 						</div>
 					</aside>
 				</div>
-				<div class="col-xs-8">
+				<div class="col-xs-8 chatarea">
 					<section class="content">
+
+						<div ng-controller="chatController">
+							<div class="row">
+								<div class="col-xs-6 message-box">
+									<div class="col-xs-4 ">
+										{{message.imgFriend}}
+									</div>
+									<div class="col-xs-8">
+										<img src="{{message.text}}">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6 message-box">
+									<div class="col-xs-8 ">
+										{{message.text}}
+									</div>
+									<div class="col-xs-4">
+										<img src="{{message.imgUser}}">
+									</div>
+								</div>
+							</div>
+							
+
+							<div ng-repeat="message in messages | orderBy: '+';">
+
+								<div class="row">
+									<div class="col-xs-6 col-xs-push-6 message-box">
+										<div class="col-xs-8 ">
+											{{message.text}}
+										</div>
+										<div class="col-xs-4">
+											<img src="{{message.imgUser}}">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+
+							<div class="send-message-field">
+								<textarea ng-model="text"></textarea><br />
+								<button ng-click="sendMessage()">Send</button>
+							</div>
+								
+							
+
+							</div>
+
 						<p>ng-view</p>
 					</section>
 				</div>

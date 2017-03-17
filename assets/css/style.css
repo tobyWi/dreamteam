@@ -85,3 +85,41 @@ main {
 #sidebar .all-users .group-users {
 	display: none;
 }
+
+/*Chat styles*/
+
+.message-box {
+	/*border: 1px solid black;*/
+	padding: 5px;
+	overflow: hidden;
+	/*line-height: 40px;*/
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	box-shadow: 2px 2px 1px grey;
+	background-color: white;
+}
+.message-box img {
+	float: right;
+	height: 40px;
+	width: auto;
+	border-radius: 50px;
+}
+
+.content {
+	color: black;
+}
+
+.chatarea {
+	height: 500px;
+	overflow: scroll;
+}
+.send-message-field {
+	position: absolute;
+	bottom: 0;
+}
+textarea {
+	width: 500px;
+	resize: none;
+}
+
