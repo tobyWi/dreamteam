@@ -27,7 +27,8 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
     $stateProvider
         .state('chat', {
             url: '/chat',
-            templateUrl: 'partials/chat.html'
+            templateUrl: 'partials/chat.html',
+            controller: 'chatController'
         })
         .state('chat.private', {
             url: '/private',
