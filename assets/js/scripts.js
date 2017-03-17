@@ -101,11 +101,11 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
 
 app.controller('loginController', ['$scope', '$location', function($scope, $location){
 	$scope.submit = function (credentials) {
-			if (credentials.user === 'user2' && 
+		if (credentials.user === 'user2' && 
 			credentials.password === 'test123') {
-			//alert();
+			$location.path('/chat');
 		} else {
-			//alert('Vi hittar inget användarnamn. Registrera dig hos oss, det är helt gratis!!');
+			alert('Vi hittar inget användarnamn. Registrera dig hos oss, det är helt gratis!!');
 		}
 	};
 	
