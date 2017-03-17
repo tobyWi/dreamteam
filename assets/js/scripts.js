@@ -1,30 +1,35 @@
 var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
 app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/login");
+	$urlRouterProvider.otherwise("/login");
 
-    $stateProvider.state( {
-      name: 'login',
-      url: '/login',
-      templateUrl: 'partials/login.html',
-      controller: 'loginController'
-    });
+	$stateProvider.state( {
+		name: 'login',
+		url: '/login',
+		templateUrl: 'partials/login.html',
+		controller: 'loginController',
+		resolve: {
+		  user: function (UserService) {
+			return UserService.getUser();
+			}
+		}
+	});
 
-    $stateProvider.state( {
-      name: 'chat',
-      url: '/chat',
-      templateUrl: 'partials/chat.html',
-      controller: 'chatController'
-    });
+	$stateProvider.state( {
+		name: 'chat',
+		url: '/chat',
+		templateUrl: 'partials/chat.html',
+		controller: 'chatController'
+	});
 
-    $stateProvider.state( {
-      name: 'register',
-      url: '/register',
-      templateUrl: 'partials/register.html',
-      controller: 'registerController'
-    })
+	$stateProvider.state( {
+		name: 'register',
+		url: '/register',
+		templateUrl: 'partials/register.html',
+		controller: 'registerController'
+	})
 
-  });
+});
 
 app.controller('mainController', ['$scope', '$location', function($scope, $location){
 	$scope.currentPath = $location.path();
@@ -41,43 +46,43 @@ app.controller('sidebarController', ['$scope', '$location', function($scope, $lo
 	$scope.online = 'green';
 	$scope.offline = 'red';
 
-    $scope.setTab = function(newTab){
-      $scope.tab = newTab;
-    };
+	$scope.setTab = function(newTab){
+	  $scope.tab = newTab;
+	};
 
-    $scope.isSet = function(tabNum){
-      return $scope.tab === tabNum;
-    };
+	$scope.isSet = function(tabNum){
+	  return $scope.tab === tabNum;
+	};
 
 
-    $scope.x = false;
-    $scope.toggle = function() {
-        $scope.x = !$scope.x;
-    };
+	$scope.x = false;
+	$scope.toggle = function() {
+		$scope.x = !$scope.x;
+	};
 
-    $scope.users = [{
-	    name: 'user',
-	    password: 'xxxxx',
-	    avatar: 'assets/img/test.jpg',
-	    online: true
+	$scope.users = [{
+		name: 'user',
+		password: 'xxxxx',
+		avatar: 'assets/img/test.jpg',
+		online: true
 	},
 	{
 		name: 'user1',
 		password: 'xxxxx',
 		avatar: 'assets/img/test.jpg',
-	    online: true
+		online: true
 	},
 	{
 		name: 'user2',
 		password: 'xxxxx',
 		avatar: 'assets/img/test.jpg',
-	    online: false
+		online: false
 	},
 	{
 		name: 'user3',
 		password: 'xxxxx',
 		avatar: 'assets/img/test.jpg',
-	    online: false
+		online: false
 
 	}
 	];		
@@ -89,12 +94,12 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
 
   $scope.messages = [];
   $scope.sendMessage = function(){
-    $scope.messages.push({
-      text: $scope.text,
-      imgUser: 'assets/img/test.jpg',
-      imgFriend: ''
-    }); 
-    $scope.text = '';
+	$scope.messages.push({
+	  text: $scope.text,
+	  imgUser: 'assets/img/test.jpg',
+	  imgFriend: ''
+	}); 
+	$scope.text = '';
   }
   
 }]);
@@ -114,44 +119,44 @@ app.controller('loginController', ['$scope', '$location', function($scope, $loca
 app.controller('registerController', ['$scope', function($scope){
  /*
   $scope.RegistrationController = function() {
-    var model = this;
+	var model = this;
 
-    model.message = "";
+	model.message = "";
 
-    model.user = {
-      username: "",
-      password: "",
-      confirmPassword: ""
-    };
+	model.user = {
+	  username: "",
+	  password: "",
+	  confirmPassword: ""
+	};
 
-    model.submit = function(isValid) {
-      console.log("h");
-      if (isValid) {
-        model.message = "Submitted " + model.user.username;
-      } else {
-        model.message = "There are still invalid fields below";
-      }
-    };
+	model.submit = function(isValid) {
+	  console.log("h");
+	  if (isValid) {
+		model.message = "Submitted " + model.user.username;
+	  } else {
+		model.message = "There are still invalid fields below";
+	  }
+	};
 
   };
 
   var compareTo = function() {
-    return {
-      require: "ngModel",
-      scope: {
-        otherModelValue: "=compareTo"
-      },
-      link: function(scope, element, attributes, ngModel) {
+	return {
+	  require: "ngModel",
+	  scope: {
+		otherModelValue: "=compareTo"
+	  },
+	  link: function(scope, element, attributes, ngModel) {
 
-        ngModel.$validators.compareTo = function(modelValue) {
-          return modelValue == scope.otherModelValue;
-        };
+		ngModel.$validators.compareTo = function(modelValue) {
+		  return modelValue == scope.otherModelValue;
+		};
 
-        scope.$watch("otherModelValue", function() {
-          ngModel.$validate();
-        });
-      }
-    };
+		scope.$watch("otherModelValue", function() {
+		  ngModel.$validate();
+		});
+	  }
+	};
   };
 
   regapp.directive("compareTo", compareTo);
