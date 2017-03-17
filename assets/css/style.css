@@ -112,7 +112,7 @@ main {
 
 .chatarea {
 	height: 500px;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 .send-message-field {
 	position: absolute;
@@ -122,4 +122,6 @@ textarea {
 	width: 500px;
 	resize: none;
 }
-
+.textfield {
+	height: 100px;
+}

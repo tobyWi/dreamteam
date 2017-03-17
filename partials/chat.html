@@ -45,10 +45,10 @@
 						</div>
 					</aside>
 				</div>
-				<div class="col-xs-8 chatarea">
-					<section class="content">
+			<section class="content">
+				<div ng-controller="chatController">
+					<div class="col-xs-8 chatarea">
 
-						<div ng-controller="chatController">
 							<div class="row">
 								<div class="col-xs-6 message-box">
 									<div class="col-xs-4 ">
@@ -85,21 +85,16 @@
 								</div>
 							</div>
 
-							<div class="row">
-
-							<div class="send-message-field">
-								<textarea ng-model="text"></textarea><br />
-								<button ng-click="sendMessage()">Send</button>
-							</div>
-								
-							
-
-							</div>
-
-						<p>ng-view</p>
-					</section>
 				</div>
-			</div>
+							
+								<div class="col-xs-8 textfield">
+									<div class="send-message-field">
+										<textarea ng-model="text"></textarea><br />
+										<button ng-click="sendMessage()">Send</button>
+									</div>			
+								</div>
+				</div>
+		</section>
 		</div>
 	</main>
 
