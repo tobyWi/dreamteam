@@ -1,26 +1,27 @@
 <section>
 	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<form name="login" novalidate>
-					<label>
-						Username <input ng-model="credentials.user" />
-					</label>
-
-					<label>
-						Password <input ng-minlength="5" ng-model="credentials.password" required type="password">
-					</label>
-				</form>
+		<div class="block">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1 class="main-title">CHAT</h1>
+				</div>
+				<div class="col-xs-12">
+					<form name="login" novalidate>
+						<label for="user">Username </label>
+						<input ng-model="credentials.user" name="user" />
+						<br />
+						<label for="password">Password</label>
+						<input ng-minlength="5" ng-model="credentials.password" required type="password" name="password">
+					</form>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12" >
-				<button ng-click="submit(credentials)" type="button">
-					Logga in
-				</button>				
-				<button ng-click="submit(credentials)" type="button">
-					<a href="#!/register">Registrera</a>
-				</button>
+			<div class="row">
+				<div class="col-xs-12">
+					<a ui-sref="register"><button type="button" class="btn btn-success">Registrera dig</button></a>
+					<button ng-click="submit(credentials)" type="button" class="btn btn-primary">
+						Logga in
+					</button>				
+				</div>
 			</div>
 		</div>
 	</div>
