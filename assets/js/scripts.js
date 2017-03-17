@@ -12,12 +12,12 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
       controller: 'loginController'
     });
 
-    $stateProvider.state( {
-      name: 'chat',
-      url: '/chat',
-      templateUrl: 'partials/chat.html',
-      controller: 'chatController'
-    });
+    // $stateProvider.state( {
+    //   name: 'chat',
+    //   url: '/chat',
+    //   templateUrl: 'partials/chat.html',
+    //   controller: 'chatController'
+    // });
 
     $stateProvider.state( {
       name: 'register',
@@ -26,7 +26,25 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
       controller: 'registerController'
     })
 
+    // Nesting
+
+    $stateProvider
+        .state('chat', {
+            url: '/chat',
+            templateUrl: 'partials/chat.html'
+        })
+        .state('chat.private', {
+            url: '/private',
+            templateUrl: 'partials/private.html'
+        })
+        .state('chat.public', {
+            url: '/public',
+            templateUrl: 'partials/public.html'
+        })
+
   });
+
+
 
 app.controller('mainController', ['$scope', '$location', function($scope, $location){
 	$scope.currentPath = $location.path();
