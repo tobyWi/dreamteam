@@ -1,20 +1,40 @@
-var app = angular.module('app', ['ui.bootstrap', 'ngRoute']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
-app.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/register', {
-        controller: 'registerController',
-        templateUrl: 'partials/register.html'
-    }).when('/chat', {
-        controller: 'chatController',
-        templateUrl: 'partials/chat.html'
-    }).otherwise({
-        controller: 'loginController',
-        templateUrl: 'partials/login.html'
+app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/login");
+
+    $stateProvider.state( {
+      name: 'login',
+      url: '/login',
+      templateUrl: 'partials/login.html',
+      controller: 'loginController'
     });
+
+    $stateProvider.state( {
+      name: 'chat',
+      url: '/chat',
+      templateUrl: 'partials/chat.html',
+      controller: 'chatController'
+    });
+
+    $stateProvider.state( {
+      name: 'register',
+      url: '/register',
+      templateUrl: 'partials/register.html',
+      controller: 'registerController'
+    })
+
+  });
+
+app.controller('mainController', ['$scope', '$location', function($scope, $location){
+	$scope.currentPath = $location.path();
+	console.log($scope.currentPath);
+	
 }]);
 
+app.controller('sidebarController', ['$scope', '$location', function($scope, $location){
 
-app.controller('sidebarController', ['$scope', function($scope){
+	console.log($scope.currentPath);
 
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
@@ -65,7 +85,7 @@ app.controller('sidebarController', ['$scope', function($scope){
 
 }]);
 
-app.controller('chatController', ['$scope', function($scope){
+app.controller('chatController', ['$scope', '$location', function($scope, $location){
 
   $scope.messages = [];
   $scope.sendMessage = function(){
@@ -79,13 +99,13 @@ app.controller('chatController', ['$scope', function($scope){
   
 }]);
 
-app.controller('loginController', ['$scope', function($scope){
+app.controller('loginController', ['$scope', '$location', function($scope, $location){
 	$scope.submit = function (credentials) {
 			if (credentials.user === 'user2' && 
 			credentials.password === 'test123') {
-			alert();
+			//alert();
 		} else {
-			alert('Vi hittar inget användarnamn. Registrera dig hos oss, det är helt gratis!!');
+			//alert('Vi hittar inget användarnamn. Registrera dig hos oss, det är helt gratis!!');
 		}
 	};
 	
