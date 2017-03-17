@@ -66,7 +66,7 @@ main {
 }
 
 #sidebar .all-users .mini img {
-	width: auto;
+	width: 40px;
 	height: 40px;
 }
 
@@ -141,7 +141,7 @@ textarea {
 .block {
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%);
+	transform: translateY(-70%);
 	left: 0;
 	right: 0;
 	width: 500px;
@@ -179,5 +179,3 @@ textarea {
 	font-size: 70px;
 	text-transform: uppercase;
 }
-
-
