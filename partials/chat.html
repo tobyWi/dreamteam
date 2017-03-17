@@ -84,9 +84,9 @@
 					</div>	
 					<div class="col-xs-8 textfield">
 						<div class="send-message-field">
-							<textarea ng-model="text"></textarea><br />
-							<button ng-click="sendMessage()">Send</button>
-						</div>			
+							<button ng-click="sendMessage()">Send</button>		
+							<input type="text" ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="text">
+
 					</div>
 				</div>
 		</section>

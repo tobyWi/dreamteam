@@ -97,6 +97,7 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
       imgFriend: ''
     }); 
     $scope.text = '';
+	console.log($scope.messages);
   }
   
 }]);
@@ -160,5 +161,4 @@ app.controller('registerController', ['$scope', function($scope){
   regapp.controller("RegistrationController", RegistrationController);
 	*/
 }]);
-
 
