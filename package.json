@@ -1,0 +1,25 @@
+{
+  "name": "dreamteam",
+  "version": "1.0.0",
+  "description": "Creators:",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "jshint": "^2.9.4",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobyWi/dreamteam.git"
+  },
+  "author": "izabella hertel, tobias wiklund, colin sweeney, daniel riano, jakob rolsund, markus borg, fredrik mellin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tobyWi/dreamteam/issues"
+  },
+  "homepage": "https://github.com/tobyWi/dreamteam#readme"
+}
