@@ -19,7 +19,7 @@
 						<img src="assets/img/test.jpg">
 						<p>Logged in as <b>{{ username }}</b> </p>
 						<div class="tabs">
-							<h4 ng-class="{ active: isSet(1) }"><a ng-click="setTab(1)">Public</a></h4>
+							<h4 ng-class="{ active: isSet(1) }"><a ui-sref="chat.public" ng-click="setTab(1)">Public</a></h4>
 							<h4 ng-class="{ active: isSet(2) }"><a ng-click="setTab(2)">Private</a></h4>
 						</div>
 						<div ng-show="isSet(1)">
@@ -30,68 +30,20 @@
 						</div>
 						<div ng-show="isSet(2)">
 							<ul class="all-users">
-								<li ng-click="toggle()">Group One
-									<ul class="group-users">
-										<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}</div></li>
-									</ul>
-								</li>
+								<a ui-sref="chat.private"><li>Group One</li></a>
 								<li>John Doe</li>
-								<li ng-click="toggle()">Another Group
-									<ul class="group-users">
-										<li ng-repeat="user in users"><div class="mini"><img src="{{ user.avatar }}"> {{ user.name }}</div></li>
-									</ul>
-								</li>
+								<li>Another Group</li>
 							</ul>
 						</div>
 					</aside>
 				</div>
-			<section class="content">
-				<div ng-controller="chatController">
-					<div class="col-xs-8 chatarea">
-						<div class="row">
-							<div class="col-xs-6 message-box">
-								<div class="col-xs-4">
-									<img src="assets/img/test1.jpg" class="image-float-left">
-								</div>
-									<div class="col-xs-8 ">
-									<p> hejhej test :) </p>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 message-box">
-								<div class="col-xs-4">
-									<img src="assets/img/test1.jpg" class="image-float-left">
-								</div>
-								<div class="col-xs-8 ">
-									<p> Jag är en groda :-) </p>
-								</div>
-							</div>
-						</div>
-							
-						<div ng-repeat="message in messages | orderBy: '+';">
-							<div class="row">
-								<div class="col-xs-6 col-xs-push-6 message-box">
-									<div class="col-xs-8 ">
-										{{message.text}}
-									</div>
-									<div class="col-xs-4">
-										<img src="{{message.imgUser}}" class="image-float-right">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>	
-					<div class="col-xs-8 textfield">
-						<div class="send-message-field">
-							<button ng-click="sendMessage()">Send</button>		
-							<input type="text" ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="text">
 
-					</div>
+				<div class="col-xs-8">   <!-- Chat sektion -->
+					<div ui-view></div>
 				</div>
-		</section>
+			</div>
 		</div>
-		</div>
+	
 	</main>
 
 	<footer id="footer">
