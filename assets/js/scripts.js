@@ -94,12 +94,13 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
 
   $scope.messages = [];
   $scope.sendMessage = function(){
-	$scope.messages.push({
-	  text: $scope.text,
-	  imgUser: 'assets/img/test.jpg',
-	  imgFriend: ''
-	}); 
-	$scope.text = '';
+    $scope.messages.push({
+      text: $scope.text,
+      imgUser: 'assets/img/test.jpg',
+      imgFriend: ''
+    }); 
+    $scope.text = '';
+	console.log($scope.messages);
   }
   
 }]);
@@ -163,5 +164,4 @@ app.controller('registerController', ['$scope', function($scope){
   regapp.controller("RegistrationController", RegistrationController);
 	*/
 }]);
-
 
