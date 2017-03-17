@@ -91,6 +91,8 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
 
   $scope.messages = [];
   $scope.sendMessage = function(){
+	  // if ($scope.text) '' => false undefined => false (falsy)
+	 if ($scope.text !== '' && $scope.text != undefined) {
     $scope.messages.push({
       text: $scope.text,
       imgUser: 'assets/img/test.jpg',
@@ -99,7 +101,7 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
     $scope.text = '';
 	console.log($scope.messages);
   }
-  
+  }
 }]);
 
 app.controller('loginController', ['$scope', '$location', function($scope, $location){
