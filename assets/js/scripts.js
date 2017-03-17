@@ -127,50 +127,34 @@ app.controller('loginController', ['$scope', '$location', function($scope, $loca
 }]);
 
 app.controller('registerController', ['$scope', function($scope){
- /*
-  $scope.RegistrationController = function() {
-	var model = this;
+ 
+	$scope.RegistrationController = function($scope, $location) {
+		var model = this;
 
-	model.message = "";
+		$scope.message = "";
 
-	model.user = {
-	  username: "",
-	  password: "",
-	  confirmPassword: ""
-	};
-
-	model.submit = function(isValid) {
-	  console.log("h");
-	  if (isValid) {
-		model.message = "Submitted " + model.user.username;
-	  } else {
-		model.message = "There are still invalid fields below";
-	  }
-	};
-
-  };
-
-  var compareTo = function() {
-	return {
-	  require: "ngModel",
-	  scope: {
-		otherModelValue: "=compareTo"
-	  },
-	  link: function(scope, element, attributes, ngModel) {
-
-		ngModel.$validators.compareTo = function(modelValue) {
-		  return modelValue == scope.otherModelValue;
+		$scope.user = {
+			username: "",
+			password: "",
+			confirmPassword: ""
 		};
 
-		scope.$watch("otherModelValue", function() {
-		  ngModel.$validate();
-		});
-	  }
-	};
-  };
+		$scope.registerSubmit = function() {
+			// console.log("h");
+			if ( $scope.password == $scope.confirmPassword ) {
+				$scope.message = "Submitted " + $scope.userName;
+				$location.path('/login');
+			} 
+			else {
+				$scope.message = "There are still invalid fields below";
+			}
+		}
+	}
 
-  regapp.directive("compareTo", compareTo);
-  regapp.controller("RegistrationController", RegistrationController);
-	*/
 }]);
 
+app.controller ('chooseAvatar', function($scope) {
+	$scope.choose = function() {
+		alert();
+	}
+})
