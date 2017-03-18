@@ -195,3 +195,13 @@ textarea {
 	font-size: 70px;
 	text-transform: uppercase;
 }
+
+/* VALID / INVALID INPUT */
+
+input.ng-valid {
+	background-color: #dcedc8;
+}
+
+input.ng-invalid {
+	background-color: #ffcdd2;
+}
