@@ -107,7 +107,8 @@ app.controller('registerController', ['$scope', function($scope){
 			username: "",
 			password: "",
 			confirmPassword: ""
-		};
+	};
+		
 		$scope.registerSubmit = function() {
 			if ( $scope.password === $scope.confirmPassword ) {
 				$scope.message = "Submitted " + $scope.userName;
