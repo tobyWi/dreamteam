@@ -66,7 +66,7 @@ main {
 }
 
 #sidebar .all-users .mini img {
-	width: auto;
+	width: 40px;
 	height: 40px;
 }
 
@@ -132,6 +132,8 @@ textarea {
 	float:right;
 }
 
+/* LOGIN */
+
 .login {
 	color: black;
 }
@@ -151,3 +153,45 @@ textarea {
 	.avatar img:hover {
 		cursor: pointer;
 	}
+
+.block {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-70%);
+	left: 0;
+	right: 0;
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.block input {
+	width: 300px;
+	margin: 0 auto;
+	height: 40px;
+	border: 0;
+	border-radius: 3px;
+	font-size: 28px;
+}
+
+.block input:last-of-type {
+	margin-bottom: 20px;
+}
+
+.block .btn {
+	height: 40px;
+	width: 150px;
+}
+
+.block label {
+	display: block;
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+.block .main-title {
+	font-size: 70px;
+	text-transform: uppercase;
+}

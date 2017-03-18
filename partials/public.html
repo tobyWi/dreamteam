@@ -1,45 +1,38 @@
 <section class="content">
 	<div ng-controller="chatController">
-		<div class="col-xs-8 chatarea">
+		<div class="col-xs-12 chatarea">
 			<div class="row">
 				<div class="col-xs-6 message-box">
-					<div class="col-xs-4">
-						<img src="assets/img/test1.jpg" class="image-float-left">
-					</div>
-						<div class="col-xs-8 ">
-						<p> hejhej test :) </p>
-					</div>
+					<img src="assets/img/test1.jpg" class="image-float-left">
+					<p> DETTA ÄR DEN PUBLIKA CHATTEN </p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-6 message-box">
-					<div class="col-xs-4">
-						<img src="assets/img/test1.jpg" class="image-float-left">
-					</div>
-					<div class="col-xs-8 ">
-						<p> Jag är en groda :-) </p>
-					</div>
+					<img src="assets/img/av02.png" class="image-float-left">
+					<p> Hejsan </p>
 				</div>
-			</div>
-				
+			</div>	
+			<div class="row">
+				<div class="col-xs-6 message-box">
+					<img src="assets/img/av03.png" class="image-float-left">
+					<p> Vi skriver i en publik chatt just nu </p>
+				</div>
+			</div>	
 			<div ng-repeat="message in messages | orderBy: '+';">
 				<div class="row">
 					<div class="col-xs-6 col-xs-push-6 message-box">
-						<div class="col-xs-8 ">
-							{{message.text}}
-						</div>
-						<div class="col-xs-4">
-							<img src="{{message.imgUser}}" class="image-float-right">
-						</div>
+						{{message.text}}
+						<img src="{{message.imgUser}}" class="image-float-right">
 					</div>
 				</div>
 			</div>
 		</div>	
-		<div class="col-xs-8 textfield">
+		<div class="col-xs-12 textfield">
 			<div class="send-message-field">
+				<textarea ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="text"></textarea>
 				<button ng-click="sendMessage()">Send</button>		
-				<input type="text" ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="text">
-
+			</div>
 		</div>
 	</div>
 </section>
