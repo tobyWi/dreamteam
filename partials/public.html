@@ -1,38 +1,43 @@
 <section class="content">
 	<div ng-controller="chatController">
-		<div class="col-xs-12 chatarea">
-			<div class="row">
-				<div class="col-xs-6 message-box">
-					<img src="assets/img/test1.jpg" class="image-float-left" />
-					<p> DETTA ÄR DEN PUBLIKA CHATTEN </p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-6 message-box">
-					<img src="assets/img/av02.png" class="image-float-left">
-					<p> Hejsan </p>
-				</div>
-			</div>	
-			<div class="row">
-				<div class="col-xs-6 message-box">
-					<img src="assets/img/av03.png" class="image-float-left">
-					<p> Vi skriver i en publik chatt just nu </p>
-				</div>
-			</div>	
-			<div ng-repeat="message in messages | orderBy: '+';">
+		<div class="row">
+			<div class="col-xs-12 chatarea">
 				<div class="row">
-					<div class="col-xs-6 col-xs-push-6 message-box">
-						{{message.text}}
-						<img src="{{message.imgUser}}" class="image-float-right">
+					<div class="col-xs-6 message-box">
+						<img src="assets/img/test1.jpg" class="image-float-left">
+						<p> DETTA ÄR DEN PUBLIKA CHATTEN </p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6 message-box">
+						<img src="assets/img/av02.png" class="image-float-left">
+						<p> Hejsan </p>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="col-xs-6 message-box">
+						<img src="assets/img/av03.png" class="image-float-left">
+						<p> Vi skriver i en publik chatt just nu </p>
+					</div>
+				</div>	
+				<div ng-repeat="message in messages | orderBy: '+';">
+					<div class="row">
+						<div class="col-xs-6 col-xs-push-6 message-box">
+							{{message.text}}
+							<img src="{{message.imgUser}}" class="image-float-right">
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>	
+		<div class="row">
 		<div class="col-xs-12 textfield">
 			<div class="send-message-field">
 				<textarea ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="text"></textarea>
+				<br />
 				<button ng-click="sendMessage()">Send</button>		
 			</div>
+		</div>
 		</div>
 	</div>
 </section>

@@ -116,20 +116,27 @@ main {
 }
 
 .chatarea {
-	height: 500px;
+	height: 430px;
 	overflow-y: scroll;
 }
 .send-message-field {
 	position: absolute;
 	bottom: 0;
 }
+	.send-message-field button {
+	/*	float: right;*/
+	}
+	.send-message-field input {
+		float: left;
+	}
+
+
 textarea {
 	width: 500px;
 	resize: none;
 }
 .textfield {
 	height: 100px;
-	float:right;
 }
 
 
