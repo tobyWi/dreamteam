@@ -142,7 +142,7 @@ textarea {
 .block {
 	position: absolute;
 	top: 50%;
-	transform: translateY(-70%);
+	transform: translateY(-50%);
 	left: 0;
 	right: 0;
 	width: 500px;
@@ -255,4 +255,12 @@ input.ng-valid {
 
 input.ng-invalid {
 	background-color: #ffcdd2;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.inline {
+	display: inline;
 }

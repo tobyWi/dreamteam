@@ -1,26 +1,26 @@
-<div class="container">
-    <div class="row">
-        <div class="block">
-            
-            <div class="col-xs-12">
-                <section ng-controller="RegistrationController">
-                    <h1>Register!</h1>
-                    <form name="registrationForm" novalidate ng-submit="registration.submit(registrationForm.$valid)">
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="block">
+                <div class="col-xs-12">
+                    <h1 class="main-title">Register</h1>
+                    <form name="registrationForm" novalidate>
                        <div class="form-group">
                             <label>User Name</label>
-                            <input type="text" name="username" class="form-control" ng-model="userName" required ng-pattern="/^[a-z,A-Z,0-9]{5,30}$/" />
+                            <input type="text" name="username" class="form-control inline-block" ng-model="userName" required ng-pattern="/^[a-z,A-Z,0-9]{5,30}$/" />
+                            <i ng-show="userName" class="fa fa-check inline-block"></i>
                             <div ng-messages="registrationForm.username.$error" ng-messages-include="messages.html"></div>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control" ng-model="password" required ng-pattern="/^([-_/&%#,a-z,A-Z,0-9]){6,30}$/" />
+                            <input type="password" name="password" class="form-control inline-block" ng-model="password" required ng-pattern="/^([-_/&%#,a-z,A-Z,0-9]){6,30}$/" />
+                            <i ng-show="password" class="fa fa-check inline-block"></i>
                             <div ng-messages="registrationForm.password.$error" ng-messages-include="messages.html"></div>
                         </div>
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input type="password" name="confirmPassword" class="form-control" 
-                                   ng-model="confirmPassword" 
-                                   required compare-to="registration.user.password" ng-pattern="password" />
+                            <input type="password" name="confirmPassword" class="form-control inline-block" ng-model="confirmPassword" required ng-pattern="password" ng-disabled="!password" />
+                            <i ng-show="confirmPassword" class="fa fa-check inline-block"></i>
                             <div ng-messages="registrationForm.confirmPassword.$error" ng-messages-include="messages.html"></div>
                         </div>
                         <div class="dropdown" ng-controller="chooseAvatar">
@@ -39,14 +39,13 @@
 
                         <div class="form-group">
                             <button ng-click="registerSubmit()" type="submit" class="btn btn-primary">
-                                Register!
+                                Register
                             </button>
                         </div>
                         <h3>{{ message }}</h3> 
                     </form> 
-                </section>
+                </div>
             </div>
         </div>
     </div>
-
-</div>
+</section>
