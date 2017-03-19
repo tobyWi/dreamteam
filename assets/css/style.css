@@ -132,27 +132,12 @@ textarea {
 	float:right;
 }
 
+
 /* LOGIN */
 
 .login {
 	color: black;
 }
-
-.avatar {
-	margin-top: 20px;
-}
-
-.avatar img {
-	display: block;
-	float: left;
-	width: 100px;
-	height: 100px;
-	margin-right: 20px;
-	margin-top: 20px;
-}
-	.avatar img:hover {
-		cursor: pointer;
-	}
 
 .block {
 	position: absolute;
@@ -161,6 +146,7 @@ textarea {
 	left: 0;
 	right: 0;
 	width: 500px;
+	min-height: 400px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -181,11 +167,12 @@ textarea {
 .block .btn {
 	height: 40px;
 	width: 150px;
+	margin-bottom: 10px;
 }
 
 .block label {
 	display: block;
-	margin: 0;
+	margin: 10px 0;
 	padding: 0;
 	text-transform: uppercase;
 	font-size: 12px;
@@ -195,3 +182,70 @@ textarea {
 	font-size: 70px;
 	text-transform: uppercase;
 }
+
+
+/*  REGISTER */
+
+.avatar {
+	margin-top: 20px;
+}
+
+.avatar-img {
+	display: block;
+	width: 100px;
+	height: 100px;
+	margin: 10px auto;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+	.dropdown-menu {
+	    display: none;
+	    position: absolute;
+	    background-color: white;
+	    min-width: 160px;
+	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	    z-index: 10;
+	}
+		.dropdown-menu a {
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block;
+		}
+			.dropdown-menu a:hover {
+				background-color: grey;
+				color: white;
+			}
+
+.dropdown-show {
+	display:block;
+	position: absolute;
+	top: 40px;
+	left: 40px;
+}
+
+#noAvatar input {
+	display: block;
+	float: left;
+    margin: 0 0 10px;
+    height: 20px;
+    width: 10px;
+}
+	#noAvatar p {
+		float: left;
+		width: 100px;
+		margin: 0;
+	}
+
+		#noAvatar {
+			list-style: none;
+			cursor: pointer;
+		}
+
+
+
+

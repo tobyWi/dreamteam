@@ -1,44 +1,56 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-6">
-            <section ng-controller="RegistrationController">
-                <h1>Register!</h1>
-                <h3>{{ message }}</h3> 
-                <form name="registrationForm" novalidate 
-                      ng-submit="registration.submit(registrationForm.$valid)">
-                   <div class="form-group">
-                        <label>User Name</label>
-                        <input type="text" name="username" class="form-control" ng-model="userName" required />
-                        <div ng-messages="registrationForm.username.$error" ng-messages-include="messages.html"></div>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" ng-model="password" required />
-                        <div ng-messages="registrationForm.password.$error" ng-messages-include="messages.html"></div>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" name="confirmPassword" class="form-control" 
-                               ng-model="confirmPassword" 
-                               required compare-to="registration.user.password" />
-                        <div ng-messages="registrationForm.confirmPassword.$error" ng-messages-include="messages.html"></div>
-                    </div>
-                    <div class="form-group">
-                        <button ng-click="registerSubmit()" type="submit" class="btn btn-primary">Register!</button>
-                    </div>
-                </form> 
-            </section>
-        </div>
-        <div class="col-xs-3 col-xs-offset-1">
-            <div ng-controller="chooseAvatar">
-                <div class="avatar aligncenter">
-                    <h3>Välj din avatar</h3>
-                    <img class="image" ng-click="choose()" src="assets/img/av01.png" alt="bild01" />
-                    <img class="image" ng-click="choose()" src="assets/img/av02.png" alt="bild02" />
-                    <img class="image" ng-click="choose()" src="assets/img/av03.png" alt="bild03" />
-                    <img class="image" ng-click="choose()" src="assets/img/av04.png" alt="bild03" />
-                </div>
+        <div class="block">
+            
+            <div class="col-xs-12">
+                <section ng-controller="RegistrationController">
+                    <h1>Register!</h1>
+                    <form name="registrationForm" novalidate 
+                          ng-submit="registration.submit(registrationForm.$valid)">
+                       <div class="form-group">
+                            <label>User Name</label>
+                            <input type="text" name="username" class="form-control" ng-model="userName" required />
+                            <div ng-messages="registrationForm.username.$error" ng-messages-include="messages.html"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" ng-model="password" required />
+                            <div ng-messages="registrationForm.password.$error" ng-messages-include="messages.html"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirmPassword" class="form-control" 
+                                   ng-model="confirmPassword" 
+                                   required compare-to="registration.user.password" />
+                            <div ng-messages="registrationForm.confirmPassword.$error" ng-messages-include="messages.html"></div>
+                        </div>
+                        <div class="dropdown" ng-controller="chooseAvatar">
+                            <button class="btn btn-default" ng-click="avatarDropdown()">Choose Avatar <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+                            <ul id="dropper" class="dropdown-menu">
+                                <a href="" ng-click="showAvatar()" ng-model="avatar01"><li>Avatar 1</li></a>
+                                <a href="" ng-click="showAvatar()" ng-model="avatar02"><li>Avatar 2</li></a>
+                                <a href="" ng-click="showAvatar()" ng-model="avatar03"><li>Avatar 3</li></a>
+                                <a href="" ng-click="showAvatar()" ng-model="avatar04"><li>Avatar 4</li></a>
+                            </ul>
+                            <div id="avatar"></div>
+                            <ul class="avatar-list">
+                                <li ng-click="listAvatar()" id="noAvatar"></li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group">
+                            <button ng-click="registerSubmit()" type="submit" class="btn btn-primary">
+                                Register!
+                            </button>
+                        </div>
+                        <h3>{{ message }}</h3> 
+                    </form> 
+                </section>
             </div>
+
+            
+
         </div>
     </div>
+
 </div>

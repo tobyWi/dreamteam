@@ -111,18 +111,110 @@ app.controller('registerController', ['$scope', function($scope){
 		
 		$scope.registerSubmit = function() {
 			if ( $scope.password === $scope.confirmPassword ) {
-				$scope.message = "Submitted " + $scope.userName;
-				$location.path('/login');
+				$scope.message = "Congratulations " + $scope.userName + ".  You are now registered!";
+
+				setInterval(function() {
+					$location.path('/login');
+					$scope.$apply();
+				}, 2000);
+				
 			} 
 			else {
-				$scope.message = "There are still invalid fields below";
+				$scope.message = "The passwords you entered do not match!";
 			}
 		};
 	};
 }]);
 
-app.controller ('chooseAvatar', function($scope) {
-	$scope.choose = function() {
-		alert();
+
+// Avatar Dropdown
+
+app.controller('chooseAvatar', function($scope) {
+
+	// DROPDOWN
+
+	$scope.avatarDropdown = function() {
+		document.getElementById('dropper').classList.toggle('dropdown-show');
+	}
+
+	window.onclick = function(event) {
+		if (!event.target.matches('.btn')) {
+
+		var drop = document.getElementsByClassName("dropdown-menu");
+		var i;
+
+		for (i = 0; i < drop.length; i++) {
+			var openDrop = drop[i];
+
+				if (openDrop.classList.contains('dropdown-show')) {
+					openDrop.classList.remove('dropdown-show');
+				}
+			}
+		}
+	}
+
+	// AVATAR
+
+	$scope.showAvatar = function($scope) {
+
+		// IF AVATAR EXISTS ALREADY, DELETE BOTH AVATAR AND CHECKBOX & REPLACE WITH NEW CHOICE
+
+		var removePhoto = document.getElementById('avatar');
+		var removeCheck = document.getElementById('noAvatar');
+		
+		if ( removePhoto.hasChildNodes() ) {
+			removePhoto.removeChild(removePhoto.childNodes[0]);
+
+			while (removeCheck.hasChildNodes()) {   
+			    removeCheck.removeChild(removeCheck.firstChild);
+			}
+		}
+
+		var img = document.createElement('img');
+
+		var photo = document.getElementById('avatar').appendChild(img);
+		photo.setAttribute('class', 'avatar-img');
+
+
+		//  behöver en loop för att spotta ut varje avatarbild här…
+	
+		photo.setAttribute('src', 'assets/img/av01.png');
+
+		
+
+		// CHECKBOX FOR NO AVATAR
+
+		var check = document.createElement('input');
+
+		var noAvatarCheckbox = document.getElementById('noAvatar').appendChild(check);
+		noAvatarCheckbox.setAttribute('type' , 'checkbox');
+		noAvatarCheckbox.setAttribute('ng-model' , 'removeAll');
+		noAvatarCheckbox.setAttribute('id' , 'removeAll');
+
+		var p = document.createElement('p');
+
+		var noAvatarWords = document.getElementById('noAvatar').appendChild(p);
+		noAvatarWords.innerHTML = "remove avatar";
+
 	};
+
+	// NO AVATAR CHOSEN
+
+	$scope.listAvatar = function($scope){
+		var removePhoto = document.getElementById('avatar');
+		var removeCheck = document.getElementById('noAvatar');
+		
+		if ( removePhoto.hasChildNodes() ) {
+			removePhoto.removeChild(removePhoto.childNodes[0]);
+
+			while (removeCheck.hasChildNodes()) {   
+			    removeCheck.removeChild(removeCheck.firstChild);
+			}
+		}
+	}
+
 });
+
+
+
+
