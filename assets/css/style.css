@@ -247,5 +247,12 @@ textarea {
 		}
 
 
+/* VALID / INVALID INPUT */
 
+input.ng-valid {
+	background-color: #dcedc8;
+}
 
+input.ng-invalid {
+	background-color: #ffcdd2;
+}
