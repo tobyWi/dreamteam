@@ -98,16 +98,11 @@ app.controller('loginController', ['$scope', '$location', function($scope, $loca
 	};
 }]);
 
-app.controller('registerController', ['$scope', function($scope){
+app.controller('registerController', ['$scope','$location', function($scope, $location){
  
-	$scope.RegistrationController = function($scope, $location) {
-		var model = this;
-		$scope.message = "";
-		$scope.user = {
-			username: "",
-			password: "",
-			confirmPassword: ""
-	};
+ 	$scope.password = "";
+ 	$scope.confirmPassword = "";
+	
 		
 		$scope.registerSubmit = function() {
 			if ( $scope.password === $scope.confirmPassword ) {
@@ -123,7 +118,7 @@ app.controller('registerController', ['$scope', function($scope){
 				$scope.message = "The passwords you entered do not match!";
 			}
 		};
-	};
+	
 }]);
 
 
