@@ -235,6 +235,12 @@ textarea {
 	left: 40px;
 }
 
+.fa-check {
+	color: #dcedc8;
+	font-size: 20px;
+	margin-left: 10px;
+}
+
 #noAvatar input {
 	display: block;
 	float: left;
