@@ -69,7 +69,7 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 	$scope.submit = function (credentials) {
 		$scope.errorMessagePassword = false;
 		$scope.errorMessageUsername = false;
-		//Check rootscope users for a match, else, show error message where the match fails
+		//so rootscope users for a match, else, show error message where the match fails
 		for ( var i = 0; i < $rootScope.users.length; i++ ) {
 			if ( credentials.user === $rootScope.users[i].name ) {
 				if ( credentials.password === $rootScope.users[i].password ) {

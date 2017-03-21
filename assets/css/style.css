@@ -19,7 +19,6 @@ body {
               	0 3px 1px -2px rgba(0, 0, 0, 0.2);
 	background-color: #B0BEC5;;
 	line-height: 100px;
-	box-shadow: 0 2px 2px 0px #eee;
 	margin-bottom: 10px;
 	color: white;
 }
@@ -338,7 +337,15 @@ span.red {
 }
 
 .fa-check {
-	color: #dcedc8;
+	color: #5cb85c;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 8px;
+	position: absolute;
+}
+
+.fa-times {
+	color: #F57373;
 	font-size: 20px;
 	margin-left: 10px;
 	margin-top: 8px;
