@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+ var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/login");
@@ -74,9 +74,12 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 			if ( credentials.user === $rootScope.users[i].name ) {
 				if ( credentials.password === $rootScope.users[i].password ) {
 					$location.path('/chat/public');
+					$scope.errorMessageUsername = false;	
+					break;
 				} else {
 					$scope.errorMessageUsername = false;
 					$scope.errorMessagePassword = true;
+					break;
 				}
 			} else {
 				$scope.errorMessageUsername = true;
@@ -103,7 +106,6 @@ app.controller('registerController', ['$scope','$location', '$rootScope', '$time
 	$scope.registerSubmit = function() {
 		if (!$scope.usernameIsTaken  && $scope.password === $scope.confirmPassword) {
 			$location.path('login');
-			$scope.$apply();
 			console.log('registered');
 		}
 	};
