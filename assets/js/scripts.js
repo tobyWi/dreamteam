@@ -86,7 +86,7 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 }]);
 
 app.controller('registerController', ['$scope','$location', function($scope, $location){
- 
+
 	$scope.registerSubmit = function() {
 
 		if ( $scope.password === $scope.confirmPassword ) {
