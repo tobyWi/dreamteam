@@ -239,6 +239,8 @@ textarea {
 	color: #dcedc8;
 	font-size: 20px;
 	margin-left: 10px;
+	margin-top: 8px;
+	position: absolute;
 }
 
 #noAvatar input {
