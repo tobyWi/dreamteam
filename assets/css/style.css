@@ -230,6 +230,50 @@ span.red {
 
 /*  REGISTER */
 
+.block-register {
+	/*position: absolute;
+	top: 50%;
+	transform: translateY(-50%);*/
+	left: 0;
+	right: 0;
+	width: 500px;
+	min-height: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.block-register input {
+	width: 300px;
+	margin: 0 auto;
+	height: 40px;
+	border: 0;
+	border-radius: 3px;
+	font-size: 28px;
+}
+
+.block-register input:last-of-type {
+	margin-bottom: 20px;
+}
+
+.block-register .btn {
+	height: 40px;
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+.block-register label {
+	display: block;
+	margin: 10px 0;
+	padding: 0;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+.block-register .main-title {
+	font-size: 70px;
+	text-transform: uppercase;
+}
+
 #avatar {
 	display: none;
 }
@@ -247,7 +291,7 @@ span.red {
 
 .avatar-select {
 	height: 40px;
-    width: 150px;
+    width: 300px;
     margin-bottom: 10px;
 }
 
