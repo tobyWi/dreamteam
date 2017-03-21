@@ -85,7 +85,7 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 	};
 }]);
 
-app.controller('registerController', ['$scope','$location', '$rootScope', '$timeout' ,function($scope, $location, $rootScope, $timeout){
+app.controller('registerController', ['$scope','$location', '$rootScope', '$timeout', function($scope, $location, $rootScope, $timeout){
 
 	// Check if a username is already taken
 	$scope.usernameIsTaken = false;
@@ -99,7 +99,7 @@ app.controller('registerController', ['$scope','$location', '$rootScope', '$time
 		}
 	});
 
-	//Can't be able to log in if username is taken or is passwords don't match
+	// Can't be able to log in if username is taken or is passwords don't match
 	$scope.registerSubmit = function() {
 		if (!$scope.usernameIsTaken  && $scope.password === $scope.confirmPassword) {
 			$location.path('login');

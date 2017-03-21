@@ -15,8 +15,8 @@
 								required 
 								ng-pattern="/^[a-z,A-Z,0-9]{5,30}$/" 
 								ng-change="usernameIsTaken=false" />
-							<i ng-show="userName" class="fa fa-check inline-block"></i>
-							<p ng-show="usernameIsTaken">The username is taken</p>
+							<i ng-show="userName && !usernameIsTaken" class="fa fa-check inline-block"></i>
+							<p ng-show="usernameIsTaken" class="errorMessage">The username is taken</p>
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label>
