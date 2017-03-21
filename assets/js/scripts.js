@@ -106,7 +106,6 @@ app.controller('registerController', ['$scope','$location', '$rootScope', '$time
 	$scope.registerSubmit = function() {
 		if (!$scope.usernameIsTaken  && $scope.password === $scope.confirmPassword) {
 			$location.path('login');
-			$scope.$apply();
 			console.log('registered');
 		}
 	};
