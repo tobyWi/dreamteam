@@ -9,10 +9,12 @@
 				<div class="col-xs-12">
 					<form name="login" novalidate>
 						<label for="user">Username</label>
-						<input ng-model="credentials.user" name="user" />
+						<input ng-model="credentials.user" name="user" required ng-change="errorMessageUsername=false" />
+						<p ng-show="errorMessageUsername">The username does not exist</p>
 						<br />
 						<label for="password">Password</label>
-						<input ng-minlength="5" ng-model="credentials.password" required type="password" name="password" />
+						<input ng-model="credentials.password" required type="password" name="password" />
+						<p ng-show="errorMessagePassword">Invalid password</p>
 						<br />
 						<a ui-sref="register">
 							<button type="button" class="btn btn-success">
@@ -24,7 +26,6 @@
 						</button>				
 					</form>
 				</div>
-
 			</div>
 		</div>
 	</div>

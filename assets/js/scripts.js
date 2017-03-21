@@ -34,7 +34,7 @@ app.controller('mainController', ['$scope', '$location', function($scope, $locat
 	$scope.currentPath = $location.path();
 }]);
 
-app.controller('sidebarController', ['$scope', '$location', function($scope, $location){
+app.controller('sidebarController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 	$scope.online = 'green';
@@ -44,36 +44,10 @@ app.controller('sidebarController', ['$scope', '$location', function($scope, $lo
 	};
 	$scope.isSet = function(tabNum){
 	  return $scope.tab === tabNum;
-	};
-	$scope.users = [
-		{
-			name: 'user',
-			password: 'xxxxx',
-			avatar: 'assets/img/test1.jpg',
-			online: true
-		},
-		{
-			name: 'user1',
-			password: 'xxxxx',
-			avatar: 'assets/img/av01.png',
-			online: true
-		},
-		{
-			name: 'user2',
-			password: 'xxxxx',
-			avatar: 'assets/img/av02.png',
-			online: false
-		},
-		{
-			name: 'user3',
-			password: 'xxxxx',
-			avatar: 'assets/img/av03.png',
-			online: false
-		}
-	];		
+	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', function($scope, $location){
+app.controller('chatController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.messages = [];
 	$scope.sendMessage = function(){
 		if ($scope.text) {
@@ -87,43 +61,40 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
 	};
 }]);
 
-app.controller('loginController', ['$scope', '$location', function($scope, $location){
+app.controller('loginController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.submit = function (credentials) {
-		$scope.errorMessage = false;
-		if (credentials.user === 'user2' && credentials.password === 'test123') {
-			$location.path('/chat/public');
-		} else {
-			alert('Vi hittar inget användarnamn. Registrera dig hos oss, det är helt gratis!!');
+		$scope.errorMessagePassword = false;
+		$scope.errorMessageUsername = false;
+		//Check rootscope users for a match, else, show error message where the match fails
+		for ( var i = 0; i < $rootScope.users.length; i++ ) {
+			if ( credentials.user === $rootScope.users[i].name ) {
+				if ( credentials.password === $rootScope.users[i].password ) {
+					$location.path('/chat/public');
+				} else {
+					$scope.errorMessageUsername = false;
+					$scope.errorMessagePassword = true;
+				}
+			} else {
+				$scope.errorMessageUsername = true;
+			}
 		}
 	};
 }]);
 
 app.controller('registerController', ['$scope','$location', function($scope, $location){
  
- 	$scope.password = "";
- 	$scope.confirmPassword = "";
-	
-		
-		$scope.registerSubmit = function() {
-			if ( $scope.password === $scope.confirmPassword ) {
-				$scope.message = "Congratulations " + $scope.userName + ".  You are now registered!";
+	$scope.registerSubmit = function() {
 
-				setInterval(function() {
-					$location.path('/login');
-					$scope.$apply();
-				}, 2000);
-				
-			} 
-			else {
-				$scope.message = "The passwords you entered do not match!";
-			}
-		};
-	
+		if ( $scope.password === $scope.confirmPassword ) {
+			setInterval(function() {
+				$location.path('/login');
+				$scope.$apply();
+			}, 2000);
+		} 
+	};
 }]);
 
-
 // Avatar Dropdown
-
 app.controller('chooseAvatar', function($scope) {
 
 	// DROPDOWN
@@ -170,12 +141,9 @@ app.controller('chooseAvatar', function($scope) {
 		var photo = document.getElementById('avatar').appendChild(img);
 		photo.setAttribute('class', 'avatar-img');
 
-
 		//  behöver en loop för att spotta ut varje avatarbild här…
 	
 		photo.setAttribute('src', 'assets/img/av01.png');
-
-		
 
 		// CHECKBOX FOR NO AVATAR
 
@@ -207,9 +175,35 @@ app.controller('chooseAvatar', function($scope) {
 			}
 		}
 	}
-
 });
 
-
+app.run(['$rootScope', function($rootScope){
+	$rootScope.users = [
+		{
+			name: 'user',
+			password: 'banana',
+			avatar: 'assets/img/test1.jpg',
+			online: true
+		},
+		{
+			name: 'user1',
+			password: 'angular',
+			avatar: 'assets/img/av01.png',
+			online: true
+		},
+		{
+			name: 'user2',
+			password: 'test123',
+			avatar: 'assets/img/av02.png',
+			online: false
+		},
+		{
+			name: 'user3',
+			password: 'hejsan',
+			avatar: 'assets/img/av03.png',
+			online: false
+		}
+	];
+}]);
 
 
