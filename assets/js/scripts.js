@@ -34,7 +34,7 @@ app.controller('mainController', ['$scope', '$location', function($scope, $locat
 	$scope.currentPath = $location.path();
 }]);
 
-app.controller('sidebarController', ['$scope', '$location', function($scope, $location){
+app.controller('sidebarController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.username = 'Somebody';
 	$scope.tab = 1;
 	$scope.online = 'green';
@@ -44,36 +44,10 @@ app.controller('sidebarController', ['$scope', '$location', function($scope, $lo
 	};
 	$scope.isSet = function(tabNum){
 	  return $scope.tab === tabNum;
-	};
-	$scope.users = [
-		{
-			name: 'user',
-			password: 'xxxxx',
-			avatar: 'assets/img/test1.jpg',
-			online: true
-		},
-		{
-			name: 'user1',
-			password: 'xxxxx',
-			avatar: 'assets/img/av01.png',
-			online: true
-		},
-		{
-			name: 'user2',
-			password: 'xxxxx',
-			avatar: 'assets/img/av02.png',
-			online: false
-		},
-		{
-			name: 'user3',
-			password: 'xxxxx',
-			avatar: 'assets/img/av03.png',
-			online: false
-		}
-	];		
+	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', function($scope, $location){
+app.controller('chatController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.messages = [];
 	$scope.sendMessage = function(){
 		if ($scope.text) {
@@ -85,40 +59,43 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
 		$scope.text = '';
 		}
 	};
+
+	$scope.out = function (credentials) {
+		$location.path('/login');
+	};
 }]);
 
-app.controller('loginController', ['$scope', '$location', function($scope, $location){
+app.controller('loginController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.submit = function (credentials) {
-		$scope.errorMessage = false;
-		if (credentials.user === 'user2' && credentials.password === 'test123') {
-			$location.path('/chat/public');
-		} else {
-			alert('Vi hittar inget användarnamn. Registrera dig hos oss, det är helt gratis!!');
+		$scope.errorMessagePassword = false;
+		$scope.errorMessageUsername = false;
+		//Check rootscope users for a match, else, show error message where the match fails
+		for ( var i = 0; i < $rootScope.users.length; i++ ) {
+			if ( credentials.user === $rootScope.users[i].name ) {
+				if ( credentials.password === $rootScope.users[i].password ) {
+					$location.path('/chat/public');
+				} else {
+					$scope.errorMessageUsername = false;
+					$scope.errorMessagePassword = true;
+				}
+			} else {
+				$scope.errorMessageUsername = true;
+			}
 		}
 	};
 }]);
 
 app.controller('registerController', ['$scope','$location', function($scope, $location){
  
- 	$scope.password = "";
- 	$scope.confirmPassword = "";
-	
-		
-		$scope.registerSubmit = function() {
-			if ( $scope.password === $scope.confirmPassword ) {
-				$scope.message = "Congratulations " + $scope.userName + ".  You are now registered!";
+	$scope.registerSubmit = function() {
 
-				setInterval(function() {
-					$location.path('/login');
-					$scope.$apply();
-				}, 2000);
-				
-			} 
-			else {
-				$scope.message = "The passwords you entered do not match!";
-			}
-		};
-	
+		if ( $scope.password === $scope.confirmPassword ) {
+			setInterval(function() {
+				$location.path('/login');
+				$scope.$apply();
+			}, 2000);
+		} 
+	};
 }]);
 
 app.controller('chooseAvatar', function($scope) {
@@ -137,62 +114,35 @@ app.controller('chooseAvatar', function($scope) {
 		{name: 'Avatar 05', avatar:'assets/img/av05.png'},
 		{name: 'Avatar 06', avatar:'assets/img/av06.png'}
     ];
-
-	// $scope.showAvatar = function($scope) {
-
-	// 	// IF AVATAR EXISTS ALREADY, DELETE BOTH AVATAR AND CHECKBOX & REPLACE WITH NEW CHOICE
-
-	// 	var removePhoto = document.getElementById('avatar');
-	// 	var removeCheck = document.getElementById('noAvatar');
-		
-	// 	if ( removePhoto.hasChildNodes() ) {
-	// 		removePhoto.removeChild(removePhoto.childNodes[0]);
-
-	// 		while (removeCheck.hasChildNodes()) {   
-	// 		    removeCheck.removeChild(removeCheck.firstChild);
-	// 		}
-	// 	}
-
-	// 	var img = document.createElement('img');
-
-	// 	var photo = document.getElementById('avatar').appendChild(img);
-	// 	photo.setAttribute('class', 'avatar-img');
-
-	// 	// CHECKBOX FOR NO AVATAR
-
-	// 	var check = document.createElement('input');
-
-	// 	var noAvatarCheckbox = document.getElementById('noAvatar').appendChild(check);
-	// 	noAvatarCheckbox.setAttribute('type' , 'checkbox');
-	// 	noAvatarCheckbox.setAttribute('ng-model' , 'removeAll');
-	// 	noAvatarCheckbox.setAttribute('id' , 'removeAll');
-
-	// 	var p = document.createElement('p');
-
-	// 	var noAvatarWords = document.getElementById('noAvatar').appendChild(p);
-	// 	noAvatarWords.innerHTML = "remove avatar";
-
-	// };
-
-	
-
-	// NO AVATAR CHOSEN
-
-	// $scope.listAvatar = function($scope){
-	// 	var removePhoto = document.getElementById('avatar');
-	// 	var removeCheck = document.getElementById('noAvatar');
-		
-	// 	if ( removePhoto.hasChildNodes() ) {
-	// 		removePhoto.removeChild(removePhoto.childNodes[0]);
-
-	// 		while (removeCheck.hasChildNodes()) {   
-	// 		    removeCheck.removeChild(removeCheck.firstChild);
-	// 		}
-	// 	}
-	// }
-
 });
 
-
+app.run(['$rootScope', function($rootScope){
+	$rootScope.users = [
+		{
+			name: 'user',
+			password: 'banana',
+			avatar: 'assets/img/test1.jpg',
+			online: true
+		},
+		{
+			name: 'user1',
+			password: 'angular',
+			avatar: 'assets/img/av01.png',
+			online: true
+		},
+		{
+			name: 'user2',
+			password: 'test123',
+			avatar: 'assets/img/av02.png',
+			online: false
+		},
+		{
+			name: 'user3',
+			password: 'hejsan',
+			avatar: 'assets/img/av03.png',
+			online: false
+		}
+	];
+}]);
 
 
