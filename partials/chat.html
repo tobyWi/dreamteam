@@ -2,9 +2,8 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-3">
-				<h1>CHAT</h1>
+				</i><h1>CHAT</h1>
 			</div>
-
 			<div class="col-xs-9 text-right">
 				<button type="button" ng-click="out(credentials)" class="btn btn-danger">Log Out</button>
 			</div>
@@ -16,19 +15,23 @@
 		<div class="row">
 			<div class="col-xs-3 text-center" id="sidebar">
 				<aside ng-controller="sidebarController">
-					<img src="assets/img/test.jpg">
-					<p>Logged in as 
-						<strong>
-							{{ username }}
-						</strong>
-					</p>
-					<div class="tabs">
-						<h4 ng-class="{ active: isSet(1) }">
-							<a ui-sref="chat.public" ng-click="setTab(1)">Public</a>
-						</h4>
-						<h4 ng-class="{ active: isSet(2) }">
-							<a ng-click="setTab(2)">Private</a>
-						</h4>
+					<div class="row">
+						<div class="col-xs-12 sidebar-top">					
+							<img src="assets/img/test.jpg">
+							<p>Logged in as 
+								<strong>
+									{{ username }}
+								</strong>
+							</p>
+							<div class="tabs">
+								<h4 ng-class="{ active: isSet(1) }">
+									<a ui-sref="chat.public" ng-click="setTab(1)">Public</a>
+								</h4>
+								<h4 ng-class="{ active: isSet(2) }">
+									<a ng-click="setTab(2)">Private</a>
+								</h4>
+							</div>
+						</div>
 					</div>
 					<div ng-show="isSet(1)">
 						<ul class="all-users">
@@ -56,7 +59,6 @@
 							</li>
 						</ul>
 					</div>
-
 					<div class="copy">
 						<p>&copy; DOGGY STYLE</p>
 					</div>

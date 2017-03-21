@@ -88,16 +88,27 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 	};
 }]);
 
-app.controller('registerController', ['$scope','$location', function($scope, $location){
- 
-	$scope.registerSubmit = function() {
+app.controller('registerController', ['$scope','$location', '$rootScope', '$timeout', function($scope, $location, $rootScope, $timeout){
 
-		if ( $scope.password === $scope.confirmPassword ) {
-			setInterval(function() {
-				$location.path('/login');
-				$scope.$apply();
-			}, 2000);
-		} 
+	// Check if a username is already taken
+	$scope.usernameIsTaken = false;
+	$scope.$watch('userName', function(oldValue, newValue){
+		for ( var i = 0; i < $rootScope.users.length; i++ ) {
+			if ( oldValue == $rootScope.users[i].name ) {
+				return $scope.usernameIsTaken = true;
+			} else {
+				$scope.usernameIsTaken = false;			
+			}
+		}
+	});
+
+	// Can't be able to log in if username is taken or is passwords don't match
+	$scope.registerSubmit = function() {
+		if (!$scope.usernameIsTaken  && $scope.password === $scope.confirmPassword) {
+			$location.path('login');
+			$scope.$apply();
+			console.log('registered');
+		}
 	};
 }]);
 
@@ -122,7 +133,7 @@ app.controller('chooseAvatar', function($scope) {
 app.run(['$rootScope', function($rootScope){
 	$rootScope.users = [
 		{
-			name: 'user',
+			name: 'user0',
 			password: 'banana',
 			avatar: 'assets/img/test1.jpg',
 			online: true
