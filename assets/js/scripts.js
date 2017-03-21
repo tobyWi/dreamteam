@@ -85,11 +85,14 @@ app.controller('chatController', ['$scope', '$location', function($scope, $locat
 		$scope.text = '';
 		}
 	};
+
+	$scope.out = function (credentials) {
+		$location.path('/login');
+	};
 }]);
 
 app.controller('loginController', ['$scope', '$location', function($scope, $location){
 	$scope.submit = function (credentials) {
-		$scope.errorMessage = false;
 		if (credentials.user === 'user2' && credentials.password === 'test123') {
 			$location.path('/chat/public');
 		} else {
