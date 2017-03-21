@@ -13,6 +13,7 @@
 								class="form-control inline-block" 
 								ng-model="userName" 
 								required 
+								autocomplete="false"
 								ng-pattern="/^[a-z,A-Z,0-9]{5,30}$/" 
 								ng-change="usernameIsTaken=false" />
 							<i ng-show="userName" class="fa fa-check inline-block"></i>
@@ -25,6 +26,7 @@
 								class="form-control inline-block" 
 								ng-model="password" 
 								required 
+								autocomplete="false"
 								ng-pattern="/^([-_/&%#,a-z,A-Z,0-9]){6,30}$/" />
 							<i ng-show="password" class="fa fa-check inline-block"></i>
 						</div>
@@ -37,6 +39,7 @@
 								ng-model="confirmPassword" 
 								required 
 								ng-pattern="password" 
+								autocomplete="false"
 								ng-disabled="!password" />
 							<i ng-show="confirmPassword" class="fa fa-check inline-block"></i>
 						</div>
