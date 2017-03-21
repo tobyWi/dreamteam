@@ -134,6 +134,7 @@ span.red {
 /*Chat styles*/
 
 .message-box {
+	word-wrap: break-word;
 	background-color: white;
 	padding: 5px;
 	overflow: hidden;	
