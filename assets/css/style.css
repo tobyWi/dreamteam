@@ -292,7 +292,15 @@ span.red {
 }
 
 .fa-check {
-	color: #dcedc8;
+	color: #5cb85c;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 8px;
+	position: absolute;
+}
+
+.fa-times {
+	color: #F57373;
 	font-size: 20px;
 	margin-left: 10px;
 	margin-top: 8px;
