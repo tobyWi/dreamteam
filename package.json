@@ -4,9 +4,9 @@
   "description": "Creators:",
   "main": "gulpfile.js",
   "dependencies": {
-    "jshint": "^2.9.4",
     "gulp": "^3.9.1",
-    "gulp-jshint": "^2.0.4"
+    "gulp-jshint": "^2.0.4",
+    "jshint": "^2.9.4"
   },
   "devDependencies": {},
   "scripts": {

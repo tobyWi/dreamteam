@@ -230,6 +230,10 @@ span.red {
 
 /*  REGISTER */
 
+#avatar {
+	display: none;
+}
+
 .avatar {
 	margin-top: 20px;
 }
@@ -239,6 +243,12 @@ span.red {
 	width: 100px;
 	height: 100px;
 	margin: 10px auto;
+}
+
+.avatar-select {
+	height: 40px;
+    width: 150px;
+    margin-bottom: 10px;
 }
 
 .dropdown {
