@@ -10,6 +10,11 @@ body {
 	color: black;
 }
 
+#wrap {
+	margin: 0 auto !important;
+	position: relative;
+}
+
 
 /* Header Styles */
 

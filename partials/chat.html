@@ -10,66 +10,68 @@
 		</div>
 	</div>
 </header>
-<main class="main">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xs-3 text-center" id="sidebar">
-				<aside ng-controller="sidebarController">
-					<div class="row">
-						<div class="col-xs-12 sidebar-top">					
-							<img src="assets/img/test.jpg" />
-							<p>Logged in as 
-								<strong>
-									{{ username }}
-								</strong>
-							</p>
-							<div class="tabs">
-								<h4 ng-class="{ active: isSet(1) }">
-									<a ui-sref="chat.public" ng-click="setTab(1)">Public</a>
-								</h4>
-								<h4 ng-class="{ active: isSet(2) }">
-									<a ng-click="setTab(2)">Private</a>
-								</h4>
+<div id="wrap">
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-3 text-center" id="sidebar">
+					<aside ng-controller="sidebarController">
+						<div class="row">
+							<div class="col-xs-12 sidebar-top">					
+								<img src="assets/img/test.jpg" />
+								<p>Logged in as 
+									<strong>
+										{{ username }}
+									</strong>
+								</p>
+								<div class="tabs">
+									<h4 ng-class="{ active: isSet(1) }">
+										<a ui-sref="chat.public" ng-click="setTab(1)">Public</a>
+									</h4>
+									<h4 ng-class="{ active: isSet(2) }">
+										<a ng-click="setTab(2)">Private</a>
+									</h4>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div ng-show="isSet(1)">
-						<ul class="all-users">
-							<li ng-repeat="user in users">
-								<div class="mini">
-									<img src="{{ user.avatar }}"> 
-									<span>{{ user.name }}</span>
-									<span ng-class="{{ user.online? 'online' : 'offline'; }}">
-										<i class="fa fa-circle"></i>
-									</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div ng-show="isSet(2)">
-						<ul class="all-users">
-							<li ng-repeat="user in users">
-								<div class="mini">
-									<img src="{{ user.avatar }}">
-									<a ui-sref="chat.private">
+						<div ng-show="isSet(1)">
+							<ul class="all-users">
+								<li ng-repeat="user in users">
+									<div class="mini">
+										<img src="{{ user.avatar }}"> 
 										<span>{{ user.name }}</span>
-									</a>
-									<i> (private chat)</i>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="copy">
-						<p>&copy; DOGGY STYLE</p>
-					</div>
-				</aside>
-			</div>
-			<div class="col-xs-9" ui-view>
-				 <!-- CHAT -->
+										<span ng-class="{{ user.online? 'online' : 'offline'; }}">
+											<i class="fa fa-circle"></i>
+										</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div ng-show="isSet(2)">
+							<ul class="all-users">
+								<li ng-repeat="user in users">
+									<div class="mini">
+										<img src="{{ user.avatar }}">
+										<a ui-sref="chat.private">
+											<span>{{ user.name }}</span>
+										</a>
+										<i> (private chat)</i>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="copy">
+							<p>&copy; DOGGY STYLE</p>
+						</div>
+					</aside>
+				</div>
+				<div class="col-xs-9" ui-view>
+					 <!-- CHAT -->
+				</div>
 			</div>
 		</div>
-	</div>
-</main>
+	</main>
+</div>
 <footer id="footer">
 	
 </footer>
