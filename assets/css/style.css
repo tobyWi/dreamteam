@@ -7,8 +7,8 @@ body, main {
 
 body {
 	background: #E6DADA;
-	background: -webkit-linear-gradient(to left, #E6DADA , #274046); 
-	background: linear-gradient(to left, #E6DADA , #274046);  
+	/*background: -webkit-linear-gradient(to left, #E6DADA , #274046); 
+	background: linear-gradient(to left, #E6DADA , #274046); */ 
 	font-family: 'Lato', sans-serif;
 	color: black;
 }
@@ -193,6 +193,10 @@ textarea {
 
 /*  REGISTER */
 
+#avatar {
+	display: none;
+}
+
 .avatar {
 	margin-top: 20px;
 }
@@ -202,6 +206,12 @@ textarea {
 	width: 100px;
 	height: 100px;
 	margin: 10px auto;
+}
+
+.avatar-select {
+	height: 40px;
+    width: 150px;
+    margin-bottom: 10px;
 }
 
 .dropdown {
