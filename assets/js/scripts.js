@@ -59,6 +59,10 @@ app.controller('chatController', ['$scope', '$location', '$rootScope', function(
 		$scope.text = '';
 		}
 	};
+
+	$scope.out = function (credentials) {
+		$location.path('/login');
+	};
 }]);
 
 app.controller('loginController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
