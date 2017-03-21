@@ -211,6 +211,7 @@ span.red {
 	border: 0;
 	border-radius: 3px;
 	font-size: 28px;
+	border-bottom: 2px solid #2196F3;
 }
 
 .block input:last-of-type {
@@ -258,6 +259,7 @@ span.red {
 	border: 0;
 	border-radius: 3px;
 	font-size: 28px;
+	border-bottom: 2px solid #2196F3;
 }
 
 .block-register input:last-of-type {
