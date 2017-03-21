@@ -13,7 +13,7 @@
 						<p ng-show="errorMessageUsername">The username does not exist</p>
 						<br />
 						<label for="password">Password</label>
-						<input ng-model="credentials.password" required type="password" name="password" />
+						<input ng-model="credentials.password" required type="password" name="password" ng-change="errorMessagePassword=false" />
 						<p ng-show="errorMessagePassword">Invalid password</p>
 						<br />
 						<a ui-sref="register">
