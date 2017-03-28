@@ -166,10 +166,6 @@ app.controller('chooseAvatar', function($scope) {
 
 	// AVATAR
 
-	$scope.showAvatarPhoto = function($scope) {
-		document.getElementById("avatar").style.display = "block";
-	}
-
 	$scope.avatars = [
 		{name: 'Avatar 01', avatar:'assets/img/av01.png'},
 		{name: 'Avatar 02', avatar:'assets/img/av02.png'},
@@ -178,6 +174,8 @@ app.controller('chooseAvatar', function($scope) {
 		{name: 'Avatar 05', avatar:'assets/img/av05.png'},
 		{name: 'Avatar 06', avatar:'assets/img/av06.png'}
     ];
+    
+    $scope.myAvatar = $scope.avatars[0];
 });
 
 app.run(['$rootScope', function($rootScope){
