@@ -52,8 +52,7 @@
 						</div>
 						<div class="dropdown" ng-controller="chooseAvatar">
 
-                        	<select class="avatar-select" ng-model="myAvatar" ng-options="avatar.name for avatar in avatars" ng-init="showAvatarPhoto()">
-                            	<option disabled value=""></option> 
+                        	<select class="avatar-select" ng-model="myAvatar" ng-options="avatar.name for avatar in avatars">
                        		</select>
                         	<div id="avatar"><img class="avatar-img" src="{{myAvatar.avatar}}"></div>
                         </div>
