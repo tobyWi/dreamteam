@@ -89,41 +89,68 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 }]);
 
 app.controller('registerController', ['$scope','$location', '$rootScope', '$timeout', function($scope, $location, $rootScope, $timeout){
-
-	$scope.$watch('userName', function(oldValue, newValue){
-		// Username too short
-		if (oldValue) {
-			if (oldValue.length < 5) {
+	// Messages for username validation
+	$scope.$watch('userName', function(newValue, oldValue){
+		if (newValue) {
+			// Username too short
+			if (newValue.length < 5) {
 				$scope.tooShort = true;
 			} else{
 				$scope.tooShort = false;
 			}
 
-		// Username is too long
-			if (oldValue.length > 30) {
+			// Username is too long
+			if (newValue.length > 20) {
 				$scope.tooLong = true;
 			} else {
 				$scope.tooLong = false;
 			}
 
-		// Username contains invalid symbols
+			// Username contains invalid symbols
 			var letters = /^[0-9a-zA-Z]+$/;
-			if (letters.test(oldValue)){
+			if (letters.test(newValue)){
 				$scope.regex = false;
 			} else {
 				$scope.regex = true;
 			}
 
-		// Check if a username is already taken
+			// Check if a username is already taken
 			$scope.usernameIsTaken = false;
 			for ( var i = 0; i < $rootScope.users.length; i++ ) {
-				if ( oldValue == $rootScope.users[i].name ) {
+				if ( newValue == $rootScope.users[i].name ) {
 					return $scope.usernameIsTaken = true;
 				} else {
 					$scope.usernameIsTaken = false;			
 				}
 			}
 		}
+
+		$scope.$watch('password', function(newValue, oldValue){
+			if (newValue) {
+				// Password too short
+				if (newValue.length < 6) {
+					$scope.tooShortPassword = true;
+				} else{
+					$scope.tooShortPassword = false;
+				}
+
+				// Password is too long
+				if (newValue.length > 30) {
+					$scope.tooLongPassword = true;
+				} else {
+					$scope.tooLongPassword = false;
+				}
+
+				// Password regex
+				var validPassword = /^[0-9a-zA-Z]+$/;
+				if(validPassword.test(newValue)) {
+					$scope.passwordRegex = false;
+				} else {
+					$scope.passwordRegex = true;
+				}
+				
+			}
+		});
 	});
 
 	// Can't be able to log in if username is taken or is passwords don't match
