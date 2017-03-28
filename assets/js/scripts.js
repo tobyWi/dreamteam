@@ -127,6 +127,8 @@ app.controller('chooseAvatar', function($scope) {
 		{name: 'Avatar 05', avatar:'assets/img/av05.png'},
 		{name: 'Avatar 06', avatar:'assets/img/av06.png'}
     ];
+    
+    $scope.myAvatar = $scope.avatars[0];
 });
 
 app.run(['$rootScope', function($rootScope){
