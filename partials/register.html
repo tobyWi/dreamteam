@@ -17,10 +17,10 @@
 								min-length="5"
 								max-length="30"
 								ng-change="usernameIsTaken=false" />
-							<i ng-show="userName && !usernameIsTaken && !tooShort && !tooLong && !regex" class="fa fa-check inline-block"></i>
-							<i ng-show="!userName || usernameIsTaken || tooShort || tooLong || regex" class="fa fa-times inline-block"></i>
-							<p ng-show="usernameIsTaken" class="errorMessage">The username is taken</p>
-							<span ng-if="userName && userName.length > 0">
+							<span ng-if="userName.length > 0">
+								<i ng-show="userName && !usernameIsTaken && !tooShort && !tooLong && !regex" class="fa fa-check inline-block"></i>
+								<i ng-show="!userName || usernameIsTaken || tooShort || tooLong || regex" class="fa fa-times inline-block"></i>
+								<p ng-show="usernameIsTaken" class="errorMessage">The username is taken</p>
 								<p ng-show="tooShort" class="errorMessage">Must contain at least 5 characters</p>
 								<p ng-show="tooLong" class="errorMessage">Can not contain more than 20 characters</p>
 								<p ng-show="regex" class="errorMessage">Can only contain letters a-z and numbers 0-9, and no spaces</p>
