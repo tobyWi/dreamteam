@@ -90,14 +90,38 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 
 app.controller('registerController', ['$scope','$location', '$rootScope', '$timeout', function($scope, $location, $rootScope, $timeout){
 
-	// Check if a username is already taken
-	$scope.usernameIsTaken = false;
 	$scope.$watch('userName', function(oldValue, newValue){
-		for ( var i = 0; i < $rootScope.users.length; i++ ) {
-			if ( oldValue == $rootScope.users[i].name ) {
-				return $scope.usernameIsTaken = true;
+		// Username too short
+		if (oldValue) {
+			if (oldValue.length < 5) {
+				$scope.tooShort = true;
+			} else{
+				$scope.tooShort = false;
+			}
+
+		// Username is too long
+			if (oldValue.length > 30) {
+				$scope.tooLong = true;
 			} else {
-				$scope.usernameIsTaken = false;			
+				$scope.tooLong = false;
+			}
+
+		// Username contains invalid symbols
+			var letters = /^[0-9a-zA-Z]+$/;
+			if (letters.test(oldValue)){
+				$scope.regex = false;
+			} else {
+				$scope.regex = true;
+			}
+
+		// Check if a username is already taken
+			$scope.usernameIsTaken = false;
+			for ( var i = 0; i < $rootScope.users.length; i++ ) {
+				if ( oldValue == $rootScope.users[i].name ) {
+					return $scope.usernameIsTaken = true;
+				} else {
+					$scope.usernameIsTaken = false;			
+				}
 			}
 		}
 	});
@@ -115,10 +139,6 @@ app.controller('chooseAvatar', function($scope) {
 
 	// AVATAR
 
-	$scope.showAvatarPhoto = function($scope) {
-		document.getElementById("avatar").style.display = "block";
-	}
-
 	$scope.avatars = [
 		{name: 'Avatar 01', avatar:'assets/img/av01.png'},
 		{name: 'Avatar 02', avatar:'assets/img/av02.png'},
@@ -127,6 +147,8 @@ app.controller('chooseAvatar', function($scope) {
 		{name: 'Avatar 05', avatar:'assets/img/av05.png'},
 		{name: 'Avatar 06', avatar:'assets/img/av06.png'}
     ];
+    
+    $scope.myAvatar = $scope.avatars[0];
 });
 
 app.run(['$rootScope', function($rootScope){
