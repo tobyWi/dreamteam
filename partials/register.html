@@ -8,16 +8,22 @@
 					   <div class="form-group">
 							<label for="username">Username</label>
 							<input 
+								ng-keydown="disallowSpace($event)"
 								type="text" 
 								name="username" 
 								class="form-control inline-block" 
 								ng-model="userName" 
-								required 
-								ng-pattern="/^[a-z,A-Z,0-9]{5,30}$/" 
+								required  
+								ng-trim="false"
+								min-length="5"
+								max-length="30"
 								ng-change="usernameIsTaken=false" />
-							<i ng-show="userName && !usernameIsTaken" class="fa fa-check inline-block"></i>
-							<i ng-show="userName === !userName || usernameIsTaken" class="fa fa-times inline-block"></i>
+							<i ng-show="userName && !usernameIsTaken && !tooShort && !tooLong && !regex && !space" class="fa fa-check inline-block"></i>
+							<i ng-show="!userName || usernameIsTaken || tooShort || tooLong || regex || space" class="fa fa-times inline-block"></i>
 							<p ng-show="usernameIsTaken" class="errorMessage">The username is taken</p>
+							<p ng-show="tooShort">Too short</p>
+							<p ng-show="tooLong">Too long</p>
+							<p ng-show="regex">Can only contain letters a-z and numbers 0-9, and no spaces</p>
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label>
