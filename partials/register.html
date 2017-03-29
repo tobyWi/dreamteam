@@ -4,11 +4,10 @@
 			<div class="block-register">
 				<div class="col-xs-12">
 					<h1 class="main-title">Register</h1>
-					<form name="registrationForm" novalidate>
+					<form name="registrationForm" class="registrationForm" novalidate>
 					   <div class="form-group">
 							<label for="username">Username</label>
 							<input 
-								ng-keydown="disallowSpace($event)"
 								type="text" 
 								name="username" 
 								class="form-control inline-block" 
@@ -18,12 +17,14 @@
 								min-length="5"
 								max-length="30"
 								ng-change="usernameIsTaken=false" />
-							<i ng-show="userName && !usernameIsTaken && !tooShort && !tooLong && !regex && !space" class="fa fa-check inline-block"></i>
-							<i ng-show="!userName || usernameIsTaken || tooShort || tooLong || regex || space" class="fa fa-times inline-block"></i>
-							<p ng-show="usernameIsTaken" class="errorMessage">The username is taken</p>
-							<p ng-show="tooShort">Too short</p>
-							<p ng-show="tooLong">Too long</p>
-							<p ng-show="regex">Can only contain letters a-z and numbers 0-9, and no spaces</p>
+							<span ng-if="userName.length > 0">
+								<i ng-show="userName && !usernameIsTaken && !tooShort && !tooLong && !regex" class="fa fa-check inline-block"></i>
+								<i ng-show="!userName || usernameIsTaken || tooShort || tooLong || regex" class="fa fa-times inline-block"></i>
+								<p ng-show="usernameIsTaken" class="errorMessage">The username is taken</p>
+								<p ng-show="tooShort" class="errorMessage">Must contain at least 5 characters</p>
+								<p ng-show="tooLong" class="errorMessage">Can not contain more than 20 characters</p>
+								<p ng-show="regex" class="errorMessage">Can only contain letters a-z and numbers 0-9, and no spaces</p>
+							</span>
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label>
@@ -31,11 +32,18 @@
 								type="password" 
 								name="password" 
 								class="form-control inline-block" 
+								min-length="6"
+								max-length="30"
 								ng-model="password" 
-								required 
-								ng-pattern="/^([-_/&%#,a-z,A-Z,0-9]){6,30}$/" />
-							<i ng-show="password" class="fa fa-check inline-block"></i>
-							<i ng-show="!password || empty" class="fa fa-times inline-block"></i>
+								ng-trim="false"
+								required />
+							<span ng-if="password.length > 0">
+								<i ng-show="password && !tooShortPassword && !tooLongPassword && !passwordRegex" class="fa fa-check inline-block"></i>
+								<i ng-show="!password || tooLongPassword || tooShortPassword || passwordRegex" class="fa fa-times inline-block"></i>
+								<p ng-show="tooShortPassword" class="errorMessage">The password must contain at least 6 characters</p>
+								<p ng-show="tooLongPassword" class="errorMessage">The password can not conatin more tham 30 characters</p>
+								<p ng-show="passwordRegex" class="errorMessage">The password can only contain a-z and numbers 0-9, and no spaces</p>
+							</span>
 						</div>
 						<div class="form-group">
 							<label for="confirmPassword">Confirm Password</label>
@@ -45,10 +53,12 @@
 								class="form-control inline-block" 
 								ng-model="confirmPassword" 
 								required 
-								ng-pattern="password" 
-								ng-disabled="!password" />
-							<i ng-show="confirmPassword" class="fa fa-check inline-block"></i>
-							<i ng-show="!confirmPassword " class="fa fa-times inline-block"></i>
+								ng-disabled="!password || tooLongPassword || tooShortPassword || passwordRegex" />
+							<span ng-if="confirmPassword.length > 0">
+								<i ng-if="confirmPassword == password" class="fa fa-check inline-block"></i>
+								<i ng-if="confirmPassword != password" class="fa fa-times inline-block"></i>
+								<p ng-if="confirmPassword != password" class="errorMessage">Does not match</p>
+							</span>
 						</div>
 						<div class="dropdown" ng-controller="chooseAvatar">
 
@@ -58,7 +68,10 @@
                         </div>
 						
 						<div class="form-group">
-							<button ng-click="registerSubmit()" type="submit" class="btn btn-success" ng-disabled="!userName || !password || !confirmPassword || usernameIsTaken">
+							<button ng-click="registerSubmit()" 
+								type="submit" 
+								class="btn btn-success" 
+								ng-disabled="!userName || !password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
 								Register
 							</button>
 							{{ myAvatar }}
