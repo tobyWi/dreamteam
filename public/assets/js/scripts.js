@@ -89,7 +89,7 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 	};
 }]);
 
-app.controller('registerController', ['$scope','$location', '$rootScope', function($scope, $location, $rootScope){
+app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
 	// Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
 		if (newValue) {
@@ -116,14 +116,14 @@ app.controller('registerController', ['$scope','$location', '$rootScope', functi
 			}
 
 			// Check if a username is already taken
-			$scope.usernameIsTaken = false;
-			for ( var i = 0; i < $rootScope.users.length; i++ ) {
-				if ( newValue == $rootScope.users[i].name ) {
-					return $scope.usernameIsTaken = true;
-				} else {
-					$scope.usernameIsTaken = false;			
-				}
-			}
+			// $scope.usernameIsTaken = false;
+			// for ( var i = 0; i < $rootScope.users.length; i++ ) {
+			// 	if ( newValue == $rootScope.users[i].name ) {
+			// 		return $scope.usernameIsTaken = true;
+			// 	} else {
+			// 		$scope.usernameIsTaken = false;			
+			// 	}
+			// }
 		}
 
 		$scope.$watch('users.password', function(newValue, oldValue){
@@ -154,19 +154,6 @@ app.controller('registerController', ['$scope','$location', '$rootScope', functi
 		});
 	});
 
-	// Can't be able to log in if username is taken or is passwords don't match
-	$scope.registerSubmit = function() {
-		if (!$scope.usernameIsTaken  && $scope.users.password === $scope.confirmPassword) {
-			$location.path('login');
-			console.log('registered');
-		}
-	};
-}]);
-
-app.controller('chooseAvatar', function($scope) {
-
-	// AVATAR
-
 	$scope.avatars = [
 		{name: 'Avatar 01', src:'assets/img/av01.png'},
 		{name: 'Avatar 02', src:'assets/img/av02.png'},
@@ -175,10 +162,19 @@ app.controller('chooseAvatar', function($scope) {
 		{name: 'Avatar 05', src:'assets/img/av05.png'},
 		{name: 'Avatar 06', src:'assets/img/av06.png'}
     ];
-    
+    $scope.users = {};
     $scope.users.avatar = $scope.avatars[0];
-});
 
+	// Can't be able to log in if username is taken or is passwords don't match
+	$scope.registerSubmit = function() {
 
+			$http.post('/chatdatabase', $scope.users).then(function(response) {
+				console.log(response);
+			});
+
+			$location.path('login');  //  Modal with welcome message (Daniels idea)
+			console.log('registered');
+	};
+}]);
 
 
