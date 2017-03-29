@@ -21,7 +21,7 @@
 								<img src="assets/img/test.jpg" />
 								<p>Logged in as 
 									<strong>
-										{{ username }}
+										{{ users.username }}
 									</strong>
 								</p>
 								<div class="tabs">
@@ -36,11 +36,11 @@
 						</div>
 						<div ng-show="isSet(1)">
 							<ul class="all-users">
-								<li ng-repeat="user in users">
+								<li ng-repeat="user in users.username">
 									<div class="mini">
-										<img src="{{ user.avatar }}"> 
-										<span>{{ user.name }}</span>
-										<span ng-class="{{ user.online? 'online' : 'offline'; }}">
+										<img src="{{ users.avatar.src }}"> 
+										<span>{{ users.username }}</span>
+										<span ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modyfing-->
 											<i class="fa fa-circle"></i>
 										</span>
 									</div>
@@ -49,11 +49,11 @@
 						</div>
 						<div ng-show="isSet(2)">
 							<ul class="all-users">
-								<li ng-repeat="user in users">
+								<li ng-repeat="user in users.username">
 									<div class="mini">
-										<img src="{{ user.avatar }}">
+										<img src="{{ users.avatar.src }}">
 										<a ui-sref="chat.private">
-											<span>{{ user.name }}</span>
+											<span>{{ users.username }}</span>
 										</a>
 										<i> (private chat)</i>
 									</div>

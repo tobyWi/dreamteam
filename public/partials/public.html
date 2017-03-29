@@ -23,7 +23,7 @@
 				<div class="row">
 					<div class="col-xs-5 col-xs-push-6 message-box">
 						{{message.text}}
-						<img src="{{message.imgUser}}" class="image-float-right">
+						<img src="{{users.avatar.src}}" class="image-float-right">
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 	</div>	
 	<div class="row">
 		<div class="col-xs-12 send-message-field">
-			<textarea ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="text"></textarea>
+			<textarea ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="conversations.messages.content"></textarea>
 			<br />
 			<button class="btn btn-success" ng-click="sendMessage()">Send</button>			
 		</div>
