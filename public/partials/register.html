@@ -1,4 +1,3 @@
-<section>
 	<div class="container">
 		<div class="row">
 			<div class="block-register">
@@ -60,7 +59,7 @@
 								<p ng-if="confirmPassword != users.password" class="errorMessage">Does not match</p>
 							</span>
 						</div>
-						<div class="dropdown" ng-controller="chooseAvatar">
+						<div class="dropdown">
 
                         	<select class="avatar-select" ng-model="users.avatar" ng-options="avatar.name for avatar in avatars">
                        		</select>
@@ -68,7 +67,7 @@
                         </div>
 						
 						<div class="form-group">
-							<button ng-click="registerSubmit()" 
+							<button ng-click="registerSubmit(users)" 
 								type="submit" 
 								class="btn btn-success" 
 								ng-disabled="!users.username || !users.password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
