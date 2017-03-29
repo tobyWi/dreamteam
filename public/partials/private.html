@@ -9,15 +9,15 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-5 message-box marginleft">
-						<img src="assets/img/test1.jpg" class="image-float-left">
+						<img src="conversations.messages.author" class="image-float-left"> <!-- Author id find right avatar -->
 						<p> Jag är en groda :-) </p>
 					</div>
 				</div>	
-				<div ng-repeat="message in messages | orderBy: '+';">
+				<div ng-repeat="message in conversation.messages.content | orderBy: '+';">
 					<div class="row">
 						<div class="col-xs-5 col-xs-push-6 message-box marginright">
 							{{message.text}}
-							<img src="{{message.imgUser}}" class="image-float-right">
+							<img src="{{users.avatar.src}}" class="image-float-right">
 						</div>
 					</div>
 				</div>
@@ -25,7 +25,7 @@
 		</div>	
 		<div class="row">
 			<div class="col-xs-12 send-message-field">
-				<textarea ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="text"></textarea>
+				<textarea ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="conversations.messages.content"></textarea>  <!-- Needs modifying (kanske) -->
 				<br />
 				<button class="btn btn-success" ng-click="sendMessage()">Send</button>			
 			</div>

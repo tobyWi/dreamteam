@@ -67,6 +67,7 @@ app.controller('chatController', ['$scope', '$location', '$rootScope', function(
 
 app.controller('loginController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.submit = function (credentials) {
+		$scope.
 		$scope.errorMessagePassword = false;
 		$scope.errorMessageUsername = false;
 		//so rootscope users for a match, else, show error message where the match fails
@@ -175,7 +176,7 @@ app.controller('chooseAvatar', function($scope) {
 		{name: 'Avatar 06', src:'assets/img/av06.png'}
     ];
     
-    $scope.myAvatar = $scope.avatars[0];
+    $scope.users.avatar = $scope.avatars[0];
 });
 
 app.run(['$rootScope', function($rootScope){
