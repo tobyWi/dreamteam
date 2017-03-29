@@ -4,9 +4,12 @@
   "description": "Creators:",
   "main": "gulpfile.js",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.4",
-    "jshint": "^2.9.4"
+    "jshint": "^2.9.4",
+    "mongojs": "^2.4.0"
   },
   "devDependencies": {},
   "scripts": {
