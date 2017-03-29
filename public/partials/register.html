@@ -37,7 +37,7 @@
 								ng-model="users.password" 
 								ng-trim="false"
 								required />
-							<span ng-if="password.length > 0">
+							<span ng-if="users.password.length > 0">
 								<i ng-show="users.password && !tooShortPassword && !tooLongPassword && !passwordRegex" class="fa fa-check inline-block"></i>
 								<i ng-show="!users.password || tooLongPassword || tooShortPassword || passwordRegex" class="fa fa-times inline-block"></i>
 								<p ng-show="tooShortPassword" class="errorMessage">The password must contain at least 6 characters</p>

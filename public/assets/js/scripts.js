@@ -88,9 +88,9 @@ app.controller('loginController', ['$scope', '$location', '$rootScope', function
 	};
 }]);
 
-app.controller('registerController', ['$scope','$location', '$rootScope', '$timeout', function($scope, $location, $rootScope, $timeout){
+app.controller('registerController', ['$scope','$location', '$rootScope', function($scope, $location, $rootScope){
 	// Messages for username validation
-	$scope.$watch('userName', function(newValue, oldValue){
+	$scope.$watch('users.username', function(newValue, oldValue){
 		if (newValue) {
 			// Username too short
 			if (newValue.length < 5) {
@@ -125,7 +125,7 @@ app.controller('registerController', ['$scope','$location', '$rootScope', '$time
 			}
 		}
 
-		$scope.$watch('password', function(newValue, oldValue){
+		$scope.$watch('users.password', function(newValue, oldValue){
 			if (newValue) {
 				// Password too short
 				if (newValue.length < 6) {
@@ -155,7 +155,7 @@ app.controller('registerController', ['$scope','$location', '$rootScope', '$time
 
 	// Can't be able to log in if username is taken or is passwords don't match
 	$scope.registerSubmit = function() {
-		if (!$scope.usernameIsTaken  && $scope.password === $scope.confirmPassword) {
+		if (!$scope.usernameIsTaken  && $scope.users.password === $scope.confirmPassword) {
 			$location.path('login');
 			console.log('registered');
 		}
@@ -178,33 +178,6 @@ app.controller('chooseAvatar', function($scope) {
     $scope.myAvatar = $scope.avatars[0];
 });
 
-app.run(['$rootScope', function($rootScope){
-	$rootScope.users = [
-		{
-			name: 'user0',
-			password: 'banana',
-			avatar: 'assets/img/test1.jpg',
-			online: true
-		},
-		{
-			name: 'user1',
-			password: 'angular',
-			avatar: 'assets/img/av01.png',
-			online: true
-		},
-		{
-			name: 'user2',
-			password: 'test123',
-			avatar: 'assets/img/av02.png',
-			online: false
-		},
-		{
-			name: 'user3',
-			password: 'hejsan',
-			avatar: 'assets/img/av03.png',
-			online: false
-		}
-	];
-}]);
+
 
 
