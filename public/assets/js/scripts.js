@@ -175,7 +175,7 @@ app.controller('chooseAvatar', function($scope) {
 		{name: 'Avatar 05', src:'assets/img/av05.png'},
 		{name: 'Avatar 06', src:'assets/img/av06.png'}
     ];
-    
+    $scope.users = {};
     $scope.users.avatar = $scope.avatars[0];
 });
 
