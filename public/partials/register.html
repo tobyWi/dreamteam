@@ -11,15 +11,15 @@
 								type="text" 
 								name="username" 
 								class="form-control inline-block" 
-								ng-model="userName" 
+								ng-model="users.username" 
 								required  
 								ng-trim="false"
 								min-length="5"
 								max-length="30"
 								ng-change="usernameIsTaken=false" />
-							<span ng-if="userName.length > 0">
-								<i ng-show="userName && !usernameIsTaken && !tooShort && !tooLong && !regex" class="fa fa-check inline-block"></i>
-								<i ng-show="!userName || usernameIsTaken || tooShort || tooLong || regex" class="fa fa-times inline-block"></i>
+							<span ng-if="users.username.length > 0">
+								<i ng-show="users.username && !usernameIsTaken && !tooShort && !tooLong && !regex" class="fa fa-check inline-block"></i>
+								<i ng-show="!users.username || usernameIsTaken || tooShort || tooLong || regex" class="fa fa-times inline-block"></i>
 								<p ng-show="usernameIsTaken" class="errorMessage">The username is taken</p>
 								<p ng-show="tooShort" class="errorMessage">Must contain at least 5 characters</p>
 								<p ng-show="tooLong" class="errorMessage">Can not contain more than 20 characters</p>
@@ -34,12 +34,12 @@
 								class="form-control inline-block" 
 								min-length="6"
 								max-length="30"
-								ng-model="password" 
+								ng-model="users.password" 
 								ng-trim="false"
 								required />
 							<span ng-if="password.length > 0">
-								<i ng-show="password && !tooShortPassword && !tooLongPassword && !passwordRegex" class="fa fa-check inline-block"></i>
-								<i ng-show="!password || tooLongPassword || tooShortPassword || passwordRegex" class="fa fa-times inline-block"></i>
+								<i ng-show="users.password && !tooShortPassword && !tooLongPassword && !passwordRegex" class="fa fa-check inline-block"></i>
+								<i ng-show="!users.password || tooLongPassword || tooShortPassword || passwordRegex" class="fa fa-times inline-block"></i>
 								<p ng-show="tooShortPassword" class="errorMessage">The password must contain at least 6 characters</p>
 								<p ng-show="tooLongPassword" class="errorMessage">The password can not conatin more tham 30 characters</p>
 								<p ng-show="passwordRegex" class="errorMessage">The password can only contain a-z and numbers 0-9, and no spaces</p>
@@ -53,28 +53,27 @@
 								class="form-control inline-block" 
 								ng-model="confirmPassword" 
 								required 
-								ng-disabled="!password || tooLongPassword || tooShortPassword || passwordRegex" />
+								ng-disabled="!users.password || tooLongPassword || tooShortPassword || passwordRegex" />
 							<span ng-if="confirmPassword.length > 0">
-								<i ng-if="confirmPassword == password" class="fa fa-check inline-block"></i>
-								<i ng-if="confirmPassword != password" class="fa fa-times inline-block"></i>
-								<p ng-if="confirmPassword != password" class="errorMessage">Does not match</p>
+								<i ng-if="confirmPassword == users.password" class="fa fa-check inline-block"></i>
+								<i ng-if="confirmPassword != users.password" class="fa fa-times inline-block"></i>
+								<p ng-if="confirmPassword != users.password" class="errorMessage">Does not match</p>
 							</span>
 						</div>
 						<div class="dropdown" ng-controller="chooseAvatar">
 
-                        	<select class="avatar-select" ng-model="myAvatar" ng-options="avatar.name for avatar in avatars">
+                        	<select class="avatar-select" ng-model="users.avatar" ng-options="avatar.name for avatar in avatars">
                        		</select>
-                        	<div id="avatar"><img class="avatar-img" src="{{myAvatar.avatar}}"></div>
+                        	<div id="avatar"><img class="avatar-img" src="{{myAvatar.src}}"></div>
                         </div>
 						
 						<div class="form-group">
 							<button ng-click="registerSubmit()" 
 								type="submit" 
 								class="btn btn-success" 
-								ng-disabled="!userName || !password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
+								ng-disabled="!users.username || !users.password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
 								Register
 							</button>
-							{{ myAvatar }}
 						</div>
 					</form> 
 				</div>

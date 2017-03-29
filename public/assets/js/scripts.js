@@ -167,12 +167,12 @@ app.controller('chooseAvatar', function($scope) {
 	// AVATAR
 
 	$scope.avatars = [
-		{name: 'Avatar 01', avatar:'assets/img/av01.png'},
-		{name: 'Avatar 02', avatar:'assets/img/av02.png'},
-		{name: 'Avatar 03', avatar:'assets/img/av03.png'},
-		{name: 'Avatar 04', avatar:'assets/img/av04.png'},
-		{name: 'Avatar 05', avatar:'assets/img/av05.png'},
-		{name: 'Avatar 06', avatar:'assets/img/av06.png'}
+		{name: 'Avatar 01', src:'assets/img/av01.png'},
+		{name: 'Avatar 02', src:'assets/img/av02.png'},
+		{name: 'Avatar 03', src:'assets/img/av03.png'},
+		{name: 'Avatar 04', src:'assets/img/av04.png'},
+		{name: 'Avatar 05', src:'assets/img/av05.png'},
+		{name: 'Avatar 06', src:'assets/img/av06.png'}
     ];
     
     $scope.myAvatar = $scope.avatars[0];
