@@ -36,11 +36,11 @@
 						</div>
 						<div ng-show="isSet(1)">
 							<ul class="all-users">
-								<li ng-repeat="user in users">
+								<li ng-repeat="user in users.username">
 									<div class="mini">
 										<img src="{{ users.avatar.src }}"> 
-										<span>{{ user.name }}</span>
-										<span ng-class="{{ user.online? 'online' : 'offline'; }}">
+										<span>{{ users.username }}</span>
+										<span ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modyfing-->
 											<i class="fa fa-circle"></i>
 										</span>
 									</div>
@@ -49,7 +49,7 @@
 						</div>
 						<div ng-show="isSet(2)">
 							<ul class="all-users">
-								<li ng-repeat="user in users">
+								<li ng-repeat="user in users.username">
 									<div class="mini">
 										<img src="{{ users.avatar.src }}">
 										<a ui-sref="chat.private">
