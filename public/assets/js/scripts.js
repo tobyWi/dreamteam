@@ -170,8 +170,8 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
     $scope.users.avatar = $scope.avatars[0];
 
 	// Can't be able to log in if username is taken or is passwords don't match
+	$scope.users.online = false;
 	$scope.registerSubmit = function() {
-
 			$http.post('/chatdatabase', $scope.users).then(function(response) {
 				console.log(response);
 			});
