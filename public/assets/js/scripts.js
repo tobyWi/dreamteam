@@ -1,4 +1,4 @@
- var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+  var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/login");
@@ -82,16 +82,20 @@ app.controller('chatController', ['$scope', '$location', '$http', function($scop
 app.controller('loginController', ['$scope', '$location', '$http', function($scope, $location, $http){
 
 	$scope.submit = function () {
+		
 		$scope.errorMessagePassword = false;
 		$scope.errorMessageUsername = false;
+		// $scope.users.id = 
 		//so rootscope users for a match, else, show error message where the match fails
 		$http.get('/chatdatabase').then(function(response){
 
 			for ( var i = 0; i < response.data.length; i++ ) {
 				if ( $scope.users.username === response.data[i].username ) {
 					if ( $scope.users.password === response.data[i].password ) {
-						$location.path('/chat/public');
+						// $location.path('/chat/public');
 						$scope.errorMessageUsername = false;	
+						$scope.users.id = response.data[i]._id;
+						// console.log($scope.users.id);
 						break;
 					} else {
 						$scope.errorMessageUsername = false;
@@ -102,24 +106,16 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 					$scope.errorMessageUsername = true;
 				}
 			}
+		console.log($scope.users.id);
 		});
-	};
 
-	// console.log(id);
 		
-	// $http.get('/chatdatabase/' + id).then(function(response) {
-	// 	$scope.somewordshere = response.data;
-	// });
 
+		// $http.get('/chatdatabase/').then(function(response) {
+		// 	console.log(response.data[0]._id);
+		// });
 
-    // $scope.edit = function(id) { 
-    // 	console.log(id);
-    // 	$http.get('/contacts/' + id).then(function(response) {
-    // 		$scope.contact = response.data;
-    // 		// refresh();
-    // 	});
-    // };
-
+	};
 
 }]);
 
