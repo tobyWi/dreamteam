@@ -65,27 +65,29 @@ app.controller('chatController', ['$scope', '$location', '$rootScope', function(
 	};
 }]);
 
-app.controller('loginController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
-	$scope.submit = function (credentials) {
-		$scope.
+app.controller('loginController', ['$scope', '$location', '$http', function($scope, $location, $http){
+	$scope.submit = function () {
 		$scope.errorMessagePassword = false;
 		$scope.errorMessageUsername = false;
 		//so rootscope users for a match, else, show error message where the match fails
-		for ( var i = 0; i < $rootScope.users.length; i++ ) {
-			if ( credentials.user === $rootScope.users[i].name ) {
-				if ( credentials.password === $rootScope.users[i].password ) {
-					$location.path('/chat/public');
-					$scope.errorMessageUsername = false;	
-					break;
+		$http.get('/chatdatabase').then(function(response){
+
+			for ( var i = 0; i < response.data.length; i++ ) {
+				if ( $scope.users.username === response.data[i].username ) {
+					if ( $scope.users.password === response.data[i].password ) {
+						$location.path('/chat/public');
+						$scope.errorMessageUsername = false;	
+						break;
+					} else {
+						$scope.errorMessageUsername = false;
+						$scope.errorMessagePassword = true;
+						break;
+					}
 				} else {
-					$scope.errorMessageUsername = false;
-					$scope.errorMessagePassword = true;
-					break;
+					$scope.errorMessageUsername = true;
 				}
-			} else {
-				$scope.errorMessageUsername = true;
 			}
-		}
+		});
 	};
 }]);
 
