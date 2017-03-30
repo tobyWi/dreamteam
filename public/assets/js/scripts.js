@@ -47,7 +47,7 @@ app.controller('sidebarController', ['$scope', '$location', '$rootScope', functi
 	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
+app.controller('chatController', ['$scope', '$location', '$http', function($scope, $location, $http){
 	$scope.messages = [];
 	$scope.sendMessage = function(){
 		if ($scope.text) {
@@ -60,12 +60,27 @@ app.controller('chatController', ['$scope', '$location', '$rootScope', function(
 		}
 	};
 
-	$scope.out = function (credentials) {
+	var chatLoad = function() {
+
+		$http.get('/chatdatabase').then(function(response) {
+			console.log("FUCK YEAH!");
+			$scope.userList = response.data;
+		});
+	}
+
+	chatLoad();
+
+
+	$scope.logout = function() {
+
+		
+
 		$location.path('/login');
 	};
 }]);
 
 app.controller('loginController', ['$scope', '$location', '$http', function($scope, $location, $http){
+
 	$scope.submit = function () {
 		if( $scope.users ) {
 			$scope.errorMessagePassword = false;
@@ -90,6 +105,23 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 			});
 		}
 	};
+
+	// console.log(id);
+		
+	// $http.get('/chatdatabase/' + id).then(function(response) {
+	// 	$scope.somewordshere = response.data;
+	// });
+
+
+    // $scope.edit = function(id) { 
+    // 	console.log(id);
+    // 	$http.get('/contacts/' + id).then(function(response) {
+    // 		$scope.contact = response.data;
+    // 		// refresh();
+    // 	});
+    // };
+
+
 }]);
 
 app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){

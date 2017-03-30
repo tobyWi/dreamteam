@@ -41,7 +41,7 @@ body {
 /* Sidebar Styles */
 
 #sidebar {	
-	height: 580px;
+	min-height: 580px;
 	background-color: #ECEFF1;
 	color: black;
 	position: relative;

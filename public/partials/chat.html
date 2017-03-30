@@ -5,7 +5,7 @@
 				<h1>CHAT</h1>
 			</div>
 			<div class="col-xs-9 text-right">
-				<button type="button" ng-click="out(credentials)" class="btn btn-danger">Log Out</button>
+				<button type="button" ng-click="logout()" class="btn btn-danger">Log Out</button>
 			</div>
 		</div>
 	</div>
@@ -36,10 +36,10 @@
 						</div>
 						<div ng-show="isSet(1)">
 							<ul class="all-users">
-								<li ng-repeat="user in users.username">
+								<li ng-repeat="user in userList">
 									<div class="mini">
-										<img src="{{ users.avatar.src }}"> 
-										<span>{{ users.username }}</span>
+										<img src="{{ user.avatar.src }}"> 
+										<span>{{ user.username }}</span>
 										<span ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modyfing-->
 											<i class="fa fa-circle"></i>
 										</span>
@@ -49,9 +49,9 @@
 						</div>
 						<div ng-show="isSet(2)">
 							<ul class="all-users">
-								<li ng-repeat="user in users.username">
+								<li ng-repeat="user in userList">
 									<div class="mini">
-										<img src="{{ users.avatar.src }}">
+										<img src="{{ user.avatar.src }}">
 										<a ui-sref="chat.private">
 											<span>{{ users.username }}</span>
 										</a>
