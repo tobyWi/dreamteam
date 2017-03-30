@@ -116,14 +116,16 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 			}
 
 			// Check if a username is already taken
-			// $scope.usernameIsTaken = false;
-			// for ( var i = 0; i < $rootScope.users.length; i++ ) {
-			// 	if ( newValue == $rootScope.users[i].name ) {
-			// 		return $scope.usernameIsTaken = true;
-			// 	} else {
-			// 		$scope.usernameIsTaken = false;			
-			// 	}
-			// }
+			$scope.usernameIsTaken = false;
+			$http.get('/chatdatabase').then(function(response){
+				for ( var i = 0; i < response.data.length; i++ ) {
+					if ( newValue == response.data[i].username ) {
+						return $scope.usernameIsTaken = true;
+					} else {
+						$scope.usernameIsTaken = false;			
+					}
+				}
+			});
 		}
 
 		$scope.$watch('users.password', function(newValue, oldValue){
