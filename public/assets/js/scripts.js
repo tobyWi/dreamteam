@@ -80,33 +80,36 @@ app.controller('chatController', ['$scope', '$location', '$http', function($scop
 }]);
 
 app.controller('loginController', ['$scope', '$location', '$http', function($scope, $location, $http){
-	$scope.submit = function (id) {
-	
-		// $scope.errorMessagePassword = false;
-		// $scope.errorMessageUsername = false;
-		// //so rootscope users for a match, else, show error message where the match fails
-		// for ( var i = 0; i < $rootScope.users.length; i++ ) {
-		// 	if ( credentials.user === $rootScope.users[i].name ) {
-		// 		if ( credentials.password === $rootScope.users[i].password ) {
-		// 			$location.path('/chat/public');
-		// 			$scope.errorMessageUsername = false;	
-		// 			break;
-		// 		} else {
-		// 			$scope.errorMessageUsername = false;
-		// 			$scope.errorMessagePassword = true;
-		// 			break;
-		// 		}
-		// 	} else {
-		// 		$scope.errorMessageUsername = true;
-		// 	}
-		// }
 
-		console.log(id);
-		
-		// $http.get('/chatdatabase/' + id).then(function(response) {
-		// 	$scope.somewordshere = response.data;
-		// });
+	$scope.submit = function () {
+		$scope.errorMessagePassword = false;
+		$scope.errorMessageUsername = false;
+		//so rootscope users for a match, else, show error message where the match fails
+		$http.get('/chatdatabase').then(function(response){
+
+			for ( var i = 0; i < response.data.length; i++ ) {
+				if ( $scope.users.username === response.data[i].username ) {
+					if ( $scope.users.password === response.data[i].password ) {
+						$location.path('/chat/public');
+						$scope.errorMessageUsername = false;	
+						break;
+					} else {
+						$scope.errorMessageUsername = false;
+						$scope.errorMessagePassword = true;
+						break;
+					}
+				} else {
+					$scope.errorMessageUsername = true;
+				}
+			}
+		});
 	};
+
+	// console.log(id);
+		
+	// $http.get('/chatdatabase/' + id).then(function(response) {
+	// 	$scope.somewordshere = response.data;
+	// });
 
 
     // $scope.edit = function(id) { 
@@ -147,14 +150,16 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 			}
 
 			// Check if a username is already taken
-			// $scope.usernameIsTaken = false;
-			// for ( var i = 0; i < $rootScope.users.length; i++ ) {
-			// 	if ( newValue == $rootScope.users[i].name ) {
-			// 		return $scope.usernameIsTaken = true;
-			// 	} else {
-			// 		$scope.usernameIsTaken = false;			
-			// 	}
-			// }
+			$scope.usernameIsTaken = false;
+			$http.get('/chatdatabase').then(function(response){
+				for ( var i = 0; i < response.data.length; i++ ) {
+					if ( newValue == response.data[i].username ) {
+						return $scope.usernameIsTaken = true;
+					} else {
+						$scope.usernameIsTaken = false;			
+					}
+				}
+			});
 		}
 
 		$scope.$watch('users.password', function(newValue, oldValue){
@@ -197,8 +202,8 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
     $scope.users.avatar = $scope.avatars[0];
 
 	// Can't be able to log in if username is taken or is passwords don't match
+	$scope.users.online = false;
 	$scope.registerSubmit = function() {
-
 			$http.post('/chatdatabase', $scope.users).then(function(response) {
 				console.log(response);
 			});
