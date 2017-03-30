@@ -106,10 +106,10 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 					$scope.errorMessageUsername = true;
 				}
 			}
-		});
-
 		console.log($scope.users.id);
+		});
 		
+
 	};
 
 		
