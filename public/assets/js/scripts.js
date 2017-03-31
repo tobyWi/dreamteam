@@ -1,4 +1,4 @@
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/login");
@@ -36,11 +36,11 @@ app.controller('mainController', ['$scope', '$location', function($scope, $locat
 	$scope.currentPath = $location.path();
 }]);
 
-app.controller('sidebarController', ['$scope', '$location', 'loggedInUser', function($scope, $location, loggedInUser){
-	$scope.username = loggedInUser.username;
-	$scope.avatar = loggedInUser.avatar;
-
-	console.log(loggedInUser);
+app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage){
+	$scope.username = $sessionStorage.username;
+	$scope.avatar = $sessionStorage.avatar;
+	console.log($sessionStorage);
+	
 	$scope.tab = 1;
 	$scope.online = 'green';
 	$scope.offline = 'red';
@@ -85,7 +85,7 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 	};
 }]);
 
-app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser', function($scope, $location, $http, loggedInUser){
+app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
 
 	$scope.submit = function () {	
 		$scope.errorMessagePassword = false;
@@ -97,10 +97,9 @@ app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser
 					if ( $scope.users.password === response.data[i].password ) {
 						$location.path('/chat/public');
 						$scope.errorMessageUsername = false;	
-						loggedInUser.id = response.data[i]._id;
-						loggedInUser.username = response.data[i].username;
-						loggedInUser.avatar = response.data[i].avatar.src;
-
+						$sessionStorage.id = response.data[i]._id;
+						$sessionStorage.username = response.data[i].username;
+						$sessionStorage.avatar = response.data[i].avatar.src;
 						return loggedInUser;
 					} else {
 						$scope.errorMessageUsername = false;
