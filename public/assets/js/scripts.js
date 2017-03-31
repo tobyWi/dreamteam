@@ -127,7 +127,7 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 }]);
 
 app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
-	// Messages for username validation
+	//Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
 		if (newValue) {
 			// Username too short
@@ -208,12 +208,26 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	$scope.users.online = false;
 	$scope.registerSubmit = function() {
 			$http.post('/chatdatabase', $scope.users).then(function(response) {
-				console.log(response);
-			});
 
-			$location.path('login');  //  Modal with welcome message (Daniels idea)
-			console.log('registered');
+			var modal = document.getElementById('login-modal');
+
+			modal.style.display = "block";
+
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			    }
+			}	
+		});
 	};
+
+	$scope.modalLogin = function(){
+
+		$location.path('login');  //  Modal with welcome message (Daniels idea)
+		console.log('registered');
+
+	}
+
 }]);
 
 
