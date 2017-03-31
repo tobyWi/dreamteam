@@ -110,12 +110,12 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 		console.log($scope.users.online);
 		});
 
-		//  $scope.users.online = true;
+		// $scope.users.online = true;
 
-		$http.put('/chatdatabase/' + $scope.users._id, $scope.users).then(function(response) {
-			// $scope.users.online = true;
-			console.log(response.data);
-		});
+		// $http.put('/chatdatabase/' + $scope.users.id, $scope.users).then(function(response) {
+		// 	// $scope.users.online = true;
+		// 	console.log($scope.users.id);
+		// });
 	};
 
   
