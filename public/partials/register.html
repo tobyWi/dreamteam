@@ -1,3 +1,4 @@
+	
 	<div class="container">
 		<div class="row">
 			<div class="block-register">
@@ -72,6 +73,10 @@
 								class="btn btn-success" 
 								ng-disabled="!users.username || !users.password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
 								Register
+							</button>
+							<a ui-sref="login">
+							<button type="button" class="btn btn-primary">
+								Tillbaks							
 							</button>
 						</div>
 					</form> 
