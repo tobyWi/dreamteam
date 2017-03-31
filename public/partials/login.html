@@ -1,6 +1,5 @@
 <section class="login">
 	<div class="container">
-
 		<div class="block">
 			<div class="row">
 				<div class="col-xs-12">
@@ -10,18 +9,18 @@
 					<form name="login" novalidate>
 						<label for="user">Username</label>
 						<input ng-model="users.username" name="user" required ng-change="errorMessageUsername=false" />
-						<p ng-show="errorMessageUsername">The username does not exist</p>
+						<p ng-show="errorMessageUsername" class="errorMessage">The username does not exist</p>
 						<br />
 						<label for="password">Password</label>
 						<input ng-model="users.password" required type="password" name="password" ng-change="errorMessagePassword=false" />
-						<p ng-show="errorMessagePassword">Invalid password</p>
+						<p ng-show="errorMessagePassword" class="errorMessage">Invalid password</p>
 						<br />
 						<a ui-sref="register">
 							<button type="button" class="btn btn-success">
 								Registrera dig
 							</button>
 						</a>
-						<button ng-click="submit(users._id)" type="button" class="btn btn-primary">
+						<button ng-click="submit()" type="button" class="btn btn-primary">
 							Logga in
 						</button>				
 					</form>
