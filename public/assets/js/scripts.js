@@ -30,12 +30,17 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 	});
 }]);
 
+app.value('loggedInUser', {id: '', username: '', avatar: ''});
+
 app.controller('mainController', ['$scope', '$location', function($scope, $location){
 	$scope.currentPath = $location.path();
 }]);
 
-app.controller('sidebarController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
-	$scope.username = 'Somebody';
+app.controller('sidebarController', ['$scope', '$location', 'loggedInUser', function($scope, $location, loggedInUser){
+	$scope.username = loggedInUser.username;
+	$scope.avatar = loggedInUser.avatar;
+
+	console.log(loggedInUser);
 	$scope.tab = 1;
 	$scope.online = 'green';
 	$scope.offline = 'red';
@@ -47,7 +52,8 @@ app.controller('sidebarController', ['$scope', '$location', '$rootScope', functi
 	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', '$http', function($scope, $location, $http){
+app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', function($scope, $location, $http, loggedInUser){
+
 	$scope.messages = [];
 	$scope.sendMessage = function(){
 		if ($scope.text) {
@@ -79,24 +85,23 @@ app.controller('chatController', ['$scope', '$location', '$http', function($scop
 	};
 }]);
 
-app.controller('loginController', ['$scope', '$location', '$http', function($scope, $location, $http){
+app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser', function($scope, $location, $http, loggedInUser){
 
-	$scope.submit = function () {
-		
+	$scope.submit = function () {	
 		$scope.errorMessagePassword = false;
 		$scope.errorMessageUsername = false;
-		// $scope.users.id = 
 		//so rootscope users for a match, else, show error message where the match fails
 		$http.get('/chatdatabase').then(function(response){
-
 			for ( var i = 0; i < response.data.length; i++ ) {
 				if ( $scope.users.username === response.data[i].username ) {
 					if ( $scope.users.password === response.data[i].password ) {
-						// $location.path('/chat/public');
+						$location.path('/chat/public');
 						$scope.errorMessageUsername = false;	
-						$scope.users.id = response.data[i]._id;
-						// console.log($scope.users.id);
-						break;
+						loggedInUser.id = response.data[i]._id;
+						loggedInUser.username = response.data[i].username;
+						loggedInUser.avatar = response.data[i].avatar.src;
+
+						return loggedInUser;
 					} else {
 						$scope.errorMessageUsername = false;
 						$scope.errorMessagePassword = true;
@@ -106,15 +111,11 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 					$scope.errorMessageUsername = true;
 				}
 			}
-		console.log($scope.users.id);
 		});
-		
-
 	};
-
-		
-
-
+	$scope.test = function(){
+		console.log(loggedInUser);
+	}
     // $scope.edit = function(id) { 
     // 	console.log(id);
     // 	$http.get('/contacts/' + id).then(function(response) {
