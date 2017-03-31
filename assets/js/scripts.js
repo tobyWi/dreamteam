@@ -1,4 +1,4 @@
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+ var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/login");
@@ -47,7 +47,7 @@ app.controller('sidebarController', ['$scope', '$location', '$rootScope', functi
 	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', '$http', function($scope, $location, $http){
+app.controller('chatController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
 	$scope.messages = [];
 	$scope.sendMessage = function(){
 		if ($scope.text) {
@@ -60,75 +60,37 @@ app.controller('chatController', ['$scope', '$location', '$http', function($scop
 		}
 	};
 
-	var chatLoad = function() {
-
-		$http.get('/chatdatabase').then(function(response) {
-			console.log("FUCK YEAH!");
-			$scope.userList = response.data;
-		});
-	}
-
-	chatLoad();
-
-
-	$scope.logout = function() {
-
-		
-
+	$scope.out = function (credentials) {
 		$location.path('/login');
 	};
 }]);
 
-app.controller('loginController', ['$scope', '$location', '$http', function($scope, $location, $http){
-
-	$scope.submit = function () {
-		
+app.controller('loginController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
+	$scope.submit = function (credentials) {
 		$scope.errorMessagePassword = false;
 		$scope.errorMessageUsername = false;
-		// $scope.users.id = 
 		//so rootscope users for a match, else, show error message where the match fails
-		$http.get('/chatdatabase').then(function(response){
-
-			for ( var i = 0; i < response.data.length; i++ ) {
-				if ( $scope.users.username === response.data[i].username ) {
-					if ( $scope.users.password === response.data[i].password ) {
-						// $location.path('/chat/public');
-						$scope.errorMessageUsername = false;	
-						$scope.users.id = response.data[i]._id;
-						// console.log($scope.users.id);
-						break;
-					} else {
-						$scope.errorMessageUsername = false;
-						$scope.errorMessagePassword = true;
-						break;
-					}
+		for ( var i = 0; i < $rootScope.users.length; i++ ) {
+			if ( credentials.user === $rootScope.users[i].name ) {
+				if ( credentials.password === $rootScope.users[i].password ) {
+					$location.path('/chat/public');
+					$scope.errorMessageUsername = false;	
+					break;
 				} else {
-					$scope.errorMessageUsername = true;
+					$scope.errorMessageUsername = false;
+					$scope.errorMessagePassword = true;
+					break;
 				}
+			} else {
+				$scope.errorMessageUsername = true;
 			}
-		console.log($scope.users.id);
-		});
-		
-
+		}
 	};
-
-		
-
-
-    // $scope.edit = function(id) { 
-    // 	console.log(id);
-    // 	$http.get('/contacts/' + id).then(function(response) {
-    // 		$scope.contact = response.data;
-    // 		// refresh();
-    // 	});
-    // };
-
-
 }]);
 
-app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
-	//Messages for username validation
-	$scope.$watch('users.username', function(newValue, oldValue){
+app.controller('registerController', ['$scope','$location', '$rootScope', '$timeout', function($scope, $location, $rootScope, $timeout){
+	// Messages for username validation
+	$scope.$watch('userName', function(newValue, oldValue){
 		if (newValue) {
 			// Username too short
 			if (newValue.length < 5) {
@@ -154,18 +116,16 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 
 			// Check if a username is already taken
 			$scope.usernameIsTaken = false;
-			$http.get('/chatdatabase').then(function(response){
-				for ( var i = 0; i < response.data.length; i++ ) {
-					if ( newValue == response.data[i].username ) {
-						return $scope.usernameIsTaken = true;
-					} else {
-						$scope.usernameIsTaken = false;			
-					}
+			for ( var i = 0; i < $rootScope.users.length; i++ ) {
+				if ( newValue == $rootScope.users[i].name ) {
+					return $scope.usernameIsTaken = true;
+				} else {
+					$scope.usernameIsTaken = false;			
 				}
-			});
+			}
 		}
 
-		$scope.$watch('users.password', function(newValue, oldValue){
+		$scope.$watch('password', function(newValue, oldValue){
 			if (newValue) {
 				// Password too short
 				if (newValue.length < 6) {
@@ -193,41 +153,58 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 		});
 	});
 
-	$scope.avatars = [
-		{name: 'Avatar 01', src:'assets/img/av01.png'},
-		{name: 'Avatar 02', src:'assets/img/av02.png'},
-		{name: 'Avatar 03', src:'assets/img/av03.png'},
-		{name: 'Avatar 04', src:'assets/img/av04.png'},
-		{name: 'Avatar 05', src:'assets/img/av05.png'},
-		{name: 'Avatar 06', src:'assets/img/av06.png'}
-    ];
-    $scope.users = {};
-    $scope.users.avatar = $scope.avatars[0];
-
 	// Can't be able to log in if username is taken or is passwords don't match
-	$scope.users.online = false;
 	$scope.registerSubmit = function() {
-			$http.post('/chatdatabase', $scope.users).then(function(response) {
-
-			var modal = document.getElementById('login-modal');
-
-			modal.style.display = "block";
-
-			window.onclick = function(event) {
-			    if (event.target == modal) {
-			        modal.style.display = "none";
-			    }
-			}	
-		});
+		if (!$scope.usernameIsTaken  && $scope.password === $scope.confirmPassword) {
+			$location.path('login');
+			console.log('registered');
+		}
 	};
+}]);
 
-	$scope.modalLogin = function(){
+app.controller('chooseAvatar', function($scope) {
 
-		$location.path('login');  //  Modal with welcome message (Daniels idea)
-		console.log('registered');
+	// AVATAR
 
-	}
+	$scope.avatars = [
+		{name: 'Avatar 01', avatar:'assets/img/av01.png'},
+		{name: 'Avatar 02', avatar:'assets/img/av02.png'},
+		{name: 'Avatar 03', avatar:'assets/img/av03.png'},
+		{name: 'Avatar 04', avatar:'assets/img/av04.png'},
+		{name: 'Avatar 05', avatar:'assets/img/av05.png'},
+		{name: 'Avatar 06', avatar:'assets/img/av06.png'}
+    ];
+    
+    $scope.myAvatar = $scope.avatars[0];
+});
 
+app.run(['$rootScope', function($rootScope){
+	$rootScope.users = [
+		{
+			name: 'user0',
+			password: 'banana',
+			avatar: 'assets/img/test1.jpg',
+			online: true
+		},
+		{
+			name: 'user1',
+			password: 'angular',
+			avatar: 'assets/img/av01.png',
+			online: true
+		},
+		{
+			name: 'user2',
+			password: 'test123',
+			avatar: 'assets/img/av02.png',
+			online: false
+		},
+		{
+			name: 'user3',
+			password: 'hejsan',
+			avatar: 'assets/img/av03.png',
+			online: false
+		}
+	];
 }]);
 
 

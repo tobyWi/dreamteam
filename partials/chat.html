@@ -5,7 +5,7 @@
 				<h1>CHAT</h1>
 			</div>
 			<div class="col-xs-9 text-right">
-				<button type="button" ng-click="logout()" class="btn btn-danger">Log Out</button>
+				<button type="button" ng-click="out(credentials)" class="btn btn-danger">Log Out</button>
 			</div>
 		</div>
 	</div>
@@ -21,7 +21,7 @@
 								<img src="assets/img/test.jpg" />
 								<p>Logged in as 
 									<strong>
-										{{ users.username }}
+										{{ username }}
 									</strong>
 								</p>
 								<div class="tabs">
@@ -36,11 +36,11 @@
 						</div>
 						<div ng-show="isSet(1)">
 							<ul class="all-users">
-								<li ng-repeat="user in userList">
+								<li ng-repeat="user in users">
 									<div class="mini">
-										<img src="{{ user.avatar.src }}"> 
-										<span>{{ user.username }}</span>
-										<span ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modyfing-->
+										<img src="{{ user.avatar }}"> 
+										<span>{{ user.name }}</span>
+										<span ng-class="{{ user.online? 'online' : 'offline'; }}">
 											<i class="fa fa-circle"></i>
 										</span>
 									</div>
@@ -49,11 +49,11 @@
 						</div>
 						<div ng-show="isSet(2)">
 							<ul class="all-users">
-								<li ng-repeat="user in userList">
+								<li ng-repeat="user in users">
 									<div class="mini">
-										<img src="{{ user.avatar.src }}">
+										<img src="{{ user.avatar }}">
 										<a ui-sref="chat.private">
-											<span>{{ users.username }}</span>
+											<span>{{ user.name }}</span>
 										</a>
 										<i> (private chat)</i>
 									</div>
