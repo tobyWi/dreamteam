@@ -31,15 +31,15 @@ app.post('/chatdatabase/', function(req, res) {
 
 // Use for updating an already existing user
 
-// app.put('/chatdatabase/:id', function(req, res) {
-// 	var id = req.params.id;
-// 	console.log(req.body.name);
-// 	db.contacts.findAndModify({query: {_id: mongojs.ObjectId(id)},
-// 		update: {$set: {username: req.body.username, password: req.body.password, avatar: req.body.avatar, online: true}},
-// 		new: true}, function (err, doc) {
-// 			res.json(doc);
-// 	});
-// });
+app.put('/chatdatabase/:id', function(req, res) {
+	var id = req.params.id;
+	// console.log(req.body.name);
+	db.contacts.findAndModify({query: {_id: mongojs.ObjectId(id)},
+		update: {$set: {username: req.body.username, password: req.body.password, online: req.body.online, avatar: req.body.avatar}},
+		new: true}, function (err, doc) {
+			res.json(doc);
+	});
+});
 
 
 

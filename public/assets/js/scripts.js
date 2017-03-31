@@ -92,10 +92,10 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 			for ( var i = 0; i < response.data.length; i++ ) {
 				if ( $scope.users.username === response.data[i].username ) {
 					if ( $scope.users.password === response.data[i].password ) {
-						// $location.path('/chat/public');
+						$location.path('/chat/public');
 						$scope.errorMessageUsername = false;	
 						$scope.users.id = response.data[i]._id;
-						// console.log($scope.users.id);
+						$scope.users.online = response.data[i].online;
 						break;
 					} else {
 						$scope.errorMessageUsername = false;
@@ -107,21 +107,18 @@ app.controller('loginController', ['$scope', '$location', '$http', function($sco
 				}
 			}
 		console.log($scope.users.id);
+		console.log($scope.users.online);
 		});
-		
 
+		//  $scope.users.online = true;
+
+		$http.put('/chatdatabase/' + $scope.users._id, $scope.users).then(function(response) {
+			// $scope.users.online = true;
+			console.log(response.data);
+		});
 	};
 
-		
-
-
-    // $scope.edit = function(id) { 
-    // 	console.log(id);
-    // 	$http.get('/contacts/' + id).then(function(response) {
-    // 		$scope.contact = response.data;
-    // 		// refresh();
-    // 	});
-    // };
+  
 
 
 }]);
