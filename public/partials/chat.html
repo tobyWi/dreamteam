@@ -17,13 +17,13 @@
 				<div class="col-xs-3 text-center" id="sidebar">
 					<aside ng-controller="sidebarController">
 						<div class="row">
-							<div class="col-xs-12 sidebar-top">					
-								<img src="users.avatar.src" />  <!-- Need id -->
-								<p>Logged in as 
+							<div class="col-xs-12 sidebar-top">			
+								<img class="user-avatar" src="{{ avatar }}" />
+								<h2>Logged in as 
 									<strong>
-										{{ users.username }}  <!-- Need id -->
+										{{ username }}
 									</strong>
-								</p>
+								</h2>
 								<div class="tabs">
 									<h4 ng-class="{ active: isSet(1) }">
 										<a ui-sref="chat.public" ng-click="setTab(1)">Public</a>
@@ -39,9 +39,12 @@
 								<li ng-repeat="user in userList">
 									<div class="mini">
 										<img src="{{ user.avatar.src }}"> 
-										<span>{{ user.username }}</span>
-										<span ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modyfing-->
+										<span class="username">{{ user.username }}</span>
+										<span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modifying-->
 											<i class="fa fa-circle"></i>
+										</span>
+										<span class="send-message"> <!-- ng-click = send message to this person -->
+											<i class="fa fa-comment"></i>
 										</span>
 									</div>
 								</li>

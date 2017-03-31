@@ -1,0 +1,160 @@
+/* Header Styles */
+
+#header {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              	0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              	0 3px 1px -2px rgba(0, 0, 0, 0.2);
+	background-color: #B0BEC5;;
+	line-height: 100px;
+	color: white;
+}
+
+	#header h1 {
+		font-size: 70px;
+		color: white;
+		font-weight: 500;
+		margin-left: 10px;
+	}
+
+.aligncenter {
+	text-align: center;
+}
+
+
+/* Sidebar Styles */
+
+#sidebar {	
+	min-height: 580px;
+	background-color: #ECEFF1;
+	color: black;
+	position: relative;
+	box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.8), 0 1px -1px -3px rgba(0, 0, 0, 0.12);
+}
+	#sidebar h2 {
+		text-transform: uppercase;
+		font-size: 10px;
+		font-weight: 500;
+	}
+
+	#sidebar h2 strong {
+		font-weight: 700;
+		font-size: 20px;
+		text-transform: none;
+		display: block;
+	}
+
+	#sidebar h4.active {	
+		background-color: #ECEFF1;
+	}
+
+	#sidebar h4.active a {	
+		color: black;
+	}
+
+	#sidebar .sidebar-top {
+		background-color: #B0BEC5;
+	}
+
+	#sidebar .sidebar-top a {
+		color: white;
+		text-decoration: none;
+	}
+
+	#sidebar .copy {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		border-top: 1px solid #ddd;
+		left: 0;
+	}
+
+	#sidebar img {
+
+		height: 100px;
+		width: auto;
+	}
+
+	#sidebar .tabs {
+		margin-top: 30px;
+	}
+
+	#sidebar .tabs h4 {
+		text-transform: uppercase;
+		display: inline;
+		padding: 5px;
+	}
+
+	#sidebar .all-users {
+		margin-top: 12px;
+		text-align: left;
+	}
+
+	#sidebar .all-users li {
+		line-height: 40px;
+		border: 1px solid #eee;
+		height: 40px;
+		font-size: 12px;
+	}
+		#sidebar .all-users .send-message {
+			float: right;
+			display: none;
+		}
+
+		#sidebar .all-users li:hover img{	
+			box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+                  0  6px 30px 5px rgba(0, 0, 0, 0.12),
+                  0  8px 10px -5px rgba(0, 0, 0, 0.4);
+		}
+		#sidebar .all-users li:hover .username{	
+			font-weight: 700;
+		}
+		#sidebar .all-users li:hover .status{
+			display: none;
+		}
+
+		#sidebar .all-users li:hover .send-message{
+			display: block;
+			color: black;
+			margin-right: 20px;
+			font-size: 16px;
+		}
+
+		#sidebar .all-users li:last-of-type {
+			margin-bottom: 20px;
+		}
+
+		#sidebar .all-users .username {
+			line-height: 40px;
+			padding-left: 10px;
+		}
+
+		#sidebar .all-users .mini img {
+			width: 30px;
+			height: 30px;
+		}
+
+		#sidebar .all-users .mini span {
+			line-height: 40px;
+		}
+
+		#sidebar .all-users .private {
+			padding-left: 20px;
+		}
+
+.red {
+	color: #B71C1C;
+}
+
+.green {
+	color: #64DD17;
+}
+
+span.green,
+span.red {
+	float: right;
+	margin-right: 20px;
+}
+
+#sidebar .all-users .group-users {
+	display: none;
+}

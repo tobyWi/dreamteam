@@ -1,4 +1,4 @@
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/login");
@@ -30,12 +30,17 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 	});
 }]);
 
+app.value('loggedInUser', {id: '', username: '', avatar: ''});
+
 app.controller('mainController', ['$scope', '$location', function($scope, $location){
 	$scope.currentPath = $location.path();
 }]);
 
-app.controller('sidebarController', ['$scope', '$location', '$rootScope', function($scope, $location, $rootScope){
-	$scope.username = 'Somebody';
+app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage){
+	$scope.username = $sessionStorage.username;
+	$scope.avatar = $sessionStorage.avatar;
+	console.log($sessionStorage);
+	
 	$scope.tab = 1;
 	$scope.online = 'green';
 	$scope.offline = 'red';
@@ -47,80 +52,63 @@ app.controller('sidebarController', ['$scope', '$location', '$rootScope', functi
 	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', '$http', function($scope, $location, $http){
+app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
+
 	$scope.messages = [];
 	$scope.sendMessage = function(){
-		if ($scope.text) {
+		if ($scope.conversations.messages.content) {
 			$scope.messages.push({
-				text: $scope.text,
-				imgUser: 'assets/img/test.jpg',
+				text: $scope.conversations.messages.content,
+				imgUser: $sessionStorage.avatar,
 				imgFriend: ''
 			}); 
-		$scope.text = '';
+		$scope.conversations.messages.content = '';
 		}
 	};
 
 	var chatLoad = function() {
-
 		$http.get('/chatdatabase').then(function(response) {
-			console.log("FUCK YEAH!");
 			$scope.userList = response.data;
 		});
 	}
-
 	chatLoad();
 
-
 	$scope.logout = function() {
-
-		
-
 		$location.path('/login');
 	};
 }]);
 
-app.controller('loginController', ['$scope', '$location', '$http', function($scope, $location, $http){
 
-	$scope.submit = function () {
-		
-		$scope.errorMessagePassword = false;
-		$scope.errorMessageUsername = false;
-		// $scope.users.id = 
-		//so rootscope users for a match, else, show error message where the match fails
-		$http.get('/chatdatabase').then(function(response){
+app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
 
-			for ( var i = 0; i < response.data.length; i++ ) {
-				if ( $scope.users.username === response.data[i].username ) {
-					if ( $scope.users.password === response.data[i].password ) {
-						$location.path('/chat/public');
-						$scope.errorMessageUsername = false;	
-						$scope.users.id = response.data[i]._id;
-						$scope.users.online = response.data[i].online;
-						break;
+	$scope.logIn = function () {	
+		if ($scope.users) {	
+			$scope.errorMessagePassword = false;
+			$scope.errorMessageUsername = false;
+			//check database users for a match, else, show error message where the match fails
+			$http.get('/chatdatabase').then(function(response){
+				for ( var i = 0; i < response.data.length; i++ ) {
+					if ( $scope.users.username === response.data[i].username ) {
+						if ( $scope.users.password === response.data[i].password ) {
+							$location.path('/chat/public');
+							$scope.errorMessageUsername = false;	
+							$sessionStorage.id = response.data[i]._id;
+							$sessionStorage.username = response.data[i].username;
+							$sessionStorage.avatar = response.data[i].avatar.src;
+							return loggedInUser;
+						} else {
+							$scope.errorMessageUsername = false;
+							$scope.errorMessagePassword = true;
+							break;
+						}
 					} else {
-						$scope.errorMessageUsername = false;
-						$scope.errorMessagePassword = true;
-						break;
+						$scope.errorMessageUsername = true;
 					}
-				} else {
-					$scope.errorMessageUsername = true;
 				}
-			}
-		console.log($scope.users.id);
-		console.log($scope.users.online);
-		});
 
-		// $scope.users.online = true;
-
-		// $http.put('/chatdatabase/' + $scope.users.id, $scope.users).then(function(response) {
-		// 	// $scope.users.online = true;
-		// 	console.log($scope.users.id);
-		// });
+			});
+		};
 	};
-
-  
-
-
 }]);
 
 app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
@@ -191,12 +179,13 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	});
 
 	$scope.avatars = [
-		{name: 'Avatar 01', src:'assets/img/av01.png'},
-		{name: 'Avatar 02', src:'assets/img/av02.png'},
-		{name: 'Avatar 03', src:'assets/img/av03.png'},
-		{name: 'Avatar 04', src:'assets/img/av04.png'},
-		{name: 'Avatar 05', src:'assets/img/av05.png'},
-		{name: 'Avatar 06', src:'assets/img/av06.png'}
+		{name: 'Zombie', src:'assets/img/av02.png'},
+		{name: 'Zebra', src:'assets/img/av01.png'},
+		{name: 'Worm', src:'assets/img/av03.png'},
+		{name: 'Cool Giraffe', src:'assets/img/av04.png'},
+		{name: 'Ugly Fish', src:'assets/img/av05.png'},
+		{name: 'Fly', src:'assets/img/av06.png'},
+		{name: 'Leopard', src:'assets/img/av07.png'}
     ];
     $scope.users = {};
     $scope.users.avatar = $scope.avatars[0];
@@ -219,10 +208,8 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	};
 
 	$scope.modalLogin = function(){
-
-		$location.path('login');  //  Modal with welcome message (Daniels idea)
+		$location.path('login');  
 		console.log('registered');
-
 	}
 
 }]);

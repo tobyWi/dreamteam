@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,300i,400,700,900');
+
+/* Main Styles */
+
+body, main {
+	height: 100%;
+}
+
+body {
+	background: white;
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	color: black;
+}
+
+#wrap {
+	margin: 0 auto !important;
+	position: relative;
+}
+
+
