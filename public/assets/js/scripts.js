@@ -67,54 +67,47 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 	};
 
 	var chatLoad = function() {
-
 		$http.get('/chatdatabase').then(function(response) {
 			console.log("FUCK YEAH!");
 			$scope.userList = response.data;
 		});
 	}
-
 	chatLoad();
 
-
 	$scope.logout = function() {
-
-		
-
 		$location.path('/login');
 	};
 }]);
 
 app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
 
-	$scope.submit = function () {	
-		$scope.errorMessagePassword = false;
-		$scope.errorMessageUsername = false;
-		//so rootscope users for a match, else, show error message where the match fails
-		$http.get('/chatdatabase').then(function(response){
-			for ( var i = 0; i < response.data.length; i++ ) {
-				if ( $scope.users.username === response.data[i].username ) {
-					if ( $scope.users.password === response.data[i].password ) {
-						$location.path('/chat/public');
-						$scope.errorMessageUsername = false;	
-						$sessionStorage.id = response.data[i]._id;
-						$sessionStorage.username = response.data[i].username;
-						$sessionStorage.avatar = response.data[i].avatar.src;
-						return loggedInUser;
+	$scope.logIn = function () {	
+		if ($scope.users) {	
+			$scope.errorMessagePassword = false;
+			$scope.errorMessageUsername = false;
+			//check database users for a match, else, show error message where the match fails
+			$http.get('/chatdatabase').then(function(response){
+				for ( var i = 0; i < response.data.length; i++ ) {
+					if ( $scope.users.username === response.data[i].username ) {
+						if ( $scope.users.password === response.data[i].password ) {
+							$location.path('/chat/public');
+							$scope.errorMessageUsername = false;	
+							$sessionStorage.id = response.data[i]._id;
+							$sessionStorage.username = response.data[i].username;
+							$sessionStorage.avatar = response.data[i].avatar.src;
+							return loggedInUser;
+						} else {
+							$scope.errorMessageUsername = false;
+							$scope.errorMessagePassword = true;
+							break;
+						}
 					} else {
-						$scope.errorMessageUsername = false;
-						$scope.errorMessagePassword = true;
-						break;
+						$scope.errorMessageUsername = true;
 					}
-				} else {
-					$scope.errorMessageUsername = true;
 				}
-			}
-		});
+			});
+		}
 	};
-	$scope.test = function(){
-		console.log(loggedInUser);
-	}
     // $scope.edit = function(id) { 
     // 	console.log(id);
     // 	$http.get('/contacts/' + id).then(function(response) {
@@ -223,10 +216,8 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	};
 
 	$scope.modalLogin = function(){
-
-		$location.path('login');  //  Modal with welcome message (Daniels idea)
+		$location.path('login');  
 		console.log('registered');
-
 	}
 
 }]);
