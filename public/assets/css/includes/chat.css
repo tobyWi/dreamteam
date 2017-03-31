@@ -22,8 +22,7 @@
 
 .message-box img {
 	height: 40px;
-	width: auto;
-	border-radius: 50px;
+	width: 30px;
 }
 .image-float-right {
 	float: right;	

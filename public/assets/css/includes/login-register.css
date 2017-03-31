@@ -17,7 +17,7 @@
 	text-align: center;
 }
 
-.block input, .block-register input {
+.block input, .block-register input, .avatar-select {
 	width: 300px;
 	margin: 0 auto;
 	height: 40px;
@@ -95,22 +95,19 @@
 	text-transform: uppercase;
 }
 
-
 .avatar {
 	margin-top: 20px;
 }
 
 .avatar-img {
 	display: block;
-	width: 100px;
+	width: auto;
 	height: 100px;
 	margin: 10px auto;
 }
 
-.avatar-select {
-	height: 40px;
-	width: 300px;
-	margin-bottom: 10px;
+.avatar-select{
+	font-size: 15px;
 }
 
 .dropdown {
@@ -124,6 +121,7 @@
 		background-color: white;
 		min-width: 160px;
 		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		border: 0;
 		z-index: 10;
 	}
 		.dropdown-menu a {

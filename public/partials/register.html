@@ -5,7 +5,7 @@
 					<h1 class="main-title">Register</h1>
 					<form name="registrationForm" class="registrationForm" novalidate>
 					   <div class="form-group">
-							<label for="username">Username</label>
+							<label for="username">Choose Username</label>
 							<input 
 								type="text" 
 								name="username" 
@@ -26,7 +26,7 @@
 							</span>
 						</div>
 						<div class="form-group">
-							<label for="password">Password</label>
+							<label for="password">Choose Password</label>
 							<input 
 								type="password" 
 								name="password" 
@@ -41,7 +41,7 @@
 								<i ng-show="!users.password || tooLongPassword || tooShortPassword || passwordRegex" class="fa fa-times inline-block"></i>
 								<p ng-show="tooShortPassword" class="errorMessage">The password must contain at least 6 characters</p>
 								<p ng-show="tooLongPassword" class="errorMessage">The password can not conatin more tham 30 characters</p>
-								<p ng-show="passwordRegex" class="errorMessage">The password can only contain a-z and numbers 0-9, and no spaces</p>
+								<p ng-show="passwordRegex" class="errorMessage">Can only contain a-z and numbers 0-9, and no spaces</p>
 							</span>
 						</div>
 						<div class="form-group">
@@ -60,6 +60,7 @@
 							</span>
 						</div>
 						<div class="dropdown">
+							<label>Choose your avatar</label>
 
                         	<select class="avatar-select" ng-model="users.avatar" ng-options="avatar.name for avatar in avatars">
                        		</select>
@@ -69,10 +70,11 @@
 						<div class="form-group">
 							<button ng-click="registerSubmit(users)" 
 								type="submit" 
-								class="btn btn-success" 
+								class="btn btn-success inline-block" 
 								ng-disabled="!users.username || !users.password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
-								Register
+								Register new account
 							</button>
+							<button class="btn btn-primary inline-block" ui-sref="login">Go back to login</button>
 
 							<div id="login-modal" class="modal">								
 								<div class="modal-body">
@@ -81,11 +83,6 @@
 								    <img src="{{users.avatar.src}}" /><br />
 								    <button class="btn btn-success modalButton" ng-click="modalLogin()">Log in!</button>
 								</div>
-								<a ui-sref="login">
-									<button type="button" class="btn btn-primary">
-										Tillbaks							
-									</button>
-								</a>
 							</div>
 						</div>
 					</form> 

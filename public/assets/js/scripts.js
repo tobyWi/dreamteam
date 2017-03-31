@@ -194,12 +194,13 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	});
 
 	$scope.avatars = [
-		{name: 'Avatar 01', src:'assets/img/av01.png'},
-		{name: 'Avatar 02', src:'assets/img/av02.png'},
-		{name: 'Avatar 03', src:'assets/img/av03.png'},
-		{name: 'Avatar 04', src:'assets/img/av04.png'},
-		{name: 'Avatar 05', src:'assets/img/av05.png'},
-		{name: 'Avatar 06', src:'assets/img/av06.png'}
+		{name: 'Zombie', src:'assets/img/av02.png'},
+		{name: 'Zebra', src:'assets/img/av01.png'},
+		{name: 'Worm', src:'assets/img/av03.png'},
+		{name: 'Cool Giraffe', src:'assets/img/av04.png'},
+		{name: 'Ugly Fish', src:'assets/img/av05.png'},
+		{name: 'Fly', src:'assets/img/av06.png'},
+		{name: 'Leopard', src:'assets/img/av07.png'}
     ];
     $scope.users = {};
     $scope.users.avatar = $scope.avatars[0];
