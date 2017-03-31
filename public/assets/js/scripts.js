@@ -52,23 +52,22 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', function($scope, $location, $http, loggedInUser){
+app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
 
 	$scope.messages = [];
 	$scope.sendMessage = function(){
-		if ($scope.text) {
+		if ($scope.conversations.messages.content) {
 			$scope.messages.push({
-				text: $scope.text,
-				imgUser: 'assets/img/test.jpg',
+				text: $scope.conversations.messages.content,
+				imgUser: $sessionStorage.avatar,
 				imgFriend: ''
 			}); 
-		$scope.text = '';
+		$scope.conversations.messages.content = '';
 		}
 	};
 
 	var chatLoad = function() {
 		$http.get('/chatdatabase').then(function(response) {
-			console.log("FUCK YEAH!");
 			$scope.userList = response.data;
 		});
 	}
