@@ -73,6 +73,18 @@
 								ng-disabled="!users.username || !users.password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
 								Register
 							</button>
+
+							<div id="login-modal" class="modal">
+								
+								 <div class="modal-body">
+								   	<h3>Congratulations!</h3>
+								    <p>You are now a member of Doggy Style!</p>
+								    <button class="btn btn-success modalButton" ng-click="modalLogin()">Log in!</button>
+								 </div>
+
+
+							</div>
+
 						</div>
 					</form> 
 				</div>
