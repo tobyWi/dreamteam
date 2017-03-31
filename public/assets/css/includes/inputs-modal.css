@@ -1,0 +1,72 @@
+/* VALID / INVALID INPUT */
+
+.inline-block {
+	display: inline-block;
+}
+
+.inline {
+	display: inline;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input {
+-webkit-transition : border-bottom 500ms ease-out;
+-moz-transition : border-bottom 500ms ease-out;
+-o-transition : border-bottom 500ms ease-out;
+transition : border-bottom 500ms ease-out;;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.errorMessage {
+	width: 300px;
+	background-color: #FFF59D;
+	left: 0;
+	margin: 0 auto;
+	padding: 5px;
+	right: 0;
+}
+
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(56, 51, 51, 0.74);
+
+}
+
+.modal-body {
+	box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+              	0  6px 30px 5px rgba(0, 0, 0, 0.12),
+                0  8px 10px -5px rgba(0, 0, 0, 0.4);
+	border-radius: 8px;
+    background-color: white;
+    margin: 12% auto; 
+    padding: 40px;
+    width: 50%;
+    min-height: 35%; 
+}
+	
+	.modal-body .modalButton {
+		margin-top: 20px;
+		width: 80px;
+	}
+
+	.modal-body img {
+		width: 80px;
+		height: auto;
+	}
+

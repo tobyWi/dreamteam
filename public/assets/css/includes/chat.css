@@ -1,0 +1,60 @@
+/*Chat styles*/
+
+.content {
+	margin-top: 20px;
+}
+
+.message-box {
+	word-wrap: break-word;
+	background-color: white;
+	padding: 5px;
+	overflow: hidden;	
+	margin-bottom: 20px;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+				0 1px 5px 0 rgba(0, 0, 0, 0.12),
+  				0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.message-box.marginleft {
+	margin-left: 15px;
+}
+
+
+.message-box img {
+	height: 40px;
+	width: auto;
+	border-radius: 50px;
+}
+.image-float-right {
+	float: right;	
+}
+.image-float-left {
+	float: left;	
+}
+
+.content {
+	color: black;
+}
+
+.chatarea {
+	height: 500px;
+	overflow-y: scroll;
+}
+.send-message-field {
+	
+}
+	.send-message-field button {
+		float: right;
+		margin-left: 5px;
+		position: absolute;
+		bottom: 0;
+		height: 80px;
+		width: 100px;
+	}
+	.send-message-field textarea {
+		float: left;
+		border-radius: 5px;
+		resize: none;
+		width: 450px;
+		height: 80px;
+	}
