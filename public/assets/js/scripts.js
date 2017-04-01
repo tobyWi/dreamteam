@@ -19,6 +19,11 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 		templateUrl: 'partials/chat.html',
 		controller: 'chatController',
 		css: 'css/style.css'
+	}).state('adminuserlist', {
+		url: '/adminuserlist',
+		templateUrl: 'partials/adminuserlist.html',
+		controller: 'adminuserlistController',
+		css: 'css/style.css'
 	}).state('chat.private', {
 		url: '/private',
 		templateUrl: 'partials/private.html',
@@ -45,10 +50,10 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 	$scope.online = 'green';
 	$scope.offline = 'red';
 	$scope.setTab = function(newTab){
-	  $scope.tab = newTab;
+		$scope.tab = newTab;
 	};
 	$scope.isSet = function(tabNum){
-	  return $scope.tab === tabNum;
+		return $scope.tab === tabNum;
 	};	
 }]);
 
@@ -76,6 +81,77 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 	$scope.logout = function() {
 		$location.path('/login');
 	};
+
+	$scope.adminUserList = function() {
+		$location.path('/adminuserlist');
+	}
+}]);
+
+app.controller('adminuserlistController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
+	
+	var refreshList = function() {
+    	$http.get('/chatdatabase').then(function(response) {
+	    	console.log("Japp I got the shit I wanted.  All the users in the database.");
+	    	$scope.userList = response.data;
+	    	$scope.users = null;
+	    });
+    };
+
+	refreshList();
+
+	$scope.removeUser = function(id) {
+		
+		var modal = document.getElementById('delete-modal');
+
+		modal.style.display = "block";
+
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+		$scope.id = id;
+
+		$http.get('/chatdatabase/' + id).then(function(response) {
+			$scope.users = response.data;
+		});
+
+	};
+
+	$scope.modalDelete = function() {
+		var id = $scope.id;
+		
+
+		$http.delete('/chatdatabase/' + id).then(function(reponse) {
+			$scope.users = reponse.data;
+			refreshList();
+		});
+
+		var modal = document.getElementById('delete-modal');
+
+		modal.style.display = "none";
+	};
+
+	$scope.cancel = function() {
+		var modal = document.getElementById('delete-modal');
+		modal.style.display = "none";
+	}
+
+
+
+	// BUTTONS
+
+	$scope.registerBack = function() {
+		$location.path('/register');
+	};
+
+	$scope.loginBack = function() {
+		$location.path('/login');
+	};
+
+	$scope.chatBack = function() {
+		$location.path('/chat');	
+	}
 }]);
 
 
@@ -193,7 +269,7 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	// Can't be able to log in if username is taken or is passwords don't match
 	$scope.users.online = false;
 	$scope.registerSubmit = function() {
-			$http.post('/chatdatabase', $scope.users).then(function(response) {
+		$http.post('/chatdatabase', $scope.users).then(function(response) {
 
 			var modal = document.getElementById('login-modal');
 

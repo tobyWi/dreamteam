@@ -19,11 +19,21 @@ app.get('/chatdatabase', function(request, res) {
 	});
 });
 
-// Adding a member to the database (chatdatabase)
+// Adding a user to the database (chatdatabase)
 
 app.post('/chatdatabase/', function(req, res) {
 	console.log(req.body);
 	db.chatdatabase.insert(req.body, function(err, doc) {
+		res.json(doc);
+	});
+});
+
+// Deleting a user of the database (chatdatabase)
+
+app.delete('/chatdatabase/:id', function(req, res) {
+	var id = req.params.id;
+	console.log(id);
+	db.chatdatabase.remove({_id: mongojs.ObjectId(id)}, function(err, doc) {
 		res.json(doc);
 	});
 });

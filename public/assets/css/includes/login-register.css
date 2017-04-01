@@ -175,3 +175,33 @@
 			list-style: none;
 			cursor: pointer;
 		}
+
+/* ADMIN USER LIST */
+
+.buttons-group {
+	margin: 40px 0;
+	padding-bottom: 40px;
+}
+
+.admin-hr {
+	border-bottom: 2px solid grey;
+}
+
+.table-avatar {
+	width: 80px;
+	height: 100px;
+}
+
+.block-admin-list {
+	left: 0;
+	right: 0;
+	width: 500px;
+	min-height: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+	
+.block-admin-list .main-title {
+	font-size: 70px;
+	text-transform: uppercase;
+}

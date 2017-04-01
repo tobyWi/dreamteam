@@ -1,0 +1,59 @@
+<section class="login">
+	<div class="container">
+		<div class="block-admin-list">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1 class="main-title">Admin</h1><br />
+					<h3>User List</h3>
+				</div>
+				<div class="col-xs-12">
+					<table class="table aligncenter">
+						<thead>
+							<tr class="aligncenter">
+								<th>User</th>
+								<th>Password</th>
+								<th>Avatar</th>
+								<th>Online</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="users in userList">
+								<td>{{users.username}}</td>
+								<td>{{users.password}}</td>
+								<td><img class="table-avatar" src="{{users.avatar.src}}"></td>
+								<td>{{users.online}}</td>
+								<td>
+									<button class="btn btn-danger" ng-click="removeUser(users._id)">Delete</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<hr class="admin-hr" />
+			<div class="row">
+				<div class="buttons-group">
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-success" ng-click="registerBack()">Back To Register</button>
+					</div>
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-warning" ng-click="loginBack()">Back To Log-In</button>
+					</div>
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-info" ng-click="chatBack()">Back To Chat</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div id="delete-modal" class="modal aligncenter">								
+			<div class="modal-body">
+			   	<h3>Are you sure you want to delete {{users.username}}?</h3>
+			    <img src="{{users.avatar.src}}" /><br />
+			    <button class="btn btn-danger modalButton" ng-click="modalDelete()">Yes, Delete!</button><br />
+			    <button class="btn btn-warning" ng-click="cancel()">No, go back!</button>
+			</div>
+		</div>
+	</div>
+</section>
