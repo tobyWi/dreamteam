@@ -58,6 +58,7 @@
 	#sidebar .sidebar-top a {
 		color: white;
 		text-decoration: none;
+		cursor: pointer;
 	}
 
 	#sidebar .copy {

@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
 	gulpLiveServer = require('gulp-live-server'),
-	jshint = require('gulp-jshint')
+	jshint = require('gulp-jshint');
 
 gulp.task('jshint', function() {
 	return gulp.src('assets/js/*.js')
