@@ -15,6 +15,10 @@
   				0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
+.message-box strong {
+	font-weight: 500;
+}
+
 .message-box.marginleft {
 	margin-left: 15px;
 }

@@ -44,7 +44,6 @@ app.controller('mainController', ['$scope', '$location', function($scope, $locat
 app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
-	console.log($sessionStorage);
 	
 	$scope.tab = 1;
 	$scope.online = 'green';
@@ -61,18 +60,29 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 
 	$scope.messages = [];
 	$scope.sendMessage = function(){
-		if ($scope.conversations.messages.content) {
-			$scope.messages.push({
-				text: $scope.conversations.messages.content,
-				imgUser: $sessionStorage.avatar,
-				imgFriend: ''
-			}); 
-		$scope.conversations.messages.content = '';
+		if ($scope.conversations) {
+			$scope.conversations.messages.sender = $sessionStorage.username;
+			
+			$http.post('/conversations', $scope.conversations).then(function(response) {
+				console.log('Successfully sent message');
+				$scope.conversations.messages.content = '';
+			});
 		}
 	};
 
+	// Get all messages in public chat
+	var allMessages = function() {
+		$http.get('/conversations').then(function(response){
+			console.log(response.data);
+			$scope.allMessages = response.data;
+		});
+	}
+
+	allMessages();
+
+	//Sidebar list all users
 	var chatLoad = function() {
-		$http.get('/chatdatabase').then(function(response) {
+		$http.get('/users').then(function(response) {
 			$scope.userList = response.data;
 		});
 	}
@@ -90,7 +100,7 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 app.controller('adminuserlistController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
 	
 	var refreshList = function() {
-    	$http.get('/chatdatabase').then(function(response) {
+    	$http.get('/users').then(function(response) {
 	    	console.log("Japp I got the shit I wanted.  All the users in the database.");
 	    	$scope.userList = response.data;
 	    	$scope.users = null;
@@ -112,7 +122,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', 'logg
 		}
 		$scope.id = id;
 
-		$http.get('/chatdatabase/' + id).then(function(response) {
+		$http.get('/users/' + id).then(function(response) {
 			$scope.users = response.data;
 		});
 
@@ -122,7 +132,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', 'logg
 		var id = $scope.id;
 		
 
-		$http.delete('/chatdatabase/' + id).then(function(reponse) {
+		$http.delete('/users/' + id).then(function(reponse) {
 			$scope.users = reponse.data;
 			refreshList();
 		});
@@ -162,7 +172,7 @@ app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser
 			$scope.errorMessagePassword = false;
 			$scope.errorMessageUsername = false;
 			//check database users for a match, else, show error message where the match fails
-			$http.get('/chatdatabase').then(function(response){
+			$http.get('/users').then(function(response){
 				for ( var i = 0; i < response.data.length; i++ ) {
 					if ( $scope.users.username === response.data[i].username ) {
 						if ( $scope.users.password === response.data[i].password ) {
@@ -215,7 +225,7 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 
 			// Check if a username is already taken
 			$scope.usernameIsTaken = false;
-			$http.get('/chatdatabase').then(function(response){
+			$http.get('/users').then(function(response){
 				for ( var i = 0; i < response.data.length; i++ ) {
 					if ( newValue == response.data[i].username ) {
 						return $scope.usernameIsTaken = true;
@@ -269,7 +279,7 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	// Can't be able to log in if username is taken or is passwords don't match
 	$scope.users.online = false;
 	$scope.registerSubmit = function() {
-		$http.post('/chatdatabase', $scope.users).then(function(response) {
+		$http.post('/users', $scope.users).then(function(response) {
 
 			var modal = document.getElementById('login-modal');
 
