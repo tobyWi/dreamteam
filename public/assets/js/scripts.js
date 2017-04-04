@@ -56,7 +56,14 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 	};	
 }]);
 
+
+	
+
 app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', '$interval', function($scope, $location, $http, loggedInUser, $sessionStorage, $interval){
+
+	$scope.isUserSender = function(sender) {
+		return sender === $sessionStorage.username;
+	}
 
 	// Get all messages in public chat
 	var allMessages = function() {
@@ -67,17 +74,22 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 
 	allMessages(); // To load all messages in the beginning
 
+
 	$scope.sendMessage = function(){
 		if ($scope.conversations) {
 			$scope.conversations.messages.sender = $sessionStorage.username;
 			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
 			
 			$http.post('/conversations', $scope.conversations).then(function(response) {
-				allMessages(); // To load the message you just sent
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
 	};
+
+	// Needs to update frequently, is you update when you send a message, it doesnt update when someone else send a message
+	$interval(function(){
+		allMessages();
+	}, 500);
 
 	//Sidebar list all users
 	var chatLoad = function() {

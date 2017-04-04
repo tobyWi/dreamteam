@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-xs-12 chatarea">
 			<div class="row" ng-repeat="message in allMessages">
-				<div class="col-xs-5 message-box marginleft">
+				<div class="col-xs-5 message-box" ng-class="{'col-xs-push-6 marginright': isUserSender(message.messages.sender), 'marginleft': !isUserSender(message.messages.sender)}">
 					<img src="{{ message.messages.senderavatar }}" class="image-float-left">
 					<strong>{{ message.messages.sender }}:</strong><br/>
 					<i>{{ message.messages.content }}</i>
