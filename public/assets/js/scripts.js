@@ -81,11 +81,15 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
 			
 			$http.post('/conversations', $scope.conversations).then(function(response) {
-				allMessages(); // To load the message you just sent
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
 	};
+
+	// Needs to update frequently, is you update when you send a message, it doesnt update when someone else send a message
+	$interval(function(){
+		allMessages();
+	}, 500);
 
 	//Sidebar list all users
 	var chatLoad = function() {
