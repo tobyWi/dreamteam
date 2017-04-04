@@ -57,6 +57,10 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 }]);
 
 app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
+	
+	$scope.isUserSender = function(sender) {
+		return sender === $sessionStorage.username;
+	}
 
 	$scope.messages = [];
 	$scope.sendMessage = function(){
