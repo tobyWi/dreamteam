@@ -22,7 +22,7 @@ app.get('/users', function(request, res) {
 	});
 });
 
-// Adding a user to the database (chatdatabase)
+// Adding a user to the database (users)
 
 app.post('/users/', function(req, res) {
 	//console.log(req.body);
@@ -31,7 +31,7 @@ app.post('/users/', function(req, res) {
 	});
 });
 
-// Deleting a user of the database (chatdatabase)
+// Deleting a user of the database (users)
 
 app.delete('/users/:id', function(req, res) {
 	var id = req.params.id;
@@ -42,25 +42,50 @@ app.delete('/users/:id', function(req, res) {
 });
 
 
-// Use for updating an already existing user
 
-app.get('/users/:id', function(req, res) {
+// --------------------------------- OFFLINE / ONLINE -------------------------------------//
+
+
+app.get('/chatdatabase/users/:id', function(req, res) {
 	var id = req.params.id;
-	//console.log(id);
+	console.log(id);
 	db.users.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
 		res.json(doc);
 	});
 });
 
-app.put('/users/:id', function(req, res) {
+// login
+
+
+app.put('/chatdatabase/users/2/:id', function(req, res) {
 	var id = req.params.id;
-	// console.log(req.body.name);
+
 	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
-		update: {$set: {username: req.body.username, password: req.body.password, online: req.body.online, avatar : req.body.avatar}},
+		update: {$set: { online: true }},
 		new: true}, function (err, doc) {
 			res.json(doc);
 	});
 });
+
+app.post('/chatdatabase/users/:id', function(req,res) {
+	console.log(req.body);
+	db.users.insert(req.body, function(req, res) {
+		res.json(doc);
+	});
+});
+
+// logout
+
+app.put('/chatdatabase/users/1/:id', function(req, res) {
+	var id = req.params.id;
+
+	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
+		update: {$set: { online: false }},
+		new: true}, function (err, doc) {
+			res.json(doc);
+	});
+});
+
 
 // See your work in a browser by going to "localhost:3000"
 

@@ -88,6 +88,14 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 	chatLoad();
 
 	$scope.logout = function() {
+
+		$http.put('/chatdatabase/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
+			
+    		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
+    	});
+		
+		// $sessionStorage.id = '';
+
 		$location.path('/login');
 	};
 
@@ -167,6 +175,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', 'logg
 app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
 
 	$scope.logIn = function () {	
+
 		if ($scope.users) {	
 			$scope.errorMessagePassword = false;
 			$scope.errorMessageUsername = false;
@@ -193,6 +202,13 @@ app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser
 
 			});
 		};
+		console.log($sessionStorage.id);
+
+		$http.put('/chatdatabase/users/2/' + $sessionStorage.id, $scope.users).then(function(response) {
+    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
+    	});
+
+
 	};
 }]);
 
