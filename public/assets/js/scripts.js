@@ -56,29 +56,28 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 	};	
 }]);
 
-app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
-
-	$scope.messages = [];
-	$scope.sendMessage = function(){
-		if ($scope.conversations) {
-			$scope.conversations.messages.sender = $sessionStorage.username;
-			
-			$http.post('/conversations', $scope.conversations).then(function(response) {
-				console.log('Successfully sent message');
-				$scope.conversations.messages.content = '';
-			});
-		}
-	};
+app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', '$interval', function($scope, $location, $http, loggedInUser, $sessionStorage, $interval){
 
 	// Get all messages in public chat
 	var allMessages = function() {
 		$http.get('/conversations').then(function(response){
-			console.log(response.data);
 			$scope.allMessages = response.data;
 		});
 	}
 
-	allMessages();
+	allMessages(); // To load all messages in the beginning
+
+	$scope.sendMessage = function(){
+		if ($scope.conversations) {
+			$scope.conversations.messages.sender = $sessionStorage.username;
+			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
+			
+			$http.post('/conversations', $scope.conversations).then(function(response) {
+				allMessages(); // To load the message you just sent
+				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
+			});
+		}
+	};
 
 	//Sidebar list all users
 	var chatLoad = function() {
