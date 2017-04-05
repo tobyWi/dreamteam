@@ -277,12 +277,16 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 		{name: 'Zebra', src:'assets/img/av01.png'},
 		{name: 'Worm', src:'assets/img/av03.png'},
 		{name: 'Cool Giraffe', src:'assets/img/av04.png'},
-		{name: 'Ugly Fish', src:'assets/img/av05.png'},
+		{name: 'Weird unicorn', src:'assets/img/av05.png'},
 		{name: 'Fly', src:'assets/img/av06.png'},
-		{name: 'Leopard', src:'assets/img/av07.png'}
+		{name: 'Leopard', src:'assets/img/av07.png'},
+		{name: 'Rico Tequila', src:'assets/img/av08.png'},
+		{name: 'Mr. french fries', src:'assets/img/av09.png'},
+		{name: 'coco crayfish', src:'assets/img/av10.png'},
+		{name: 'Doggy style', src:'assets/img/av11.png'}
     ];
     $scope.users = {};
-    $scope.users.avatar = $scope.avatars[0];
+    $scope.users.avatar = $scope.avatars[10];
 
 	// Can't be able to log in if username is taken or is passwords don't match
 	$scope.users.online = false;

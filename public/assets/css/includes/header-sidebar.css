@@ -20,6 +20,9 @@
 	text-align: center;
 }
 
+.btn-info {
+	margin-right: 10px;
+}
 
 /* Sidebar Styles */
 
@@ -31,16 +34,17 @@
 	box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.8), 0 1px -1px -3px rgba(0, 0, 0, 0.12);
 }
 	#sidebar h2 {
-		text-transform: uppercase;
 		font-size: 10px;
 		font-weight: 500;
+		margin-top: 10px;
+		text-transform: uppercase;
 	}
 
 	#sidebar h2 strong {
+		display: block;
 		font-weight: 700;
 		font-size: 20px;
 		text-transform: none;
-		display: block;
 	}
 
 	#sidebar h4.active {	
@@ -62,15 +66,15 @@
 	}
 
 	#sidebar .copy {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
 		border-top: 1px solid #ddd;
+		bottom: 0;
 		left: 0;
+		padding: 5px;
+		position: absolute;
+		width: 100%;
 	}
 
 	#sidebar img {
-
 		height: 100px;
 		width: auto;
 	}
@@ -130,9 +134,13 @@
 		}
 
 		#sidebar .all-users .mini img {
-			width: 30px;
 			height: 30px;
 		}
+
+			#sidebar .all-users .mini-private img {
+				height: 30px;
+				margin-right: 10px;
+			}
 
 		#sidebar .all-users .mini span {
 			line-height: 40px;
