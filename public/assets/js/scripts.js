@@ -86,9 +86,9 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	// Needs to update frequently, is you update when you send a message, 
 	// it doesn't update when someone else send a message
-	//$interval(function(){
-	//	allMessages();
-	//}, 500);
+	$interval(function(){
+		allMessages();
+	}, 500);
 
 	//Sidebar list all users
 	var chatLoad = function() {
