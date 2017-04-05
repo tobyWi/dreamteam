@@ -1,12 +1,15 @@
 /* Header Styles */
 
 #header {
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-              	0 1px 5px 0 rgba(0, 0, 0, 0.12),
-              	0 3px 1px -2px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+                  0 1px 18px 0 rgba(0, 0, 0, 0.12),
+                  0 3px 5px -1px rgba(0, 0, 0, 0.4);
 	background-color: #B0BEC5;;
 	line-height: 100px;
 	color: white;
+	position: fixed;
+	width: 100%;
+	z-index: 98;
 }
 
 	#header h1 {
@@ -27,11 +30,13 @@
 /* Sidebar Styles */
 
 #sidebar {	
-	min-height: 580px;
 	background-color: #ECEFF1;
 	color: black;
-	position: relative;
-	box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.8), 0 1px -1px -3px rgba(0, 0, 0, 0.12);
+	position: fixed;
+	height: 500px;
+	top: 85px;
+	z-index: 99;
+	width: 240px;
 }
 	#sidebar h2 {
 		font-size: 10px;
@@ -66,12 +71,12 @@
 	}
 
 	#sidebar .copy {
-		border-top: 1px solid #ddd;
+		position: fixed;
 		bottom: 0;
+		width: 200px;
+		border-top: 1px solid #ddd;
 		left: 0;
 		padding: 5px;
-		position: absolute;
-		width: 100%;
 	}
 
 	#sidebar img {
@@ -105,11 +110,12 @@
 			display: none;
 		}
 
-		#sidebar .all-users li:hover img{	
-			box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
-                  0  6px 30px 5px rgba(0, 0, 0, 0.12),
-                  0  8px 10px -5px rgba(0, 0, 0, 0.4);
+		.send-message-field {
+			position: fixed;
+			bottom: 0;
+			left: 250px;
 		}
+
 		#sidebar .all-users li:hover .username{	
 			font-weight: 700;
 		}
