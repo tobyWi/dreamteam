@@ -1,5 +1,6 @@
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage']);
 
+//------------------------------------------------ CONFIG -------------------------------------------//
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/login");
 	$stateProvider.state( {
@@ -35,12 +36,12 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 	});
 }]);
 
-app.value('loggedInUser', {id: '', username: '', avatar: ''});
-
+//------------------------------------------------ MAINCONTROLLER -------------------------------------------//
 app.controller('mainController', ['$scope', '$location', function($scope, $location){
 	$scope.currentPath = $location.path();
 }]);
 
+//------------------------------------------------ SIDEBARCONTROLLER -------------------------------------------//
 app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
@@ -56,10 +57,8 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 	};	
 }]);
 
-
-	
-
-app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', '$interval', function($scope, $location, $http, loggedInUser, $sessionStorage, $interval){
+//------------------------------------------------ CHATCONTROLLER -------------------------------------------//
+app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', function($scope, $location, $http, $sessionStorage, $interval){
 
 	$scope.isUserSender = function(sender) {
 		return sender === $sessionStorage.username;
@@ -71,7 +70,6 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 			$scope.allMessages = response.data;
 		});
 	}
-
 	allMessages(); // To load all messages in the beginning
 
 
@@ -86,7 +84,8 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 		}
 	};
 
-	// Needs to update frequently, is you update when you send a message, it doesnt update when someone else send a message
+	// Needs to update frequently, is you update when you send a message, 
+	// it doesn't update when someone else send a message
 	$interval(function(){
 		allMessages();
 	}, 500);
@@ -116,7 +115,8 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 	}
 }]);
 
-app.controller('adminuserlistController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
+//------------------------------------------------ADMINUSERCONTROLLER -------------------------------------------//
+app.controller('adminuserlistController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 	
 	var refreshList = function() {
     	$http.get('/users').then(function(response) {
@@ -129,11 +129,8 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', 'logg
 	refreshList();
 
 	$scope.removeUser = function(id) {
-		
 		var modal = document.getElementById('delete-modal');
-
 		modal.style.display = "block";
-
 		window.onclick = function(event) {
 		    if (event.target == modal) {
 		        modal.style.display = "none";
@@ -149,15 +146,11 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', 'logg
 
 	$scope.modalDelete = function() {
 		var id = $scope.id;
-		
-
 		$http.delete('/users/' + id).then(function(reponse) {
 			$scope.users = reponse.data;
 			refreshList();
 		});
-
 		var modal = document.getElementById('delete-modal');
-
 		modal.style.display = "none";
 	};
 
@@ -166,28 +159,22 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', 'logg
 		modal.style.display = "none";
 	}
 
-
-
 	// BUTTONS
-
 	$scope.registerBack = function() {
 		$location.path('/register');
 	};
-
 	$scope.loginBack = function() {
 		$location.path('/login');
 	};
-
 	$scope.chatBack = function() {
 		$location.path('/chat');	
 	}
 }]);
 
-
-app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser', '$sessionStorage', function($scope, $location, $http, loggedInUser, $sessionStorage){
+//------------------------------------------------ LOGINCONTROLLER -------------------------------------------//
+app.controller('loginController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 
 	$scope.logIn = function () {	
-
 		if ($scope.users) {	
 			$scope.errorMessagePassword = false;
 			$scope.errorMessageUsername = false;
@@ -201,11 +188,11 @@ app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser
 							$sessionStorage.id = response.data[i]._id;
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
-							return loggedInUser;
+							return;
 						} else {
 							$scope.errorMessageUsername = false;
 							$scope.errorMessagePassword = true;
-							break;
+							return;
 						}
 					} else {
 						$scope.errorMessageUsername = true;
@@ -214,16 +201,15 @@ app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser
 
 			});
 		};
-		console.log($sessionStorage.id);
 
 		$http.put('/chatdatabase/users/2/' + $sessionStorage.id, $scope.users).then(function(response) {
     		console.log('Login: ' + response.data.username + ' ' + response.data.online);
     	});
-
-
 	};
 }]);
 
+
+//------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//
 app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
 	//Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
