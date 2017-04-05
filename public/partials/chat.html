@@ -60,6 +60,12 @@
 											<span>{{ user.username }}</span>
 										</a>
 										<i> (private chat)</i>
+										<span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modifying-->
+											<i class="fa fa-circle"></i>
+										</span>
+										<span class="send-message"> <!-- ng-click = send message to this person -->
+											<i class="fa fa-comment"></i>
+										</span>
 									</div>
 								</li>
 							</ul>
