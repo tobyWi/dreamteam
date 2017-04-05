@@ -57,7 +57,7 @@ app.get('/chatdatabase/users/:id', function(req, res) {
 // login
 
 
-app.put('/chatdatabase/users/2/:id', function(req, res) {
+app.put('/chatdatabase/users/:id', function(req, res) {
 	var id = req.params.id;
 
 	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},

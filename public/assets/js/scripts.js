@@ -102,8 +102,7 @@ app.controller('chatController', ['$scope', '$location', '$http', 'loggedInUser'
 	$scope.logout = function() {
 
 		$http.put('/chatdatabase/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
-			
-    		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
+			console.log('Logout: ' + response.data.username + ' ' + response.data.online);
     	});
 		
 		// $sessionStorage.id = '';
@@ -216,7 +215,7 @@ app.controller('loginController', ['$scope', '$location', '$http', 'loggedInUser
 		};
 		console.log($sessionStorage.id);
 
-		$http.put('/chatdatabase/users/2/' + $sessionStorage.id, $scope.users).then(function(response) {
+		$http.put('/chatdatabase/users/' + $sessionStorage.id, $scope.users).then(function(response) {
     		console.log('Login: ' + response.data.username + ' ' + response.data.online);
     	});
 
