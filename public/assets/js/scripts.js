@@ -99,14 +99,10 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	chatLoad();
 
 	$scope.logout = function() {
-
 		$http.put('/chatdatabase/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
-			
     		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
+    		//$sessionStorage.$reset();
     	});
-		
-		// $sessionStorage.id = '';
-
 		$location.path('/login');
 	};
 
@@ -207,7 +203,6 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
     	});
 	};
 }]);
-
 
 //------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//
 app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){

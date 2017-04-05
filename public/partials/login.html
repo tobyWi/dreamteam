@@ -8,20 +8,20 @@
 				<div class="col-xs-12">
 					<form name="login" novalidate>
 						<label for="user">Username</label>
-						<input ng-model="users.username" name="user" required ng-change="errorMessageUsername=false" />
+						<input ng-model="users.username" name="user" required ng-change="errorMessageUsername=false"  ng-keypress="($event.charCode==13)?logIn():return" />
 						<p ng-show="errorMessageUsername" class="errorMessage">The username does not exist</p>
 						<br />
 						<label for="password">Password</label>
-						<input ng-model="users.password" required type="password" name="password" ng-change="errorMessagePassword=false" />
+						<input ng-model="users.password" required type="password" name="password" ng-change="errorMessagePassword=false"  ng-keypress="($event.charCode==13)?logIn():return" />
 						<p ng-show="errorMessagePassword" class="errorMessage">Invalid password</p>
 						<br />
 						<a ui-sref="register">
 							<button type="button" class="btn btn-success">
-								Registrera dig
+								Register
 							</button>
 						</a>
 						<button ng-click="logIn()" type="button" class="btn btn-primary">
-							Logga in
+							Log In
 						</button>				
 					</form>
 				</div>
