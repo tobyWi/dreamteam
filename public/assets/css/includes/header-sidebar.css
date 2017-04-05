@@ -36,6 +36,7 @@
 	height: 500px;
 	top: 85px;
 	z-index: 99;
+	width: 240px;
 }
 	#sidebar h2 {
 		font-size: 10px;
