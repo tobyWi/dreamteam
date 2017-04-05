@@ -43,6 +43,10 @@
 	height: 400px;
 	overflow-y: scroll;
 }
+.all-users {
+	overflow-y: scroll;
+	height:500px;
+}
 .send-message-field {
 	
 }

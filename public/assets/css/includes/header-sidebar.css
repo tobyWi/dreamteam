@@ -182,3 +182,12 @@ span.red {
 #sidebar .all-users .group-users {
 	display: none;
 }
+.sidebarfooter {
+	min-width:176px;
+	height:30px;
+	background-color: #ECEFF1;
+	color: black;
+	position: relative;
+	box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.8), 0 1px -1px -3px rgba(0, 0, 0, 0.12);
+}
+
