@@ -12,7 +12,15 @@
 						<p ng-show="errorMessageUsername" class="errorMessage">The username does not exist</p>
 						<br />
 						<label for="password">Password</label>
-						<input ng-model="users.password" required type="password" name="password" ng-change="errorMessagePassword=false"  ng-keypress="($event.charCode==13)?logIn():return" />
+						<input 
+							ng-model="users.password" 
+							required 
+							ng-attr-type="{{ showPassword ? 'text' : 'password' }}" 
+							name="password" 
+							ng-change="errorMessagePassword=false" 
+							ng-keypress="($event.charCode==13)?logIn():return" />
+						<i class="fa fa-eye eye" ng-click="showPassword = false" ng-show="showPassword"></i>
+						<i class="fa fa-eye-slash eye" ng-click="showPassword = true" ng-show="!showPassword"></i>
 						<p ng-show="errorMessagePassword" class="errorMessage">Invalid password</p>
 						<br />
 						<a ui-sref="register">

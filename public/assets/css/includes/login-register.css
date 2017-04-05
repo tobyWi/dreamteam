@@ -5,6 +5,19 @@
 	color: black;
 }
 
+.eye {
+	position: absolute;
+	font-size: 20px;
+}
+
+.fa-eye-slash {
+	color: #444;
+}
+
+.eye:hover {
+	cursor: pointer;
+}
+
 .block {
 	position: absolute;
 	top: 50%;
