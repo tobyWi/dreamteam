@@ -23,6 +23,9 @@
 	text-align: center;
 }
 
+.btn-info {
+	margin-right: 10px;
+}
 
 /* Sidebar Styles */
 
@@ -35,16 +38,17 @@
 	z-index: 99;
 }
 	#sidebar h2 {
-		text-transform: uppercase;
 		font-size: 10px;
 		font-weight: 500;
+		margin-top: 10px;
+		text-transform: uppercase;
 	}
 
 	#sidebar h2 strong {
+		display: block;
 		font-weight: 700;
 		font-size: 20px;
 		text-transform: none;
-		display: block;
 	}
 
 	#sidebar h4.active {	
@@ -71,10 +75,10 @@
 		width: 200px;
 		border-top: 1px solid #ddd;
 		left: 0;
+		padding: 5px;
 	}
 
 	#sidebar img {
-
 		height: 100px;
 		width: auto;
 	}
@@ -135,9 +139,13 @@
 		}
 
 		#sidebar .all-users .mini img {
-			width: 30px;
 			height: 30px;
 		}
+
+			#sidebar .all-users .mini-private img {
+				height: 30px;
+				margin-right: 10px;
+			}
 
 		#sidebar .all-users .mini span {
 			line-height: 40px;
