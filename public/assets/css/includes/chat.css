@@ -1,9 +1,5 @@
 /*Chat styles*/
 
-.content {
-	margin-top: 20px;
-}
-
 .message-box {
 	word-wrap: break-word;
 	background-color: white;
@@ -26,7 +22,7 @@
 
 .message-box img {
 	height: 40px;
-	width: 30px;
+	margin-right: 10px;
 }
 .image-float-right {
 	float: right;	
@@ -37,25 +33,29 @@
 
 .content {
 	color: black;
+	position: absolute;
+	left: 250px;
+	top: 100px;
+	width: 100%;
 }
 
 .chatarea {
-	height: 500px;
+	height: 400px;
 	overflow-y: scroll;
 }
 .send-message-field {
 	
 }
 	.send-message-field button {
-		float: right;
-		margin-left: 5px;
-		position: absolute;
-		bottom: 0;
 		height: 80px;
 		width: 100px;
+		position: fixed;
+		bottom: 0;
+		left: 750px;
 	}
 	.send-message-field textarea {
-		float: left;
+		position: fixed;
+		bottom: 0;
 		border-radius: 5px;
 		resize: none;
 		width: 450px;

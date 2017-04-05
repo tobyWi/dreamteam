@@ -4,10 +4,8 @@
 			<div class="col-xs-3">
 				<h1>CHAT</h1>
 			</div>
-			<div class="col-xs-6 aligncenter">
+			<div class="col-xs-9 text-right">
 				<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
-			</div>
-			<div class="col-xs-3 text-right">
 				<button type="button" ng-click="logout()" class="btn btn-danger">Log Out</button>
 			</div>
 		</div>
@@ -56,12 +54,18 @@
 						<div ng-show="isSet(2)">
 							<ul class="all-users">
 								<li ng-repeat="user in userList">
-									<div class="mini">
+									<div class="mini-private">
 										<img src="{{ user.avatar.src }}">
 										<a ui-sref="chat.private">
 											<span>{{ user.username }}</span>
 										</a>
 										<i> (private chat)</i>
+										<span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modifying-->
+											<i class="fa fa-circle"></i>
+										</span>
+										<span class="send-message"> <!-- ng-click = send message to this person -->
+											<i class="fa fa-comment"></i>
+										</span>
 									</div>
 								</li>
 							</ul>
