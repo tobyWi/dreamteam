@@ -37,7 +37,7 @@
 						</div>
 						<div ng-show="isSet(1)">
 							<ul class="all-users">
-								<li ng-repeat="user in userList">
+								<li ng-repeat="user in userList | orderBy : '-online'">
 									<div class="mini">
 										<img src="{{ user.avatar.src }}"> 
 										<span class="username">{{ user.username }}</span><!-- 
