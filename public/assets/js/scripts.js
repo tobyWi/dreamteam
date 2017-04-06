@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage', 'luegg.directives']);
 
 //------------------------------------------------ CONFIG -------------------------------------------//
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -37,11 +37,13 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 }]);
 
 //------------------------------------------------ MAINCONTROLLER -------------------------------------------//
+
 app.controller('mainController', ['$scope', '$location', function($scope, $location){
 	$scope.currentPath = $location.path();
 }]);
 
 //------------------------------------------------ SIDEBARCONTROLLER -------------------------------------------//
+
 app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
@@ -58,6 +60,7 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 }]);
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
+
 app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', function($scope, $location, $http, $sessionStorage, $interval){
 
 	$scope.isUserSender = function(sender) {
@@ -123,6 +126,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 }]);
 
 //------------------------------------------------ADMINUSERCONTROLLER -------------------------------------------//
+
 app.controller('adminuserlistController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 	
 	var refreshList = function() {
@@ -179,6 +183,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 }]);
 
 //------------------------------------------------ LOGINCONTROLLER -------------------------------------------//
+
 app.controller('loginController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 
 	$scope.logIn = function () {
@@ -216,6 +221,7 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 }]);
 
 //------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//
+
 app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
 	//Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
