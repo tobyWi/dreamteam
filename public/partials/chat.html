@@ -5,7 +5,9 @@
 				<h1>CHAT</h1>
 			</div>
 			<div class="col-xs-9 text-right">
-				<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
+				<span ng-if="username === 'admin'">
+					<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
+				</span>
 				<button type="button" ng-click="logout()" class="btn btn-danger">Log Out</button>
 			</div>
 		</div>
@@ -35,7 +37,7 @@
 								</div>
 							</div>
 						</div>
-						<div ng-show="isSet(1)">
+						<div ng-show="isSet(1)" style="position: relative;">
 							<ul class="all-users">
 								<li ng-repeat="user in userList">
 									<div class="mini">
@@ -51,7 +53,7 @@
 								</li>
 							</ul>
 						</div>
-						<div ng-show="isSet(2)">
+						<div ng-show="isSet(2)" style="position: relative;">
 							<ul class="all-users">
 								<li ng-repeat="user in userList">
 									<div class="mini-private">
