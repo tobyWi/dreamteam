@@ -82,6 +82,14 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
+
+		var chat = document.getElementById('chat-area');
+		console.log(chat);
+
+
+
+		// chat.scrollBy(0,100);
+
 	};
 
 	// Needs to update frequently, if you update when you send a message, 
@@ -103,7 +111,9 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
     		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
     	});
-
+		delete $sessionStorage.id;
+		delete $sessionStorage.username;
+		delete $sessionStorage.avatar;
 		$location.path('/login');
 	};
 
@@ -171,7 +181,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 //------------------------------------------------ LOGINCONTROLLER -------------------------------------------//
 app.controller('loginController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 
-	$scope.logIn = function () {	
+	$scope.logIn = function () {
 		if ($scope.users) {	
 			$scope.errorMessagePassword = false;
 			$scope.errorMessageUsername = false;
@@ -185,7 +195,11 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 							$sessionStorage.id = response.data[i]._id;
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
-							return;
+							$http.put('/chatdatabase/users/' + $sessionStorage.id, $scope.users).then(function(response) {
+								console.log($sessionStorage.id);
+					    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
+					    	});
+							return;   // Here shit happens
 						} else {
 							$scope.errorMessageUsername = false;
 							$scope.errorMessagePassword = true;
@@ -198,10 +212,6 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 
 			});
 		};
-
-		$http.put('/chatdatabase/users/' + $sessionStorage.id, $scope.users).then(function(response) {
-    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
-    	});
 	};
 }]);
 
@@ -312,5 +322,7 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	}
 
 }]);
+
+
 
 

@@ -48,7 +48,6 @@ app.delete('/users/:id', function(req, res) {
 
 app.get('/chatdatabase/users/:id', function(req, res) {
 	var id = req.params.id;
-	console.log(id);
 	db.users.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
 		res.json(doc);
 	});
@@ -59,7 +58,7 @@ app.get('/chatdatabase/users/:id', function(req, res) {
 
 app.put('/chatdatabase/users/:id', function(req, res) {
 	var id = req.params.id;
-
+	console.log("test");
 	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
 		update: {$set: { online: true }},
 		new: true}, function (err, doc) {
