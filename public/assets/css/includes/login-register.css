@@ -1,6 +1,11 @@
 
 /* LOGIN */
 
+.fadeIn {
+    -webkit-animation-duration: 3s;
+	-webkit-animation-iteration-count: 1; 
+}
+
 .login {
 	color: black;
 }

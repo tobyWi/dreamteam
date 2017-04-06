@@ -1,5 +1,23 @@
 /*Chat styles*/
 
+.fadeInDown {
+    -webkit-animation-duration: 3s;
+	-webkit-animation-delay: 1s;
+	-webkit-animation-iteration-count: 1; 
+}
+
+.rotateIn {
+    -webkit-animation-duration: 3s;
+	-webkit-animation-delay: 1s;
+	-webkit-animation-iteration-count: 1; 	
+}
+
+.hinge {
+    -webkit-animation-duration: 3s;
+	-webkit-animation-delay: 3s;
+	-webkit-animation-iteration-count: 1;
+}
+
 .message-box {
 	word-wrap: break-word;
 	background-color: white;

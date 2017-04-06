@@ -117,7 +117,34 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
-		$location.path('/login');
+		
+		
+		// app.directive('LogoutAnimate', function() {
+		// 	return {
+		// 		restrict: 'A',
+		// 		scope: true,
+
+		// 	}
+		// });
+
+		// $scope.logout = function()
+
+		// !function($){
+
+		// 	$("#logout2").click(function(){
+		// 		$(this).addCLass("animated hinge");
+		// 	});
+
+		// }(jQuery);
+
+		// $interval(function(){
+			$location.path('/login');
+		// }, 2000);
+			
+		
+		
+
+		
 	};
 
 	$scope.adminUserList = function() {
@@ -328,7 +355,3 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	}
 
 }]);
-
-
-
-

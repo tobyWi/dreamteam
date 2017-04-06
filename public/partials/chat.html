@@ -8,7 +8,7 @@
 				<span ng-if="username === 'admin'">
 					<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
 				</span>
-				<button type="button" ng-click="logout()" class="btn btn-danger">Log Out</button>
+				<button type="button" ng-click="logout()" class="btn btn-danger" id="logout">Log Out{{online}}</button>
 			</div>
 		</div>
 	</div>
@@ -40,7 +40,7 @@
 						<div ng-show="isSet(1)" style="position: relative;">
 							<ul class="all-users">
 								<li ng-repeat="user in userList | orderBy : '-online'">
-									<div class="mini">
+									<div class="mini animated bounceInLeft">
 										<img src="{{ user.avatar.src }}"> 
 										<span class="username">{{ user.username }}</span><!-- 
 										 <span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> -->
@@ -59,7 +59,7 @@
 						<div ng-show="isSet(2)" style="position: relative;">
 							<ul class="all-users">
 								<li ng-repeat="user in userList">
-									<div class="mini-private">
+									<div class="mini-private animated bounceInLeft">
 										<img src="{{ user.avatar.src }}">
 										<a ui-sref="chat.private">
 											<span>{{ user.username }}</span>
