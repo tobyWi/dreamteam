@@ -110,7 +110,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	chatLoad();
 
 	$scope.logout = function() {
-		$http.put('/chatdatabase/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
+		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
 
     		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
     	});
@@ -200,7 +200,7 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 							$sessionStorage.id = response.data[i]._id;
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
-							$http.put('/chatdatabase/users/' + $sessionStorage.id, $scope.users).then(function(response) {
+							$http.put('/users/' + $sessionStorage.id, $scope.users).then(function(response) {
 								console.log($sessionStorage.id);
 					    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
 					    	});
