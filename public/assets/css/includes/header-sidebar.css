@@ -33,7 +33,7 @@
 	background-color: #ECEFF1;
 	color: black;
 	position: fixed;
-	height: 500px;
+	height: 100%;
 	top: 85px;
 	z-index: 99;
 	width: 240px;
@@ -95,8 +95,9 @@
 	}
 
 	#sidebar .all-users {
-		margin-top: 12px;
+		height: 270px;
 		text-align: left;
+		overflow-y: scroll; 
 	}
 
 	#sidebar .all-users li {
