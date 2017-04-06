@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage', 'luegg.directives']);
 
 //------------------------------------------------ CONFIG -------------------------------------------//
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -37,11 +37,13 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 }]);
 
 //------------------------------------------------ MAINCONTROLLER -------------------------------------------//
+
 app.controller('mainController', ['$scope', '$location', function($scope, $location){
 	$scope.currentPath = $location.path();
 }]);
 
 //------------------------------------------------ SIDEBARCONTROLLER -------------------------------------------//
+
 app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
@@ -58,6 +60,7 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 }]);
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
+
 app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', function($scope, $location, $http, $sessionStorage, $interval){
 
 	$scope.isUserSender = function(sender) {
@@ -82,9 +85,17 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
+
+		var chat = document.getElementById('chat-area');
+		console.log(chat);
+
+
+
+		// chat.scrollBy(0,100);
+
 	};
 
-	// Needs to update frequently, is you update when you send a message, 
+	// Needs to update frequently, if you update when you send a message, 
 	// it doesn't update when someone else send a message
 	$interval(function(){
 		allMessages();
@@ -99,10 +110,13 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	chatLoad();
 
 	$scope.logout = function() {
-		$http.put('/chatdatabase/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
+		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
+
     		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
-    		//$sessionStorage.$reset();
     	});
+		delete $sessionStorage.id;
+		delete $sessionStorage.username;
+		delete $sessionStorage.avatar;
 		$location.path('/login');
 	};
 
@@ -112,6 +126,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 }]);
 
 //------------------------------------------------ADMINUSERCONTROLLER -------------------------------------------//
+
 app.controller('adminuserlistController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 	
 	var refreshList = function() {
@@ -168,9 +183,10 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 }]);
 
 //------------------------------------------------ LOGINCONTROLLER -------------------------------------------//
+
 app.controller('loginController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 
-	$scope.logIn = function () {	
+	$scope.logIn = function () {
 		if ($scope.users) {	
 			$scope.errorMessagePassword = false;
 			$scope.errorMessageUsername = false;
@@ -184,7 +200,11 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 							$sessionStorage.id = response.data[i]._id;
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
-							return;
+							$http.put('/users/' + $sessionStorage.id, $scope.users).then(function(response) {
+								console.log($sessionStorage.id);
+					    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
+					    	});
+							return;   // Here shit happens
 						} else {
 							$scope.errorMessageUsername = false;
 							$scope.errorMessagePassword = true;
@@ -197,14 +217,11 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 
 			});
 		};
-
-		$http.put('/chatdatabase/users/2/' + $sessionStorage.id, $scope.users).then(function(response) {
-    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
-    	});
 	};
 }]);
 
 //------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//
+
 app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
 	//Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
@@ -311,5 +328,7 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 	}
 
 }]);
+
+
 
 

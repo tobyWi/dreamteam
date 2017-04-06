@@ -46,9 +46,8 @@ app.delete('/users/:id', function(req, res) {
 // --------------------------------- OFFLINE / ONLINE -------------------------------------//
 
 
-app.get('/chatdatabase/users/:id', function(req, res) {
+app.get('/users/:id', function(req, res) {
 	var id = req.params.id;
-	console.log(id);
 	db.users.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
 		res.json(doc);
 	});
@@ -57,9 +56,9 @@ app.get('/chatdatabase/users/:id', function(req, res) {
 // login
 
 
-app.put('/chatdatabase/users/2/:id', function(req, res) {
+app.put('/users/:id', function(req, res) {
 	var id = req.params.id;
-
+	console.log("test");
 	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
 		update: {$set: { online: true }},
 		new: true}, function (err, doc) {
@@ -67,7 +66,7 @@ app.put('/chatdatabase/users/2/:id', function(req, res) {
 	});
 });
 
-app.post('/chatdatabase/users/:id', function(req,res) {
+app.post('/users/:id', function(req,res) {
 	console.log(req.body);
 	db.users.insert(req.body, function(req, res) {
 		res.json(doc);
@@ -76,7 +75,7 @@ app.post('/chatdatabase/users/:id', function(req,res) {
 
 // logout
 
-app.put('/chatdatabase/users/1/:id', function(req, res) {
+app.put('/users/1/:id', function(req, res) {
 	var id = req.params.id;
 
 	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},

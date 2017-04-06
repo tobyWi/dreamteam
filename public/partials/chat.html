@@ -42,8 +42,11 @@
 								<li ng-repeat="user in userList">
 									<div class="mini">
 										<img src="{{ user.avatar.src }}"> 
-										<span class="username">{{ user.username }}</span>
-										<span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modifying-->
+										<span class="username">{{ user.username }}</span><!-- 
+										 <span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> -->
+
+										 <span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
+								
 											<i class="fa fa-circle"></i>
 										</span>
 										<span class="send-message"> <!-- ng-click = send message to this person -->
@@ -62,6 +65,13 @@
 											<span>{{ user.username }}</span>
 										</a>
 										<i> (private chat)</i>
+										<span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modifying-->
+										<!-- <span class="status" ng-class="{'green': user.online, 'red': !user.online}"></span>
+											<i class="fa fa-circle"></i>
+										</span> -->
+										<span class="send-message"> <!-- ng-click = send message to this person -->
+											<i class="fa fa-comment"></i>
+										</span>
 									</div>
 								</li>
 							</ul>
