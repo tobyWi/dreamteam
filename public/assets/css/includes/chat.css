@@ -6,12 +6,6 @@
 	-webkit-animation-iteration-count: 1; 
 }
 
-.rotateIn {
-    -webkit-animation-duration: 3s;
-	-webkit-animation-delay: 1s;
-	-webkit-animation-iteration-count: 1; 	
-}
-
 .hinge {
     -webkit-animation-duration: 3s;
 	-webkit-animation-delay: 3s;
@@ -34,7 +28,7 @@
 }
 
 .message-box.marginleft {
-	margin-left: 15px;
+	margin-left: 30px;
 }
 
 
@@ -58,7 +52,7 @@
 }
 
 .chatarea {
-	height: 400px;
+	height: 600px;
 	overflow-y: scroll;
 }
 .all-users {
@@ -72,12 +66,12 @@
 		height: 80px;
 		width: 100px;
 		position: fixed;
-		bottom: 0;
+		bottom: 10px;
 		left: 750px;
 	}
 	.send-message-field textarea {
 		position: fixed;
-		bottom: 0;
+		bottom: 10px;
 		border-radius: 5px;
 		resize: none;
 		width: 450px;

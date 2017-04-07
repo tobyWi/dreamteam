@@ -32,6 +32,9 @@
 #sidebar {	
 	background-color: #ECEFF1;
 	color: black;
+	box-shadow: 1px 6px 10px 0 rgba(0, 0, 0, 0.14),
+                  1px 1px 18px 0 rgba(0, 0, 0, 0.12),
+                  1px 1px 3px -1px rgba(0, 0, 0, 0.4);
 	position: fixed;
 	height: 100%;
 	top: 100px;
@@ -83,7 +86,7 @@
 	}
 
 	#sidebar img {
-		height: 100px;
+		height: 80px;
 		width: auto;
 	}
 
@@ -103,7 +106,7 @@
 		overflow-y: scroll; 
 	}
 
-	#sidebar .all-users li {
+	#sidebar .all-users td {
 		line-height: 40px;
 		border: 1px solid #eee;
 		height: 40px;
@@ -120,21 +123,22 @@
 			left: 250px;
 		}
 
-		#sidebar .all-users li:hover .username{	
+		#sidebar .all-users td:hover .username{	
 			font-weight: 700;
+			cursor: pointer;
 		}
-		#sidebar .all-users li:hover .status{
+		#sidebar .all-users td:hover .status{
 			display: none;
 		}
 
-		#sidebar .all-users li:hover .send-message{
+		#sidebar .all-users td:hover .send-message{
 			display: block;
 			color: black;
 			margin-right: 20px;
 			font-size: 16px;
 		}
 
-		#sidebar .all-users li:last-of-type {
+		#sidebar .all-users td:last-of-type {
 			margin-bottom: 20px;
 		}
 

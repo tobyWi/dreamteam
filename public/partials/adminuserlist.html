@@ -18,7 +18,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="users in userList">
+							<tr ng-repeat="users in userList | orderBy : 'username'">
 								<td>{{users.username}}</td>
 								<td>{{users.password}}</td>
 								<td><img class="table-avatar" src="{{users.avatar.src}}"></td>

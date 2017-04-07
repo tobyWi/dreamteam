@@ -17,6 +17,15 @@ gulp.task('server', function() {
 	gulp.watch('server.js', function(file) {
 		server.start.apply(server);
 	});
+
+	//  AUTO REFRESH PAGE.
+
+	gulp.watch(['public/**/*.css', 'public/**/*.html', 'public/**/*.js'], function(file) {
+		server.notify.apply(server, [file]);
+	});
 });
+
+
+// FINAL
 
 gulp.task('default', ['jshint', 'server']);
