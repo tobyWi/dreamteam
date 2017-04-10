@@ -51,6 +51,14 @@
 	width: 100%;
 }
 
+p.messagedate {
+	font-size: 10px;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	margin: 2px;
+}
+
 .chatarea {
 	height: 600px;
 	overflow-y: scroll;
