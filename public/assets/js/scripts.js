@@ -79,7 +79,8 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	$scope.sendMessage = function(){
 		if ($scope.conversations) {
 			$scope.conversations.messages.sender = $sessionStorage.username;
-			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
+			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
+			$scope.conversations.messages.date = new Date();
 			
 			$http.post('/conversations', $scope.conversations).then(function(response) {
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
