@@ -86,13 +86,6 @@ app.put('/users/1/:id', function(req, res) {
 });
 
 
-// See your work in a browser by going to "localhost:3000"
-
-app.listen(3000, function(){
-	console.log("Chat server has started");
-});
-
-
 // ------------------------------------ MESSAGES -------------------------------------//
 
 // Checks & displays any messages sent to the server/database.
@@ -111,4 +104,19 @@ app.post('/conversations/', function(req, res) {
 	db.conversations.insert(req.body, function(err, doc) {
 		res.json(doc);
 	});
+});
+
+app.get('/users/private/:id', function(req, res) {
+	var id = req.params.id;
+	console.log(id);
+	db.users.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
+		res.json(doc);
+	});
+});
+
+
+// See your work in a browser by going to "localhost:3000"
+
+app.listen(3000, function(){
+	console.log("Chat server has started");
 });

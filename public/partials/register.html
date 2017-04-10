@@ -76,17 +76,19 @@
 							</button>
 							<button class="btn btn-primary inline-block" ui-sref="login">Go back to login</button>
 
-							<div id="login-modal" class="modal">								
-								<div class="modal-body">
-								   	<h3>Congratulations {{users.username}}!</h3>
-								    <p>You are now a member of Doggy Style!</p>
-								    <img src="{{users.avatar.src}}" /><br />
-								    <button class="btn btn-success modalButton" ng-click="modalLogin()">Log in!</button>
-								</div>
-							</div>
+							
 						</div>
 					</form> 
 				</div>
+			</div>
+		</div>
+
+		<div id="login-modal" class="modal">								
+			<div class="modal-body aligncenter">
+			   	<h3>Congratulations {{users.username}}!</h3>
+			    <p>You are now a member of Doggy Style!</p>
+			    <img src="{{users.avatar.src}}" /><br />
+			    <button class="btn btn-success modalButton" ng-click="modalLogin()">Log in!</button>
 			</div>
 		</div>
 	</div>

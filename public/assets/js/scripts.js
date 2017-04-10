@@ -109,47 +109,51 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	}
 	chatLoad();
 
+	// PRIVATE CHAT COLLECT DATA
+
+	$scope.toPrivate = function(id) {
+
+		$scope.id = id;
+		console.log($scope.id);
+
+		$http.get('/users/private/' + id).then(function(response) {
+			$scope.privateUserList = response.data;
+		});
+
+
+
+		// $http.get('/users/private/' + id).then(function(response) {
+		// 	for ( var i = 0; i < response.data.length; i++ ) {
+		// 		if ( $scope.id === response.data[i]._id ) {
+		// 			$scope.usersPrivateName = response.data[i].username;
+		// 			$scope.usersPrivateId = response.data[i]._id;
+		// 			console.log($scope.usersPrivateName);
+		// 			console.log($scope.usersPrivateId);
+		// 		}
+		// 	}
+		// });
+	}
+
+
+
+	// LOGOUT
+
 	$scope.logout = function() {
 		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
-
-    		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
+			console.log('Logout: ' + response.data.username + ' ' + response.data.online);
     	});
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
-		
-		
-		// app.directive('LogoutAnimate', function() {
-		// 	return {
-		// 		restrict: 'A',
-		// 		scope: true,
 
-		// 	}
-		// });
-
-		// $scope.logout = function()
-
-		// !function($){
-
-		// 	$("#logout2").click(function(){
-		// 		$(this).addCLass("animated hinge");
-		// 	});
-
-		// }(jQuery);
-
-		// $interval(function(){
-			$location.path('/login');
-		// }, 2000);
-			
-		
-		
-
+		$location.path('/login');
 		
 	};
 
 	$scope.adminUserList = function() {
 		$location.path('/adminuserlist');
 	}
+
 }]);
 
 //------------------------------------------------ADMINUSERCONTROLLER -------------------------------------------//

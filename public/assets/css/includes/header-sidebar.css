@@ -115,6 +115,7 @@
 		#sidebar .all-users .send-message {
 			float: right;
 			display: none;
+			cursor: pointer;
 		}
 
 		.send-message-field {
