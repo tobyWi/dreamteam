@@ -62,9 +62,43 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
 
 app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', function($scope, $location, $http, $sessionStorage, $interval){
+	$scope.username = $sessionStorage.username;
+	$scope.avatar = $sessionStorage.avatar;
+	$scope.password = $sessionStorage.password;
+
+	$scope.unregisterNow = false;
+	$scope.unregisterAccount = function(){
+		$scope.unregisterNow = !$scope.unregisterNow;
+	}
+	$scope.edit = false;
+	$scope.editProfile = function(){
+		$scope.edit = !$scope.edit;
+	}
+	$scope.changePassword = false;
+	$scope.editPassword = function(){
+		$scope.changePassword = !$scope.changePassword;
+	}
+	$scope.changeAvatar = false;
+	$scope.editAvatar = function(){
+		$scope.changeAvatar = !$scope.changeAvatar;
+	}
 
 	$scope.isUserSender = function(sender) {
 		return sender === $sessionStorage.username;
+	}
+
+	$scope.changeYourPassword = function(username){
+		/*
+		$http.get('/users').then(function(res){
+			for ( i = 0; i < res.data.length; i++ ) {
+				if ( username === res.data[i].username ) {
+					$http.put('/users/3/' + username, $scope.newPassword).then(function(response) {
+						console.log(response);
+    				});
+				}
+			}
+		});
+		*/
 	}
 
 	// Get all messages in public chat
@@ -75,24 +109,16 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	}
 	allMessages(); // To load all messages in the beginning
 
-
 	$scope.sendMessage = function(){
 		if ($scope.conversations) {
 			$scope.conversations.messages.sender = $sessionStorage.username;
-			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
+			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
+			$scope.conversations.messages.date = new Date();
 			
 			$http.post('/conversations', $scope.conversations).then(function(response) {
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
-
-		var chat = document.getElementById('chat-area');
-		console.log(chat);
-
-
-
-		// chat.scrollBy(0,100);
-
 	};
 
 	// Needs to update frequently, if you update when you send a message, 
@@ -119,24 +145,10 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		$http.get('/users/private/' + id).then(function(response) {
 			$scope.privateUserList = response.data;
 		});
-
-
-
-		// $http.get('/users/private/' + id).then(function(response) {
-		// 	for ( var i = 0; i < response.data.length; i++ ) {
-		// 		if ( $scope.id === response.data[i]._id ) {
-		// 			$scope.usersPrivateName = response.data[i].username;
-		// 			$scope.usersPrivateId = response.data[i]._id;
-		// 			console.log($scope.usersPrivateName);
-		// 			console.log($scope.usersPrivateId);
-		// 		}
-		// 	}
-		// });
-	}
-
-
+	};
 
 	// LOGOUT
+
 
 	$scope.logout = function() {
 		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
@@ -146,8 +158,11 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
 
-		$location.path('/login');
-		
+		// $interval(function(){
+			$location.path('/login');
+		// }, 2000);
+	
+
 	};
 
 	$scope.adminUserList = function() {
@@ -231,9 +246,8 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 							$sessionStorage.id = response.data[i]._id;
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
+							$sessionStorage.password = response.data[i].password;
 							$http.put('/users/' + $sessionStorage.id, $scope.users).then(function(response) {
-								console.log($sessionStorage.id);
-					    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
 					    	});
 							return;   // Here shit happens
 						} else {

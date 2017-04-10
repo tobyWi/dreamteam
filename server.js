@@ -120,3 +120,16 @@ app.get('/users/private/:id', function(req, res) {
 app.listen(3000, function(){
 	console.log("Chat server has started");
 });
+
+// ----------------------------------- EDIT USER ----------------------------------- //
+
+app.put('/users/3/:id', function(req, res) {
+	var id = req.params.id;
+	console.log(req);
+
+	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
+		update: {$set: { avatar: req.body.avatar }},
+		new: true}, function (err, doc) {
+			res.json(doc);
+	});
+});

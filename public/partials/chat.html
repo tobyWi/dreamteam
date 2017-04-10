@@ -5,9 +5,10 @@
 				<h1>CHAT</h1>
 			</div>
 			<div class="col-xs-9 text-right">
-				<!-- <span ng-if="username === 'admin'"> -->
+				<button class="btn btn-primary" ng-click="editProfile()"><i class="fa fa-cog"></i></button>
+				<span ng-if="username === 'admin'"> 
 					<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
-				<!-- </span> -->
+				</span>
 				<button type="button" ng-click="logout()" class="btn btn-danger" id="logout">Log Out{{online}}</button>
 			</div>
 		</div>
@@ -40,20 +41,20 @@
 
 						<div ng-show="isSet(1)" style="position: relative;">
 							<table class="all-users">
-									<tr ng-repeat="user in userList | orderBy : '-online'" class="mini animated bounceInLeft aligncenter">
-										<td><img src="{{ user.avatar.src }}"></td>
-										<td style="width: 100%"><span class="username">{{ user.username }}</td>
-										<td>
-											<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
-												<i class="fa fa-circle"></i>
-											</span>
-											<span class="send-message" ng-click="toPrivate(user._id)">
-												<a ui-sref="chat.private">
-													<i class="fa fa-comment"></i>
-												</a>
-											</span>
-										</td>
-									</tr>
+								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini animated bounceInLeft aligncenter">
+									<td><img src="{{ user.avatar.src }}"></td>
+									<td style="width: 100%"><span class="username">{{ user.username }}</span></td>
+									<td>
+										<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
+											<i class="fa fa-circle"></i>
+										</span>
+										<span class="send-message" ng-click="toPrivate(user._id)">
+											<a ui-sref="chat.private">
+												<i class="fa fa-comment"></i>
+											</a>
+										</span>
+									</td>
+								</tr>
 							</table>
 						</div>
 
@@ -84,8 +85,69 @@
 						</div>
 					</aside>
 				</div>
+				<div class="edit-profile-modal text-center" ng-if="edit">
+					<div class="modal-content">
+						<button class="btn btn-primary right" ng-click="editProfile()">X</button>
+						<div class="gigantic">
+							<h2>Edit profile </h2>
+							<p>What do you want to edit {{ username }}? </p>
+						</div>
+						<button class="btn btn-warning gigantic" ng-click="editPassword()">Change password</button>
+						<button class="btn btn-primary gigantic" ng-click="editAvatar()">Change avatar</button>
+						<button class="btn btn-danger gigantic" ng-click="unregisterAccount()">Unregister</button>
+					</div>
+				</div>
+				<div class="edit-profile-modal" ng-if="unregisterNow">
+					<div class="modal-content">
+						<div id="unregister">
+							<button class="btn btn-danger right" ng-click="unregisterAccount()">X</button>
+							<h2>Are you sure that you want to unregister?</h2>
+							<form name="unregister" novalidate>
+								<label for="password">Enter password to confirm</label>
+								<input type="password" name="password">
+								<br />
+								<button class="btn btn-danger" ng-disabled="unregister.$invalid">Unregister</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="edit-profile-modal text-center" ng-if="changePassword">
+					<div class="modal-content">
+						<button class="btn btn-danger right" ng-click="editPassword()">X</button>
+						<h2>Change password</h2>
+						<form name="changePasswords" novalidate>
+							<label for="password">Enter password</label>
+							<input type="password" name="password" ng-model="oldPassword"><i class="fa fa-eye eye"></i><i class="fa fa-eye-slash eye"></i>
+							<br />
+							<label>Enter <strong>new</strong> password</label>
+							<input type="password" ng-model="newPassword"><i class="fa fa-eye eye"></i><i class="fa fa-eye-slash eye"></i>
+							<br />
+							<label>Repeat <strong>new</strong> password</label>
+							<input type="password" ng-model="confirmNewPassword"><i class="fa fa-eye eye"></i><i class="fa fa-eye-slash eye"></i>
+							<div class="gigantic">
+								<button class="btn btn-danger" ng-disabled="changePasswords.$invalid" ng-click="changeYourPassword(username)">Change password</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="edit-profile-modal" ng-if="changeAvatar">
+					<div class="modal-content">
+						<div id="changeAvatar">
+							<button class="btn btn-danger right" ng-click="editAvatar()">X</button>
+							<h2>Change avatar</h2>
+							<h3>Current avatar: </h3>
+							<img src="{{ avatar }}" class="small" />
+							<form name="changeAvatar" novalidate class="inline">
+								<h3 class="inline">New avatar</h3>
+								<select></select>
+								<br />
+								<button class="btn btn-danger" ng-disabled="changeAvatar.$invalid">Change avatar</button>
+							</form>
+						</div>
+					</div>
+				</div>
 				<div class="col-xs-9" ui-view>
-					 <!-- CHAT -->
+					<!-- public/private chat here -->
 				</div>
 			</div>
 		</div>
