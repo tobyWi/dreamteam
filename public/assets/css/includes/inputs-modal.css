@@ -74,3 +74,46 @@ textarea:focus, input:focus{
 			margin-bottom: 20px;
 		}
 
+/* edit profile modal */
+
+.edit-profile-modal {
+	position: fixed;
+    z-index: 999999;
+    top: 100px;
+    left: 350px;
+}
+
+	.edit-profile-modal .modal-content {
+		width: 750px;
+		height: 500px;
+		padding: 10px;
+	}
+
+		.edit-profile-modal .modal-content h2 {
+			font-size: 30px
+		}
+
+		.edit-profile-modal .modal-content .right {
+			float: right;
+		}
+
+		.edit-profile-modal .gigantic {
+			display: block;
+			height: 90px;
+			width: 250px;
+			margin: 0 auto;
+		}
+
+		.edit-profile-modal label {
+			display: block;
+		}
+
+		.edit-profile-modal label strong{
+			font-weight: 500;
+		}
+
+.small {
+	height: 300px;
+	width: auto;
+	display: inline;
+}

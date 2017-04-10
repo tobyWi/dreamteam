@@ -62,6 +62,43 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
 
 app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', function($scope, $location, $http, $sessionStorage, $interval){
+	$scope.username = $sessionStorage.username;
+	$scope.avatar = $sessionStorage.avatar;
+
+	$scope.unregisterNow = false;
+	$scope.unregisterAccount = function(){
+		if ($scope.unregisterNow){
+			$scope.unregisterNow = false;
+		} else {
+			$scope.unregisterNow = true;
+		}
+	}
+
+	$scope.edit = false;
+	$scope.editProfile = function(){
+		if ($scope.edit){
+			$scope.edit = false;
+		} else {
+			$scope.edit = true;
+		}
+	}
+	$scope.changePassword = false;
+	$scope.editPassword = function(){
+		if ($scope.changePassword){
+			$scope.changePassword = false;
+		} else {
+			$scope.changePassword = true;
+		}
+	}
+	$scope.changeAvatar = false;
+	$scope.editAvatar = function(){
+		if ($scope.changeAvatar){
+			$scope.changeAvatar = false;
+		} else {
+			$scope.changeAvatar = true;
+		}
+	}
+
 
 	$scope.isUserSender = function(sender) {
 		return sender === $sessionStorage.username;
@@ -85,14 +122,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
-
-		var chat = document.getElementById('chat-area');
-		console.log(chat);
-
-
-
-		// chat.scrollBy(0,100);
-
 	};
 
 	// Needs to update frequently, if you update when you send a message, 
@@ -140,11 +169,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		// $interval(function(){
 			$location.path('/login');
 		// }, 2000);
-			
-		
-		
-
-		
+	
 	};
 
 	$scope.adminUserList = function() {
