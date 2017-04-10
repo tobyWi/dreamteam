@@ -64,44 +64,41 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', function($scope, $location, $http, $sessionStorage, $interval){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
+	$scope.password = $sessionStorage.password;
 
 	$scope.unregisterNow = false;
 	$scope.unregisterAccount = function(){
-		if ($scope.unregisterNow){
-			$scope.unregisterNow = false;
-		} else {
-			$scope.unregisterNow = true;
-		}
+		$scope.unregisterNow = !$scope.unregisterNow;
 	}
-
 	$scope.edit = false;
 	$scope.editProfile = function(){
-		if ($scope.edit){
-			$scope.edit = false;
-		} else {
-			$scope.edit = true;
-		}
+		$scope.edit = !$scope.edit;
 	}
 	$scope.changePassword = false;
 	$scope.editPassword = function(){
-		if ($scope.changePassword){
-			$scope.changePassword = false;
-		} else {
-			$scope.changePassword = true;
-		}
+		$scope.changePassword = !$scope.changePassword;
 	}
 	$scope.changeAvatar = false;
 	$scope.editAvatar = function(){
-		if ($scope.changeAvatar){
-			$scope.changeAvatar = false;
-		} else {
-			$scope.changeAvatar = true;
-		}
+		$scope.changeAvatar = !$scope.changeAvatar;
 	}
-
 
 	$scope.isUserSender = function(sender) {
 		return sender === $sessionStorage.username;
+	}
+
+	$scope.changeYourPassword = function(username){
+		/*
+		$http.get('/users').then(function(res){
+			for ( i = 0; i < res.data.length; i++ ) {
+				if ( username === res.data[i].username ) {
+					$http.put('/users/3/' + username, $scope.newPassword).then(function(response) {
+						console.log(response);
+    				});
+				}
+			}
+		});
+		*/
 	}
 
 	// Get all messages in public chat
@@ -111,7 +108,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		});
 	}
 	allMessages(); // To load all messages in the beginning
-
 
 	$scope.sendMessage = function(){
 		if ($scope.conversations) {
@@ -141,9 +137,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	$scope.logout = function() {
 		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
-
-    		console.log('Logout: ' + response.data.username + ' ' + response.data.online);
-    	});
+		});
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
@@ -253,9 +247,8 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 							$sessionStorage.id = response.data[i]._id;
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
+							$sessionStorage.password = response.data[i].password;
 							$http.put('/users/' + $sessionStorage.id, $scope.users).then(function(response) {
-								console.log($sessionStorage.id);
-					    		console.log('Login: ' + response.data.username + ' ' + response.data.online);
 					    	});
 							return;   // Here shit happens
 						} else {
