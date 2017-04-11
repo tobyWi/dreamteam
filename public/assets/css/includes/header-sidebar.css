@@ -157,6 +157,10 @@
 				margin-right: 10px;
 			}
 
+			#sidebar .all-users .mini-private td {
+				padding: 0;
+			}
+
 			#sidebar .all-users .mini-private a {
 				color: black;
 				text-decoration: none;
@@ -172,6 +176,13 @@
 
 		#sidebar .all-users .private {
 			padding-left: 20px;
+		}
+
+		#sidebar .all-users .fa-times-circle {
+			color: #F57373;
+			font-size: 20px;
+			margin-left: 10px;
+			margin-top: 14px;
 		}
 
 .red {

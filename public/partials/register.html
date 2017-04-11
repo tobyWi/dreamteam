@@ -40,7 +40,7 @@
 								<i ng-show="users.password && !tooShortPassword && !tooLongPassword && !passwordRegex" class="fa fa-check inline-block"></i>
 								<i ng-show="!users.password || tooLongPassword || tooShortPassword || passwordRegex" class="fa fa-times inline-block"></i>
 								<p ng-show="tooShortPassword" class="errorMessage">The password must contain at least 5 characters</p>
-								<p ng-show="tooLongPassword" class="errorMessage">The password can not conatin more tham 30 characters</p>
+								<p ng-show="tooLongPassword" class="errorMessage">The password can not conatin more than 30 characters</p>
 								<p ng-show="passwordRegex" class="errorMessage">Can only contain a-z and numbers 0-9, and no spaces</p>
 							</span>
 						</div>
@@ -59,13 +59,7 @@
 								<p ng-if="confirmPassword != users.password" class="errorMessage">Does not match</p>
 							</span>
 						</div>
-						<div class="dropdown">
-							<label>Choose your avatar</label>
-
-                        	<select class="avatar-select" ng-model="users.avatar" ng-options="avatar.name for avatar in avatars">
-                       		</select>
-                        	<div id="avatar"><img class="avatar-img" src="{{users.avatar.src}}"></div>
-                        </div>
+						<avatar-dropdown></avatar-dropdown>
 						
 						<div class="form-group">
 							<button ng-click="registerSubmit(users)" 
