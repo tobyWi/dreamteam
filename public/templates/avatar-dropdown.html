@@ -1,5 +1,5 @@
 <div class="dropdown">
-	<label>Choose your avatar</label>
+	<label>{{ title }}</label>
 	<select class="avatar-select" ng-model="users.avatar" ng-options="avatar.name for avatar in avatars"></select>
 	<div id="avatar"><img class="avatar-img" src="{{users.avatar.src}}"></div>
  </div>

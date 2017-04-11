@@ -77,7 +77,9 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
 	$scope.password = $sessionStorage.password;
+	$scope.avatars = avatars; // In order to display avatarlist in edit-profile modal
 
+	// ---- Edit-profile modal 
 	$scope.unregisterNow = false;
 	$scope.unregisterAccount = function(){
 		$scope.unregisterNow = !$scope.unregisterNow;
@@ -131,7 +133,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		}
 	});
 
-	// Get all messages in public chat
+	// ------ Get all messages in public chat
 	var allMessages = function() {
 		$http.get('/conversations').then(function(response){
 			$scope.allMessages = response.data;
@@ -313,6 +315,12 @@ app.factory('validation', [function(){
 app.directive('avatarDropdown', [function(){
 	return {
 		restrict: 'E',
+		/*
+		*** Modify this, needs its own scope and controllers scope  ***
+		scope: {
+			'title': '@'
+		},
+		*/
 		templateUrl: '../../templates/avatar-dropdown.html'
 	};
 }]);
