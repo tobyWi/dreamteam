@@ -116,16 +116,29 @@
 						<button class="btn btn-danger right" ng-click="editPassword()">X</button>
 						<h2>Change password</h2>
 						<form name="changePasswords" novalidate>
-							<label for="password">Enter password</label>
-							<input type="password" name="password" ng-model="oldPassword"><i class="fa fa-eye eye"></i><i class="fa fa-eye-slash eye"></i>
+							<label for="password">Enter <strong>old</strong> password</label>
+							<input type="password" name="password" ng-model="oldPassword">
 							<br />
+							<button class="btn btn-primary" ng-click="correctPassword()">OK</button>
+
 							<label>Enter <strong>new</strong> password</label>
-							<input type="password" ng-model="newPassword"><i class="fa fa-eye eye"></i><i class="fa fa-eye-slash eye"></i>
+							<input ng-model="newPassword" ng-attr-type="{{ showPassword ? 'text' : 'password' }}" required name="newPassword">
+							<show-password-eye></show-password-eye>
 							<br />
+							<span ng-if="newPassword.length > 0">
+								<p ng-show="tooShort" class="errorMessage">The password must contain at least 5 characters</p>
+								<p ng-show="tooLong" class="errorMessage">The password can not conatin more than 30 characters</p>
+								<p ng-show="regex" class="errorMessage">Can only contain a-z and numbers 0-9, and no spaces</p>
+							</span>
+
 							<label>Repeat <strong>new</strong> password</label>
-							<input type="password" ng-model="confirmNewPassword"><i class="fa fa-eye eye"></i><i class="fa fa-eye-slash eye"></i>
+							<input type="password" ng-model="confirmNewPassword">
+							<span ng-if="confirmNewPassword.length > 0">
+								<p ng-if="confirmNewPassword != newPassword" class="errorMessage">Does not match</p>
+							</span>
+
 							<div class="gigantic">
-								<button class="btn btn-danger" ng-disabled="changePasswords.$invalid" ng-click="changeYourPassword(username)">Change password</button>
+								<button class="btn btn-danger" ng-disabled="tooLong || tooShort || regex" ng-click="changeYourPassword(username)">Change password</button>
 							</div>
 						</form>
 					</div>
@@ -138,10 +151,9 @@
 							<h3>Current avatar: </h3>
 							<img src="{{ avatar }}" class="small" />
 							<form name="changeAvatar" novalidate class="inline">
-								<h3 class="inline">New avatar</h3>
-								<select></select>
+								<avatar-dropdown></avatar-dropdown>
 								<br />
-								<button class="btn btn-danger" ng-disabled="changeAvatar.$invalid">Change avatar</button>
+								<button class="btn btn-danger">Change avatar</button>
 							</form>
 						</div>
 					</div>
