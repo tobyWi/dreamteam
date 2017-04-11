@@ -81,23 +81,23 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	$scope.unregisterNow = false;
 	$scope.unregisterAccount = function(){
 		$scope.unregisterNow = !$scope.unregisterNow;
-	}
+	};
 	$scope.edit = false;
 	$scope.editProfile = function(){
 		$scope.edit = !$scope.edit;
-	}
+	};
 	$scope.changePassword = false;
 	$scope.editPassword = function(){
 		$scope.changePassword = !$scope.changePassword;
-	}
+	};
 	$scope.changeAvatar = false;
 	$scope.editAvatar = function(){
 		$scope.changeAvatar = !$scope.changeAvatar;
-	}
+	};
 
 	$scope.isUserSender = function(sender) {
 		return sender === $sessionStorage.username;
-	}
+	};
 
 	$scope.changeYourPassword = function(username){
 		/*
@@ -111,14 +111,14 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 			}
 		});
 		*/
-	}
+	};
 
 	// Get all messages in public chat
 	var allMessages = function() {
 		$http.get('/conversations').then(function(response){
 			$scope.allMessages = response.data;
 		});
-	}
+	};
 	allMessages(); // To load all messages in the beginning
 
 	$scope.sendMessage = function(){
@@ -144,7 +144,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		$http.get('/users').then(function(response) {
 			$scope.userList = response.data;
 		});
-	}
+	};
 	chatLoad();
 
 	// PRIVATE CHAT COLLECT DATA 
@@ -164,7 +164,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	$scope.noPrivate = function($index) {
 		$scope.privateUser.splice($index,1);	
-	}
+	};
 
 	// LOGOUT
 
@@ -187,7 +187,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	$scope.adminUserList = function() {
 		$location.path('/adminuserlist');
-	}
+	};
 
 }]);
 
@@ -212,7 +212,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 		    if (event.target == modal) {
 		        modal.style.display = "none";
 		    }
-		}
+		};
 		$scope.id = id;
 
 		$http.get('/users/' + id).then(function(response) {
@@ -234,7 +234,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 	$scope.cancel = function() {
 		var modal = document.getElementById('delete-modal');
 		modal.style.display = "none";
-	}
+	};
 
 	// BUTTONS
 	$scope.registerBack = function() {
@@ -245,7 +245,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 	};
 	$scope.chatBack = function() {
 		$location.path('/chat');	
-	}
+	};
 }]);
 
 //------------------------------------------------ LOGINCONTROLLER -------------------------------------------//
@@ -281,7 +281,7 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 				}
 
 			});
-		};
+		}
 	};
 }]);
 
@@ -301,13 +301,13 @@ app.factory('validation', ['$http', function($http){
 		usernameTaken: function(value){
 			
 		}
-	}
+	};
 }]);
 
 app.directive('password', [function(){
 	return {
 
-	}
+	};
 }]);
 
 
@@ -355,13 +355,13 @@ app.controller('registerController', ['$scope','$location', '$http', 'validation
 			    if (event.target == modal) {
 			        modal.style.display = "none";
 			    }
-			}	
+			};	
 		});
 	};
 
 	$scope.modalLogin = function(){
 		$location.path('login');  
 		console.log('registered');
-	}
+	};
 
 }]);
