@@ -35,6 +35,20 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 		css: 'css/style.css'
 	});
 }]);
+// ---------------------------------------------- VALUE ----------------------------------------------------//
+app.value('avatars', [
+		{name: 'Zombie', src:'assets/img/av02.png'},
+		{name: 'Zebra', src:'assets/img/av01.png'},
+		{name: 'Worm', src:'assets/img/av03.png'},
+		{name: 'Cool Giraffe', src:'assets/img/av04.png'},
+		{name: 'Weird unicorn', src:'assets/img/av05.png'},
+		{name: 'Fly', src:'assets/img/av06.png'},
+		{name: 'Leopard', src:'assets/img/av07.png'},
+		{name: 'Rico Tequila', src:'assets/img/av08.png'},
+		{name: 'Mr. french fries', src:'assets/img/av09.png'},
+		{name: 'coco crayfish', src:'assets/img/av10.png'},
+		{name: 'Doggy style', src:'assets/img/av11.png'}
+    ]);
 
 //------------------------------------------------ MAINCONTROLLER -------------------------------------------//
 
@@ -263,7 +277,7 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 	};
 }]);
 
-//------------------------------------------------ FACOTRIES -------------------------------------------//
+//------------------------------------------------ FACOTRIES & DIRECTIVES -------------------------------------------//
 app.factory('validation', ['$http', function($http){
 	return {
 		long: function(value){
@@ -282,9 +296,16 @@ app.factory('validation', ['$http', function($http){
 	}
 }]);
 
+app.directive('password', [function(){
+	return {
+
+	}
+}]);
+
+
 //------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//
 
-app.controller('registerController', ['$scope','$location', '$http', 'validation', function($scope, $location, $http, validation){
+app.controller('registerController', ['$scope','$location', '$http', 'validation', 'avatars', function($scope, $location, $http, validation, avatars){
 	//Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
 		if (newValue) {
@@ -299,8 +320,6 @@ app.controller('registerController', ['$scope','$location', '$http', 'validation
 					}
 				}
 			});
-
-			
 		}
 
 		$scope.$watch('users.password', function(newValue, oldValue){
@@ -312,24 +331,11 @@ app.controller('registerController', ['$scope','$location', '$http', 'validation
 		});
 	});
 
-	$scope.avatars = [
-		{name: 'Zombie', src:'assets/img/av02.png'},
-		{name: 'Zebra', src:'assets/img/av01.png'},
-		{name: 'Worm', src:'assets/img/av03.png'},
-		{name: 'Cool Giraffe', src:'assets/img/av04.png'},
-		{name: 'Weird unicorn', src:'assets/img/av05.png'},
-		{name: 'Fly', src:'assets/img/av06.png'},
-		{name: 'Leopard', src:'assets/img/av07.png'},
-		{name: 'Rico Tequila', src:'assets/img/av08.png'},
-		{name: 'Mr. french fries', src:'assets/img/av09.png'},
-		{name: 'coco crayfish', src:'assets/img/av10.png'},
-		{name: 'Doggy style', src:'assets/img/av11.png'}
-    ];
-    $scope.users = {};
-    $scope.users.avatar = $scope.avatars[10];
-
-	// Can't be able to log in if username is taken or is passwords don't match
+	$scope.avatars = avatars;
+	$scope.users = {};
+	$scope.users.avatar = $scope.avatars[10];
 	$scope.users.online = false;
+
 	$scope.registerSubmit = function() {
 		$http.post('/users', $scope.users).then(function(response) {
 
