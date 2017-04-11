@@ -48,7 +48,7 @@
 										<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
 											<i class="fa fa-circle"></i>
 										</span>
-										<span class="send-message" ng-click="toPrivate(user._id)">
+										<span class="send-message" ng-click="toPrivate(user._id)">  <!-- function is here -->
 											<a ui-sref="chat.private">
 												<i class="fa fa-comment"></i>
 											</a>
@@ -60,22 +60,15 @@
 
 						<div ng-show="isSet(2)" style="position: relative;">
 							<table class="all-users">
-								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini-private animated bounceInLeft aligncenter">
-									<td><img src="{{ user.avatar.src }}"></td>
+								<tr ng-repeat="user in privateUser | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter">
+									<td><img src="{{ user.avatar.src }}" /></td>
+									<td style="width: 70%"><span class="username">{{ user.username }}</span></td>
 									<td>
-										<a ui-sref="chat.private">
-											<span>{{ user.username }}</span>
-										</a>
-										<i>(private chat)</i>
-									</td>
-									<td>
-										<span class="status" ng-class="{'green': user.online, 'red': !user.online}">
-									</td>
-									<td>
-										<span class="send-message"> <!-- ng-click = send message to this person -->
-											<i class="fa fa-comment"></i>
+										<span ng-class="{'green': user.online, 'red': !user.online}">
+											<i class="fa fa-circle"></i>
 										</span>
 									</td>
+									<td><i class="fa fa-times-circle" ng-click="noPrivate($index)"></i></td>
 								</tr>
 							</table>
 						</div>
