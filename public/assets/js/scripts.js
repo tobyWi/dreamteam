@@ -35,7 +35,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 		css: 'css/style.css'
 	});
 }]);
-// ---------------------------------------------- VALUE ----------------------------------------------------//
+// ---------------------------------------------- AVATARS/VALUE ----------------------------------------------------//
 app.value('avatars', [
 		{name: 'Zombie', src:'assets/img/av02.png'},
 		{name: 'Zebra', src:'assets/img/av01.png'},
@@ -73,7 +73,7 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
 
-app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', function($scope, $location, $http, $sessionStorage, $interval){
+app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
 	$scope.password = $sessionStorage.password;
@@ -113,6 +113,24 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		*/
 	};
 
+	$scope.correctPassword = function(){
+		// Bootstrap creates own ng-scope, fix this
+		if ($scope.oldPassword == $sessionStorage.password) {
+			console.log('Correct!');
+		} else {
+			console.log('incorrect password');
+		}
+	}
+
+	$scope.$watch('newPassword', function(newValue, oldValue){
+		// Bootstrap creates own ng-scope, fix this
+		if (newValue) {
+			$scope.tooLong = validation.long(newValue);
+			$scope.tooShort = validation.short(newValue);
+			$scope.regex = validation.regex(newValue);
+		}
+	});
+
 	// Get all messages in public chat
 	var allMessages = function() {
 		$http.get('/conversations').then(function(response){
@@ -133,8 +151,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		}
 	};
 
-	// Needs to update frequently, if you update when you send a message, 
-	// it doesn't update when someone else send a message
 	//$interval(function(){
 	//	allMessages();
 	//}, 500);
@@ -147,11 +163,8 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	};
 	chatLoad();
 
-	// PRIVATE CHAT COLLECT DATA 
-
+	// PRIVATE CHAT COLLECT DATA
 	$scope.privateUser = [];
-	// $sessionStorage.privateId = [];
-
 	$scope.toPrivate = function(id) {
 
 		$scope.id = id;
@@ -167,8 +180,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	};
 
 	// LOGOUT
-
-
 	$scope.logout = function() {
 		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
 			console.log('Logout: ' + response.data.username + ' ' + response.data.online);
@@ -176,13 +187,8 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
-		// delete $sessionStorage.privateId;
-
-		// $interval(function(){
-			$location.path('/login');
-		// }, 2000);
-	
-
+		
+		$location.path('/login');
 	};
 
 	$scope.adminUserList = function() {
@@ -285,8 +291,8 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 	};
 }]);
 
-//------------------------------------------------ FACOTRIES & DIRECTIVES -------------------------------------------//
-app.factory('validation', ['$http', function($http){
+//------------------------------------------------ FACTORIES & DIRECTIVES -------------------------------------------//
+app.factory('validation', [function(){
 	return {
 		long: function(value){
 			return value.length > 30;
@@ -304,9 +310,17 @@ app.factory('validation', ['$http', function($http){
 	};
 }]);
 
-app.directive('password', [function(){
+app.directive('avatarDropdown', [function(){
 	return {
+		restrict: 'E',
+		templateUrl: '../../templates/avatar-dropdown.html'
+	}
+}]);
 
+app.directive('showPasswordEye', [function(){
+	return {
+		restrict: 'E',
+		templateUrl: '../../templates/show-password.html'
 	};
 }]);
 
