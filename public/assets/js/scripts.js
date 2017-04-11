@@ -133,41 +133,40 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	}
 	chatLoad();
 
+	// PRIVATE CHAT COLLECT DATA
+
+	$scope.toPrivate = function(id) {
+
+		$scope.id = id;
+		console.log($scope.id);
+
+		$http.get('/users/private/' + id).then(function(response) {
+			$scope.privateUserList = response.data;
+		});
+	};
+
+	// LOGOUT
+
+
 	$scope.logout = function() {
 		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
-		});
+			console.log('Logout: ' + response.data.username + ' ' + response.data.online);
+    	});
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
-		
-		
-		// app.directive('LogoutAnimate', function() {
-		// 	return {
-		// 		restrict: 'A',
-		// 		scope: true,
-
-		// 	}
-		// });
-
-		// $scope.logout = function()
-
-		// !function($){
-
-		// 	$("#logout2").click(function(){
-		// 		$(this).addCLass("animated hinge");
-		// 	});
-
-		// }(jQuery);
 
 		// $interval(function(){
 			$location.path('/login');
 		// }, 2000);
 	
+
 	};
 
 	$scope.adminUserList = function() {
 		$location.path('/adminuserlist');
 	}
+
 }]);
 
 //------------------------------------------------ADMINUSERCONTROLLER -------------------------------------------//

@@ -48,6 +48,30 @@
 										<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
 											<i class="fa fa-circle"></i>
 										</span>
+										<span class="send-message" ng-click="toPrivate(user._id)">
+											<a ui-sref="chat.private">
+												<i class="fa fa-comment"></i>
+											</a>
+										</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+
+						<div ng-show="isSet(2)" style="position: relative;">
+							<table class="all-users">
+								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini-private animated bounceInLeft aligncenter">
+									<td><img src="{{ user.avatar.src }}"></td>
+									<td>
+										<a ui-sref="chat.private">
+											<span>{{ user.username }}</span>
+										</a>
+										<i>(private chat)</i>
+									</td>
+									<td>
+										<span class="status" ng-class="{'green': user.online, 'red': !user.online}">
+									</td>
+									<td>
 										<span class="send-message"> <!-- ng-click = send message to this person -->
 											<i class="fa fa-comment"></i>
 										</span>
@@ -55,28 +79,7 @@
 								</tr>
 							</table>
 						</div>
-
-
-						<div ng-show="isSet(2)" style="position: relative;">
-							<ul class="all-users">
-								<li ng-repeat="user in userList">
-									<div class="mini-private animated bounceInLeft">
-										<img src="{{ user.avatar.src }}">
-										<a ui-sref="chat.private">
-											<span>{{ user.username }}</span>
-										</a>
-										<i> (private chat)</i>
-										<span class="status" ng-class="{{ user.online? 'online' : 'offline'; }}"> <!--Needs modifying-->
-										<!-- <span class="status" ng-class="{'green': user.online, 'red': !user.online}"></span>
-											<i class="fa fa-circle"></i>
-										</span> -->
-										<span class="send-message"> <!-- ng-click = send message to this person -->
-											<i class="fa fa-comment"></i>
-										</span>
-									</div>
-								</li>
-							</ul>
-						</div>
+						
 						<div class="copy">
 							<p>&copy; DOGGY STYLE</p>
 						</div>
@@ -144,6 +147,7 @@
 					</div>
 				</div>
 				<div class="col-xs-9" ui-view>
+					<!-- public/private chat here -->
 				</div>
 			</div>
 		</div>
