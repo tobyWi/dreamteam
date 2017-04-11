@@ -120,7 +120,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		} else {
 			console.log('incorrect password');
 		}
-	}
+	};
 
 	$scope.$watch('newPassword', function(newValue, oldValue){
 		// Bootstrap creates own ng-scope, fix this
@@ -314,7 +314,7 @@ app.directive('avatarDropdown', [function(){
 	return {
 		restrict: 'E',
 		templateUrl: '../../templates/avatar-dropdown.html'
-	}
+	};
 }]);
 
 app.directive('showPasswordEye', [function(){
