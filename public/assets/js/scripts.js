@@ -164,15 +164,20 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	chatLoad();
 
 	// PRIVATE CHAT COLLECT DATA
+	$scope.privateUser = [];
 	$scope.toPrivate = function(id) {
 
 		$scope.id = id;
-		console.log($scope.id);
 
 		$http.get('/users/private/' + id).then(function(response) {
-			$scope.privateUserList = response.data;
+			$scope.privateUser.push({username: response.data.username, avatar: response.data.avatar, online: response.data.online});
+			// $sessionStorage.privateId.push(response.data.username);
 		});
 	};
+
+	$scope.noPrivate = function($index) {
+		$scope.privateUser.splice($index,1);	
+	}
 
 	// LOGOUT
 	$scope.logout = function() {
