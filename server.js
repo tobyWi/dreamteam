@@ -33,7 +33,7 @@ db.users.insert( [{
         "name" : "Rico Tequila",
         "src" : "assets/img/av03.png"
     },
-    "online" : true,
+    "online" : false,
     "username" : "Tobias",
     "password" : "hejhej"
 	},
@@ -42,7 +42,7 @@ db.users.insert( [{
         "name" : "Doggy style",
         "src" : "assets/img/av04.png"
     },
-    "online" : true,
+    "online" : false,
     "username" : "Daniel",
     "password" : "hejhej"
 	}
