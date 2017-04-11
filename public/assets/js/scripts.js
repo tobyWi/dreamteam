@@ -49,8 +49,6 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 	$scope.avatar = $sessionStorage.avatar;
 	
 	$scope.tab = 1;
-	$scope.online = 'green';
-	$scope.offline = 'red';
 	$scope.setTab = function(newTab){
 		$scope.tab = newTab;
 	};
@@ -123,9 +121,9 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	// Needs to update frequently, if you update when you send a message, 
 	// it doesn't update when someone else send a message
-	$interval(function(){
-		allMessages();
-	}, 500);
+	//$interval(function(){
+	//	allMessages();
+	//}, 500);
 
 	//Sidebar list all users
 	var chatLoad = function() {
@@ -266,71 +264,51 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 	};
 }]);
 
+//------------------------------------------------ FACOTRIES -------------------------------------------//
+app.factory('validation', ['$http', function($http){
+	return {
+		long: function(value){
+			return value.length > 30;
+		},
+		short: function(value){
+			return value.length < 5;
+		},
+		regex: function(value){
+			var letters = /^[0-9a-zA-Z]+$/;
+			return !letters.test(value);
+		},
+		usernameTaken: function(value){
+			
+		}
+	}
+}]);
+
 //------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//
 
-app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
+app.controller('registerController', ['$scope','$location', '$http', 'validation', function($scope, $location, $http, validation){
 	//Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
 		if (newValue) {
-			// Username too short
-			if (newValue.length < 5) {
-				$scope.tooShort = true;
-			} else{
-				$scope.tooShort = false;
-			}
-
-			// Username is too long
-			if (newValue.length > 20) {
-				$scope.tooLong = true;
-			} else {
-				$scope.tooLong = false;
-			}
-
-			// Username contains invalid symbols
-			var letters = /^[0-9a-zA-Z]+$/;
-			if (letters.test(newValue)){
-				$scope.regex = false;
-			} else {
-				$scope.regex = true;
-			}
-
-			// Check if a username is already taken
+			$scope.tooLong = validation.long(newValue);
+			$scope.tooShort = validation.short(newValue);
+			$scope.regex = validation.regex(newValue);
 			$scope.usernameIsTaken = false;
 			$http.get('/users').then(function(response){
 				for ( var i = 0; i < response.data.length; i++ ) {
-					if ( newValue == response.data[i].username ) {
-						return $scope.usernameIsTaken = true;
-					} else {
-						$scope.usernameIsTaken = false;			
+					if (newValue == response.data[i].username){
+						$scope.usernameIsTaken = true;
 					}
 				}
 			});
+
+			
 		}
 
 		$scope.$watch('users.password', function(newValue, oldValue){
 			if (newValue) {
-				// Password too short
-				if (newValue.length < 6) {
-					$scope.tooShortPassword = true;
-				} else{
-					$scope.tooShortPassword = false;
-				}
-
-				// Password is too long
-				if (newValue.length > 30) {
-					$scope.tooLongPassword = true;
-				} else {
-					$scope.tooLongPassword = false;
-				}
-
-				// Password regex
-				var validPassword = /^[0-9a-zA-Z]+$/;
-				if(validPassword.test(newValue)) {
-					$scope.passwordRegex = false;
-				} else {
-					$scope.passwordRegex = true;
-				}
-				
+				$scope.tooShortPassword = validation.short(newValue);
+				$scope.tooLongPassword = validation.long(newValue);
+				$scope.passwordRegex = validation.regex(newValue);
 			}
 		});
 	});
