@@ -35,6 +35,20 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 		css: 'css/style.css'
 	});
 }]);
+// ---------------------------------------------- VALUE ----------------------------------------------------//
+app.value('avatars', [
+		{name: 'Zombie', src:'assets/img/av02.png'},
+		{name: 'Zebra', src:'assets/img/av01.png'},
+		{name: 'Worm', src:'assets/img/av03.png'},
+		{name: 'Cool Giraffe', src:'assets/img/av04.png'},
+		{name: 'Weird unicorn', src:'assets/img/av05.png'},
+		{name: 'Fly', src:'assets/img/av06.png'},
+		{name: 'Leopard', src:'assets/img/av07.png'},
+		{name: 'Rico Tequila', src:'assets/img/av08.png'},
+		{name: 'Mr. french fries', src:'assets/img/av09.png'},
+		{name: 'coco crayfish', src:'assets/img/av10.png'},
+		{name: 'Doggy style', src:'assets/img/av11.png'}
+    ]);
 
 //------------------------------------------------ MAINCONTROLLER -------------------------------------------//
 
@@ -49,8 +63,6 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 	$scope.avatar = $sessionStorage.avatar;
 	
 	$scope.tab = 1;
-	$scope.online = 'green';
-	$scope.offline = 'red';
 	$scope.setTab = function(newTab){
 		$scope.tab = newTab;
 	};
@@ -123,9 +135,9 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	// Needs to update frequently, if you update when you send a message, 
 	// it doesn't update when someone else send a message
-	$interval(function(){
-		allMessages();
-	}, 500);
+	//$interval(function(){
+	//	allMessages();
+	//}, 500);
 
 	//Sidebar list all users
 	var chatLoad = function() {
@@ -273,42 +285,46 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 	};
 }]);
 
+//------------------------------------------------ FACOTRIES & DIRECTIVES -------------------------------------------//
+app.factory('validation', ['$http', function($http){
+	return {
+		long: function(value){
+			return value.length > 30;
+		},
+		short: function(value){
+			return value.length < 5;
+		},
+		regex: function(value){
+			var letters = /^[0-9a-zA-Z]+$/;
+			return !letters.test(value);
+		},
+		usernameTaken: function(value){
+			
+		}
+	}
+}]);
+
+app.directive('password', [function(){
+	return {
+
+	}
+}]);
+
+
 //------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//
 
-app.controller('registerController', ['$scope','$location', '$http', function($scope, $location, $http){
+app.controller('registerController', ['$scope','$location', '$http', 'validation', 'avatars', function($scope, $location, $http, validation, avatars){
 	//Messages for username validation
 	$scope.$watch('users.username', function(newValue, oldValue){
 		if (newValue) {
-			// Username too short
-			if (newValue.length < 5) {
-				$scope.tooShort = true;
-			} else{
-				$scope.tooShort = false;
-			}
-
-			// Username is too long
-			if (newValue.length > 20) {
-				$scope.tooLong = true;
-			} else {
-				$scope.tooLong = false;
-			}
-
-			// Username contains invalid symbols
-			var letters = /^[0-9a-zA-Z]+$/;
-			if (letters.test(newValue)){
-				$scope.regex = false;
-			} else {
-				$scope.regex = true;
-			}
-
-			// Check if a username is already taken
+			$scope.tooLong = validation.long(newValue);
+			$scope.tooShort = validation.short(newValue);
+			$scope.regex = validation.regex(newValue);
 			$scope.usernameIsTaken = false;
 			$http.get('/users').then(function(response){
 				for ( var i = 0; i < response.data.length; i++ ) {
-					if ( newValue == response.data[i].username ) {
-						return $scope.usernameIsTaken = true;
-					} else {
-						$scope.usernameIsTaken = false;			
+					if (newValue == response.data[i].username){
+						$scope.usernameIsTaken = true;
 					}
 				}
 			});
@@ -316,50 +332,18 @@ app.controller('registerController', ['$scope','$location', '$http', function($s
 
 		$scope.$watch('users.password', function(newValue, oldValue){
 			if (newValue) {
-				// Password too short
-				if (newValue.length < 6) {
-					$scope.tooShortPassword = true;
-				} else{
-					$scope.tooShortPassword = false;
-				}
-
-				// Password is too long
-				if (newValue.length > 30) {
-					$scope.tooLongPassword = true;
-				} else {
-					$scope.tooLongPassword = false;
-				}
-
-				// Password regex
-				var validPassword = /^[0-9a-zA-Z]+$/;
-				if(validPassword.test(newValue)) {
-					$scope.passwordRegex = false;
-				} else {
-					$scope.passwordRegex = true;
-				}
-				
+				$scope.tooShortPassword = validation.short(newValue);
+				$scope.tooLongPassword = validation.long(newValue);
+				$scope.passwordRegex = validation.regex(newValue);
 			}
 		});
 	});
 
-	$scope.avatars = [
-		{name: 'Zombie', src:'assets/img/av02.png'},
-		{name: 'Zebra', src:'assets/img/av01.png'},
-		{name: 'Worm', src:'assets/img/av03.png'},
-		{name: 'Cool Giraffe', src:'assets/img/av04.png'},
-		{name: 'Weird unicorn', src:'assets/img/av05.png'},
-		{name: 'Fly', src:'assets/img/av06.png'},
-		{name: 'Leopard', src:'assets/img/av07.png'},
-		{name: 'Rico Tequila', src:'assets/img/av08.png'},
-		{name: 'Mr. french fries', src:'assets/img/av09.png'},
-		{name: 'coco crayfish', src:'assets/img/av10.png'},
-		{name: 'Doggy style', src:'assets/img/av11.png'}
-    ];
-    $scope.users = {};
-    $scope.users.avatar = $scope.avatars[10];
-
-	// Can't be able to log in if username is taken or is passwords don't match
+	$scope.avatars = avatars;
+	$scope.users = {};
+	$scope.users.avatar = $scope.avatars[10];
 	$scope.users.online = false;
+
 	$scope.registerSubmit = function() {
 		$http.post('/users', $scope.users).then(function(response) {
 

@@ -39,7 +39,7 @@
 							<span ng-if="users.password.length > 0">
 								<i ng-show="users.password && !tooShortPassword && !tooLongPassword && !passwordRegex" class="fa fa-check inline-block"></i>
 								<i ng-show="!users.password || tooLongPassword || tooShortPassword || passwordRegex" class="fa fa-times inline-block"></i>
-								<p ng-show="tooShortPassword" class="errorMessage">The password must contain at least 6 characters</p>
+								<p ng-show="tooShortPassword" class="errorMessage">The password must contain at least 5 characters</p>
 								<p ng-show="tooLongPassword" class="errorMessage">The password can not conatin more tham 30 characters</p>
 								<p ng-show="passwordRegex" class="errorMessage">Can only contain a-z and numbers 0-9, and no spaces</p>
 							</span>
