@@ -1,6 +1,7 @@
+<div class="block-register">	
 	<div class="container">
 		<div class="row">
-			<div class="block-register">
+			
 				<div class="col-xs-12 animated fadeIn">
 					<h1 class="main-title">Register</h1>
 					<form name="registrationForm" class="registrationForm" novalidate>
@@ -68,14 +69,15 @@
 								ng-disabled="!users.username || !users.password || !confirmPassword || usernameIsTaken || tooLongPassword || tooShortPassword || passwordRegex || tooShort || tooLong || regex">
 								Register new account
 							</button>
-							<button class="btn btn-primary inline-block" ui-sref="login">Go back to login</button>
-
-							
+							<button class="btn btn-primary inline-block" ui-sref="login">Go back to login</button>						
 						</div>
 					</form> 
 				</div>
 			</div>
 		</div>
+	</div>
+
+
 
 		<div id="login-modal" class="modal">								
 			<div class="modal-body aligncenter">
@@ -85,5 +87,4 @@
 			    <button class="btn btn-success modalButton" ng-click="modalLogin()">Log in!</button>
 			</div>
 		</div>
-	</div>
-</section>
+	
