@@ -21,7 +21,7 @@
 							<tr ng-repeat="users in userList | orderBy : 'username'">
 								<td>{{users.username}}</td>
 								<td>{{users.password}}</td>
-								<td><img class="table-avatar" src="{{users.avatar.src}}"></td>
+								<td><img class="table-avatar" ng-src="{{users.avatar.src}}"></td>
 								<td>{{users.online}}</td>
 								<td>
 									<button class="btn btn-danger" ng-click="removeUser(users._id)">Delete</button>
@@ -50,7 +50,7 @@
 		<div id="delete-modal" class="modal aligncenter">								
 			<div class="modal-body">
 			   	<h3>Are you sure you want to delete {{users.username}}?</h3>
-			    <img src="{{users.avatar.src}}" /><br />
+			    <img ng-src="{{users.avatar.src}}" /><br />
 			    <button class="btn btn-danger modalButton" ng-click="modalDelete()">Yes, Delete!</button><br />
 			    <button class="btn btn-warning" ng-click="cancel()">No, go back!</button>
 			</div>

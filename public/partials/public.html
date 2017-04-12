@@ -4,7 +4,7 @@
 		<div scroll-glue-bottom id="chatarea" class="col-xs-12 chatarea">
 			<div class="row" ng-repeat="message in allMessages">
 				<div class="col-xs-5 message-box" ng-class="{'col-xs-push-6 marginright': isUserSender(message.messages.sender), 'marginleft': !isUserSender(message.messages.sender)}">
-					<img src="{{ message.messages.senderavatar }}" class="image-float-left">
+					<img ng-src="{{ message.messages.senderavatar }}" class="image-float-left">
 					<strong>{{ message.messages.sender }}:</strong><br/>
 					<i>{{ message.messages.content }}</i>
 					<p class="messagedate">{{ message.messages.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>

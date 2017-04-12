@@ -24,7 +24,7 @@
 					<aside ng-controller="sidebarController">
 						<div class="row">
 							<div class="col-xs-12 sidebar-top">			
-								<img class="user-avatar" src="{{ avatar }}" />
+								<img ng-class="user-avatar" ng-src="{{ avatar }}" />
 								<h2>Logged in as 
 									<strong>
 										{{ username }}
@@ -45,7 +45,7 @@
 						<div ng-show="isSet(1)" style="position: relative;">
 							<table class="all-users">
 								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini animated bounceInLeft aligncenter">
-									<td><img src="{{ user.avatar.src }}"></td>
+									<td><img ng-src="{{ user.avatar.src }}"></td>
 									<td style="width: 100%"><span class="username">{{ user.username }}</span></td>
 									<td>
 										<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
@@ -65,7 +65,7 @@
 						<div ng-show="isSet(2)" style="position: relative;">
 							<table class="all-users">
 								<tr ng-repeat="user in privateUser | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter">
-									<td><img src="{{ user.avatar.src }}" /></td>
+									<td><img ng-src="{{ user.avatar.src }}" /></td>
 									<td style="width: 70%"><span class="username">{{ user.username }}</span></td>
 									<td>
 										<span ng-class="{'green': user.online, 'red': !user.online}">
