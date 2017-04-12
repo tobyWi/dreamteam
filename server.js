@@ -9,11 +9,13 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 
 
+// See your work in a browser by going to "localhost:3000"
+app.listen(3000, function(){
+	console.log("Chat server has started");
+});
 
 // ------------------------------------ USERS -------------------------------------//
-
 // Checks & displays any messages sent to the server/database.
-
 app.get('/users', function(request, res) {
 	console.log("GET - users");
 
@@ -24,7 +26,6 @@ app.get('/users', function(request, res) {
 });
 
 // Adding a user to the database (users)
-
 app.post('/users/', function(req, res) {
 	//console.log(req.body);
 	db.users.insert(req.body, function(err, doc) {
@@ -43,10 +44,7 @@ app.delete('/users/:id', function(req, res) {
 });
 
 
-
 // --------------------------------- OFFLINE / ONLINE -------------------------------------//
-
-
 app.get('/users/:id', function(req, res) {
 	var id = req.params.id;
 	db.users.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
@@ -55,8 +53,6 @@ app.get('/users/:id', function(req, res) {
 });
 
 // login
-
-
 app.put('/users/:id', function(req, res) {
 	var id = req.params.id;
 	console.log("test");
@@ -88,7 +84,6 @@ app.put('/users/1/:id', function(req, res) {
 
 
 // ------------------------------------ MESSAGES -------------------------------------//
-
 // Checks & displays any messages sent to the server/database.
 
 app.get('/conversations', function(request, res) {
@@ -116,22 +111,26 @@ app.get('/users/private/:id', function(req, res) {
 });
 
 
-// See your work in a browser by going to "localhost:3000"
-
-app.listen(3000, function(){
-	console.log("Chat server has started");
-
-});
-
 // ----------------------------------- EDIT USER ----------------------------------- //
-
-app.put('/users/3/:id', function(req, res) {
+// If the user wants to unregister
+app.delete('/users/3/:id', function(req, res){
 	var id = req.params.id;
-	console.log(req);
-
-	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
-		update: {$set: { avatar: req.body.avatar }},
-		new: true}, function (err, doc) {
-			res.json(doc);
+	db.users.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
+		res.json(doc);
 	});
 });
+
+// If the user wants to change password
+app.put('/users/password/:id', function(req, res){
+	var id = req.params.id;
+	db.users.findAndModify({
+		query: {_id: mongojs.ObjectId(id)},
+		update: {$set: {password: req.body.password}},
+		new: true }, 
+		function(err, doc){
+			res.json(doc);
+		}
+	);
+});
+
+// If the user wants to change avatar

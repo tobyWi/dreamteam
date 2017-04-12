@@ -73,15 +73,16 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
 
-app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation){
+app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', '$timeout', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation, $timeout){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
+	$scope.id = $sessionStorage.id;
 	$scope.password = $sessionStorage.password;
 	$scope.avatars = avatars; // In order to display avatarlist in edit-profile modal
 
 	// ---- Edit-profile modal 
 	$scope.unregisterNow = false;
-	$scope.unregisterAccount = function(){
+	$scope.unregisterAccountModal = function(){
 		$scope.unregisterNow = !$scope.unregisterNow;
 	};
 	$scope.edit = false;
@@ -92,40 +93,63 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	$scope.editPassword = function(){
 		$scope.changePassword = !$scope.changePassword;
 	};
-	$scope.changeAvatar = false;
+	$scope.changeAvatarModal = false;
 	$scope.editAvatar = function(){
-		$scope.changeAvatar = !$scope.changeAvatar;
+		$scope.changeAvatarModal = !$scope.changeAvatarModal;
 	};
 
 	$scope.isUserSender = function(sender) {
 		return sender === $sessionStorage.username;
 	};
 
-	$scope.changeYourPassword = function(username){
-		/*
-		$http.get('/users').then(function(res){
-			for ( i = 0; i < res.data.length; i++ ) {
-				if ( username === res.data[i].username ) {
-					$http.put('/users/3/' + username, $scope.newPassword).then(function(response) {
-						console.log(response);
-    				});
-				}
-			}
+	$scope.successfyllyChangedPassword = false;
+	$scope.changeYourPassword = function(id){
+		$http.get('/users/' + id).then(function(res, req){
 		});
-		*/
+		$scope.users.username = $sessionStorage.username;
+		$scope.users.id = $sessionStorage.id;
+		$scope.users.avatar = $sessionStorage.avatar;
+		$http.put('/users/password/' + id, $scope.users).then(function(res){
+			// Show a message for the user that change was successful
+			$scope.successfyllyChangedPassword = true;
+			// Change sessionstorage to the current password
+			$sessionStorage.password = $scope.users.password;
+			// Return to editprofile modal
+			$timeout(function(){
+				$scope.confirmOldPassword = true;
+				$scope.chooseNewPassword = false;
+				$scope.changePassword = false;
+			}, 1000);
+		});
 	};
 
-	$scope.correctPassword = function(){
-		// Bootstrap creates own ng-scope, fix this
-		if ($scope.oldPassword == $sessionStorage.password) {
-			console.log('Correct!');
-		} else {
-			console.log('incorrect password');
+	$scope.changeAvatar = function(){
+		
+	};
+
+	$scope.unregisterAccount = function (id) {
+		if ( $scope.unregisterPasswordConfirm === $sessionStorage.password ) {
+			$http.delete('/users/3/' + id).then(function(res){
+				$location.path('/login');
+			});
 		}
 	};
 
-	$scope.$watch('newPassword', function(newValue, oldValue){
-		// Bootstrap creates own ng-scope, fix this
+	$scope.confirmOldPassword = true;
+	$scope.correctPassword = function(){
+		$scope.chooseNewPassword = false;
+		$scope.incorrectPassword = false;
+		if ($scope.oldPassword == $sessionStorage.password) {
+			console.log('Correct!');
+			$scope.chooseNewPassword = true;
+			$scope.confirmOldPassword = false;
+		} else {
+			console.log('incorrect password');
+			$scope.incorrectPassword = true;
+		}
+	};
+
+	$scope.$watch('users.password', function(newValue, oldValue){
 		if (newValue) {
 			$scope.tooLong = validation.long(newValue);
 			$scope.tooShort = validation.short(newValue);
