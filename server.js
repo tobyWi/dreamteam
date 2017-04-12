@@ -8,45 +8,7 @@ app.use(express.static(__dirname + "/public"));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 
-// ------------------------------------ DUMMY DATA -------------------------------------//
 
-db.users.insert( [{   
-    "avatar" : {
-        "name" : "Ugly Fish",
-        "src" : "assets/img/av01.png"
-    },
-    "online" : false,
-    "username" : "Izabella",
-    "password" : "hejhej"
-	},
-	{  
-    "avatar" : {
-        "name" : "Zombie",
-        "src" : "assets/img/av02.png"
-    },
-    "online" : false,
-    "username" : "Colin",
-    "password" : "hejhej"
-	},
-	{   
-    "avatar" : {
-        "name" : "Rico Tequila",
-        "src" : "assets/img/av03.png"
-    },
-    "online" : false,
-    "username" : "Tobias",
-    "password" : "hejhej"
-	},
-	{ 
-    "avatar" : {
-        "name" : "Doggy style",
-        "src" : "assets/img/av04.png"
-    },
-    "online" : false,
-    "username" : "Daniel",
-    "password" : "hejhej"
-	}
-])	
 
 // ------------------------------------ USERS -------------------------------------//
 
@@ -158,9 +120,6 @@ app.get('/users/private/:id', function(req, res) {
 
 app.listen(3000, function(){
 	console.log("Chat server has started");
-
-	 
-
 
 });
 
