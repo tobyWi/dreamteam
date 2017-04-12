@@ -101,7 +101,7 @@ textarea:focus, input:focus{
 			display: block;
 			height: 90px;
 			width: 250px;
-			margin: 0 auto;
+			margin: 5px auto;
 		}
 
 		.edit-profile-modal label {
@@ -114,6 +114,20 @@ textarea:focus, input:focus{
 
 .small {
 	height: 300px;
+	width: auto;
+	display: inline;
+}
+
+.successfulMessage {
+	background-color: #AED581;
+	padding: 10px;
+	font-size: 18px;
+	font-weight: 300;
+}
+
+#changeAvatar .avatar-img {
+	margin: 0 auto;
+	height: 250px;
 	width: auto;
 	display: inline;
 }
