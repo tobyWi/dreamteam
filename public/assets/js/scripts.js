@@ -104,34 +104,49 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	$scope.successfyllyChangedPassword = false;
 	$scope.changeYourPassword = function(id){
-		$http.get('/users/' + id).then(function(res, req){
-		});
-		$scope.users.username = $sessionStorage.username;
-		$scope.users.id = $sessionStorage.id;
-		$scope.users.avatar = $sessionStorage.avatar;
-		$http.put('/users/password/' + id, $scope.users).then(function(res){
-			// Show a message for the user that change was successful
-			$scope.successfyllyChangedPassword = true;
-			// Change sessionstorage to the current password
-			$sessionStorage.password = $scope.users.password;
-			// Return to editprofile modal
-			$timeout(function(){
-				$scope.confirmOldPassword = true;
-				$scope.chooseNewPassword = false;
-				$scope.changePassword = false;
-			}, 1000);
-		});
+		if ($scope.users.password) {
+			$http.get('/users/' + id).then(function(res, req){
+			});
+			$scope.users.username = $sessionStorage.username;
+			$scope.users.id = $sessionStorage.id;
+			$scope.users.avatar = $sessionStorage.avatar;
+			$http.put('/users/password/' + id, $scope.users).then(function(res){
+				// Show a message for the user that change was successful
+				$scope.successfyllyChangedPassword = true;
+				// Change sessionstorage to the current password
+				$sessionStorage.password = $scope.users.password;
+				// Return to editprofile modal
+				$timeout(function(){
+					$scope.confirmOldPassword = true; // Next time you press change passwords, this will show again
+					$scope.chooseNewPassword = false;
+					$scope.changePassword = false;
+					$scope.successfyllyChangedPassword = false;
+					$scope.users.password = '';
+					$scope.confirmNewPassword = '';
+				}, 1000);
+			});
+		}
 	};
 
 	$scope.changeAvatar = function(){
 		
 	};
 
+	$scope.goodbye = false;
 	$scope.unregisterAccount = function (id) {
+		$scope.wrongPassword = false;
 		if ( $scope.unregisterPasswordConfirm === $sessionStorage.password ) {
 			$http.delete('/users/3/' + id).then(function(res){
-				$location.path('/login');
+				$scope.goodbye = true;
+				$timeout(function() {
+					delete $sessionStorage.id;
+					delete $sessionStorage.username;
+					delete $sessionStorage.avatar;
+					$location.path('/login');
+				}, 1500);
 			});
+		} else {
+			$scope.wrongPassword = true;
 		}
 	};
 
@@ -143,6 +158,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 			console.log('Correct!');
 			$scope.chooseNewPassword = true;
 			$scope.confirmOldPassword = false;
+			$scope.oldPassword = '';
 		} else {
 			console.log('incorrect password');
 			$scope.incorrectPassword = true;
@@ -208,7 +224,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	// LOGOUT
 	$scope.logout = function() {
 		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
-			console.log('Logout: ' + response.data.username + ' ' + response.data.online);
     	});
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;

@@ -6,8 +6,9 @@
 			</div>
 			<div class="col-xs-9 text-right">
 				<button class="btn btn-primary" ng-click="editProfile()"><i class="fa fa-cog"></i></button>
-				<span ng-if="username === 'admin'"> 
+				<span ng-show="username == 'admin'"> <!-- Admin panel -->
 					<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
+					<!-- Add other admin-only features here -->
 				</span>
 				<button type="button" ng-click="logout()" class="btn btn-danger" id="logout">Log Out{{online}}</button>
 			</div>
@@ -19,6 +20,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-3 text-center" id="sidebar">
+					<!-- Sidebar -->
 					<aside ng-controller="sidebarController">
 						<div class="row">
 							<div class="col-xs-12 sidebar-top">			
@@ -39,6 +41,7 @@
 							</div>
 						</div>
 
+						<!-- Public chat sidebar -->
 						<div ng-show="isSet(1)" style="position: relative;">
 							<table class="all-users">
 								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini animated bounceInLeft aligncenter">
@@ -58,6 +61,7 @@
 							</table>
 						</div>
 
+						<!-- Private chat sidebar -->
 						<div ng-show="isSet(2)" style="position: relative;">
 							<table class="all-users">
 								<tr ng-repeat="user in privateUser | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter">
@@ -72,23 +76,28 @@
 								</tr>
 							</table>
 						</div>
+
+						<!-- Sidebar footer -->
 						<div class="copy">
 							<p>&copy; DOGGY STYLE</p>
 						</div>
 					</aside>
 				</div>
+
+				<!-- Edit profile Modal -->
 				<div class="edit-profile-modal text-center" ng-if="edit">
 					<div class="modal-content">
-						<button class="btn btn-primary right" ng-click="editProfile()">X</button>
+						<button class="btn btn-danger right" ng-click="editProfile()">X</button>
 						<div class="gigantic">
 							<h2>Edit profile </h2>
 							<p>What do you want to edit {{ username }}? </p>
 						</div>
-						<button class="btn btn-warning gigantic" ng-click="editPassword()">Change password</button>
+						<button class="btn btn-primary gigantic" ng-click="editPassword()">Change password</button>
 						<button class="btn btn-primary gigantic" ng-click="editAvatar()">Change avatar</button>
-						<button class="btn btn-danger gigantic" ng-click="unregisterAccountModal()">Unregister</button>
+						<button class="btn btn-primary gigantic" ng-click="unregisterAccountModal()">Unregister</button>
 					</div>
 				</div>
+				<!-- Unregister modal -->
 				<div class="edit-profile-modal" ng-show="unregisterNow"> <!-- must be show not if, otherwise creates own scope -->
 					<div class="modal-content">
 						<div id="unregister">
@@ -96,13 +105,16 @@
 							<h2>Are you sure that you want to unregister?</h2>
 							<form name="unregister" novalidate>
 								<label for="password">Enter password to confirm</label>
-								<input type="password" name="password" ng-model="unregisterPasswordConfirm">
+								<input type="password" name="password" ng-model="unregisterPasswordConfirm" ng-change="wrongPassword = false">
 								<br />
 								<button class="btn btn-danger" ng-click="unregisterAccount(id)">Unregister</button>
+								<p ng-show="wrongPassword">Wrong password!</p>
+								<p ng-show="goodbye" class="successfulMessage">Successfully unregistered. Bye!</p>
 							</form>
 						</div>
 					</div>
 				</div>
+				<!-- Change passwords modal -->
 				<div class="edit-profile-modal text-center" ng-show="changePassword">
 					<div class="modal-content">
 						<button class="btn btn-danger right" ng-click="editPassword()">X</button>
@@ -114,7 +126,6 @@
 								<br />
 								<button class="btn btn-primary" ng-click="correctPassword()">OK</button>
 							</div>
-
 							<div ng-show="chooseNewPassword">
 								<label>Enter <strong>new</strong> password</label>
 								<input ng-model="users.password" ng-attr-type="{{ showPassword ? 'text' : 'password' }}" required name="newPassword" ng-trim="false">
@@ -125,30 +136,25 @@
 									<p ng-show="tooLong" class="errorMessage">The password can not conatin more than 30 characters</p>
 									<p ng-show="regex" class="errorMessage">Can only contain a-z and numbers 0-9, and no spaces</p>
 								</span>
-
 								<label>Repeat <strong>new</strong> password</label>
 								<input type="password" ng-model="confirmNewPassword">
 								<span ng-if="confirmNewPassword.length > 0">
 									<p ng-if="confirmNewPassword != users.password" class="errorMessage">Does not match</p>
 								</span>
-
 								<div class="gigantic">
-									<button class="btn btn-danger" ng-disabled="tooLong || tooShort || regex || confirmNewPassword != users.password " ng-click="changeYourPassword(id)">Change password</button>
+									<button class="btn btn-danger" ng-disabled="!users.password || tooLong || tooShort || regex || confirmNewPassword != users.password " ng-click="changeYourPassword(id)">Change password</button>
 								</div>
-								<div ng-show="successfyllyChangedPassword">
-									<p>You successfully changed password!</p>
-								</div>
+								<p class="successfulMessage" ng-show="successfyllyChangedPassword">You successfully changed password!</p>
 							</div> <!-- chooseNewPassword -->
 						</form>
 					</div>
 				</div>
+				<!-- Change avatar modal -->
 				<div class="edit-profile-modal" ng-show="changeAvatarModal">
 					<div class="modal-content">
 						<div id="changeAvatar">
 							<button class="btn btn-danger right" ng-click="editAvatar()">X</button>
 							<h2>Change avatar</h2>
-							<h3>Current avatar: </h3>
-							<img src="{{ avatar }}" class="small" />
 							<form name="changeAvatar" novalidate class="inline">
 								<avatar-dropdown title="Choose a new avatar"></avatar-dropdown>
 								<br />
@@ -158,12 +164,9 @@
 					</div>
 				</div>
 				<div class="col-xs-9" ui-view>
-					<!-- public/private chat here -->
+					<!-- public/private chat messages here -->
 				</div>
 			</div>
 		</div>
 	</main>
 </div>
-<footer id="footer">
-	
-</footer>
