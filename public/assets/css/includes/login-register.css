@@ -29,8 +29,8 @@
 	transform: translateY(-50%);
 	left: 0;
 	right: 0;
-	width: 500px;
-	min-height: 400px;
+	width: 100%;
+/*	min-height: 400px;*/
 	margin: 0 auto;
 	text-align: center;
 }
@@ -75,7 +75,7 @@
 }
 
 .block .main-title {
-	font-size: 70px;
+	font-size: 55px;
 	text-transform: uppercase;
 }
 
@@ -88,15 +88,15 @@
 	transform: translateY(-50%);
 	left: 0;
 	right: 0;
-	width: 500px;
-	min-height: 400px;
+	width: 100%;
+	height: 75%;
 	margin: 0 auto;
 	text-align: center;
 }
 
 .block-register .btn {
 	height: 40px;
-	width: 300px;
+	width: 150px;
 	margin-bottom: 10px;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .block-register .main-title {
-	font-size: 70px;
+	font-size: 55px;
 	text-transform: uppercase;
 }
 
