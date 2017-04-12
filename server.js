@@ -8,6 +8,11 @@ app.use(express.static(__dirname + "/public"));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 
+// See your work in a browser by going to "localhost:3000"
+app.listen(3000, function(){
+	console.log("Chat server has started");
+});
+
 // ------------------------------------ DUMMY DATA -------------------------------------//
 
 db.users.insert( [{   
@@ -153,26 +158,27 @@ app.get('/users/private/:id', function(req, res) {
 	});
 });
 
-
-// See your work in a browser by going to "localhost:3000"
-
-app.listen(3000, function(){
-	console.log("Chat server has started");
-
-	 
-
-
-});
-
 // ----------------------------------- EDIT USER ----------------------------------- //
 
-app.put('/users/3/:id', function(req, res) {
+// If the user wants to unregister
+app.delete('/users/3/:id', function(req, res){
 	var id = req.params.id;
-	console.log(req);
-
-	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
-		update: {$set: { avatar: req.body.avatar }},
-		new: true}, function (err, doc) {
-			res.json(doc);
+	db.users.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
+		res.json(doc);
 	});
 });
+
+// If the user wants to change password
+app.put('/users/password/:id', function(req, res){
+	var id = req.params.id;
+	db.users.findAndModify({
+		query: {_id: mongojs.ObjectId(id)},
+		update: {$set: {password: req.body.password}},
+		new: true }, 
+		function(err, doc){
+			res.json(doc);
+		}
+	);
+});
+
+// If the user wants to change avatar

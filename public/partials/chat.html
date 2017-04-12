@@ -72,7 +72,6 @@
 								</tr>
 							</table>
 						</div>
-						
 						<div class="copy">
 							<p>&copy; DOGGY STYLE</p>
 						</div>
@@ -87,56 +86,63 @@
 						</div>
 						<button class="btn btn-warning gigantic" ng-click="editPassword()">Change password</button>
 						<button class="btn btn-primary gigantic" ng-click="editAvatar()">Change avatar</button>
-						<button class="btn btn-danger gigantic" ng-click="unregisterAccount()">Unregister</button>
+						<button class="btn btn-danger gigantic" ng-click="unregisterAccountModal()">Unregister</button>
 					</div>
 				</div>
-				<div class="edit-profile-modal" ng-if="unregisterNow">
+				<div class="edit-profile-modal" ng-show="unregisterNow"> <!-- must be show not if, otherwise creates own scope -->
 					<div class="modal-content">
 						<div id="unregister">
-							<button class="btn btn-danger right" ng-click="unregisterAccount()">X</button>
+							<button class="btn btn-danger right" ng-click="unregisterAccountModal()">X</button>
 							<h2>Are you sure that you want to unregister?</h2>
 							<form name="unregister" novalidate>
 								<label for="password">Enter password to confirm</label>
-								<input type="password" name="password">
+								<input type="password" name="password" ng-model="unregisterPasswordConfirm">
 								<br />
-								<button class="btn btn-danger" ng-disabled="unregister.$invalid">Unregister</button>
+								<button class="btn btn-danger" ng-click="unregisterAccount(id)">Unregister</button>
 							</form>
 						</div>
 					</div>
 				</div>
-				<div class="edit-profile-modal text-center" ng-if="changePassword">
+				<div class="edit-profile-modal text-center" ng-show="changePassword">
 					<div class="modal-content">
 						<button class="btn btn-danger right" ng-click="editPassword()">X</button>
 						<h2>Change password</h2>
 						<form name="changePasswords" novalidate>
-							<label for="password">Enter <strong>old</strong> password</label>
-							<input type="password" name="password" ng-model="oldPassword">
-							<br />
-							<button class="btn btn-primary" ng-click="correctPassword()">OK</button>
-
-							<label>Enter <strong>new</strong> password</label>
-							<input ng-model="newPassword" ng-attr-type="{{ showPassword ? 'text' : 'password' }}" required name="newPassword">
-							<show-password-eye></show-password-eye>
-							<br />
-							<span ng-if="newPassword.length > 0">
-								<p ng-show="tooShort" class="errorMessage">The password must contain at least 5 characters</p>
-								<p ng-show="tooLong" class="errorMessage">The password can not conatin more than 30 characters</p>
-								<p ng-show="regex" class="errorMessage">Can only contain a-z and numbers 0-9, and no spaces</p>
-							</span>
-
-							<label>Repeat <strong>new</strong> password</label>
-							<input type="password" ng-model="confirmNewPassword">
-							<span ng-if="confirmNewPassword.length > 0">
-								<p ng-if="confirmNewPassword != newPassword" class="errorMessage">Does not match</p>
-							</span>
-
-							<div class="gigantic">
-								<button class="btn btn-danger" ng-disabled="tooLong || tooShort || regex" ng-click="changeYourPassword(username)">Change password</button>
+							<div ng-show="confirmOldPassword">
+								<label for="password">Enter <strong>old</strong> password</label>
+								<input type="password" name="password" ng-model="oldPassword">
+								<br />
+								<button class="btn btn-primary" ng-click="correctPassword()">OK</button>
 							</div>
+
+							<div ng-show="chooseNewPassword">
+								<label>Enter <strong>new</strong> password</label>
+								<input ng-model="users.password" ng-attr-type="{{ showPassword ? 'text' : 'password' }}" required name="newPassword" ng-trim="false">
+								<show-password-eye></show-password-eye>
+								<br />
+								<span ng-if="users.password.length > 0">
+									<p ng-show="tooShort" class="errorMessage">The password must contain at least 5 characters</p>
+									<p ng-show="tooLong" class="errorMessage">The password can not conatin more than 30 characters</p>
+									<p ng-show="regex" class="errorMessage">Can only contain a-z and numbers 0-9, and no spaces</p>
+								</span>
+
+								<label>Repeat <strong>new</strong> password</label>
+								<input type="password" ng-model="confirmNewPassword">
+								<span ng-if="confirmNewPassword.length > 0">
+									<p ng-if="confirmNewPassword != users.password" class="errorMessage">Does not match</p>
+								</span>
+
+								<div class="gigantic">
+									<button class="btn btn-danger" ng-disabled="tooLong || tooShort || regex || confirmNewPassword != users.password " ng-click="changeYourPassword(id)">Change password</button>
+								</div>
+								<div ng-show="successfyllyChangedPassword">
+									<p>You successfully changed password!</p>
+								</div>
+							</div> <!-- chooseNewPassword -->
 						</form>
 					</div>
 				</div>
-				<div class="edit-profile-modal" ng-if="changeAvatar">
+				<div class="edit-profile-modal" ng-show="changeAvatarModal">
 					<div class="modal-content">
 						<div id="changeAvatar">
 							<button class="btn btn-danger right" ng-click="editAvatar()">X</button>
@@ -146,7 +152,7 @@
 							<form name="changeAvatar" novalidate class="inline">
 								<avatar-dropdown title="Choose a new avatar"></avatar-dropdown>
 								<br />
-								<button class="btn btn-danger">Change avatar</button>
+								<button class="btn btn-danger" ng-click="changeAvatar()">Change avatar</button>
 							</form>
 						</div>
 					</div>
