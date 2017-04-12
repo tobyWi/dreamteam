@@ -90,8 +90,8 @@ db.users.insert([{
         "src" : "assets/img/av03.png"
     },
     "online" : false,
-    "username" : "Kakan",
-    "password" : "hejhej"
+    "username" : "admin",
+    "password" : "lalala"
 },
 { 
     "avatar" : {
