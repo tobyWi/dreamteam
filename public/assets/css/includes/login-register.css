@@ -197,7 +197,7 @@
 /* ADMIN USER LIST */
 
 .buttons-group {
-	margin: 40px 0;
+	margin: 0;
 	padding-bottom: 40px;
 }
 
@@ -205,21 +205,68 @@
 	border-bottom: 2px solid grey;
 }
 
-.table-avatar {
-	width: 80px;
-	height: 100px;
+.table {
+	font-size: 10px;
+	margin-bottom: 0;
 }
+
+.table-avatar {
+	width: 50px;
+	height: 50px;
+}
+	.table th {
+		text-align: center;
+		font-weight: bold;
+	}
+		.table td {
+			padding: 8px 0;
+		}
 
 .block-admin-list {
 	left: 0;
 	right: 0;
-	width: 500px;
+	width: 300px;
 	min-height: 400px;
 	margin: 0 auto;
 	text-align: center;
 }
 	
-.block-admin-list .main-title {
-	font-size: 70px;
-	text-transform: uppercase;
+	.block-admin-list .main-title {
+		font-size: 30px;
+		text-transform: uppercase;
+	}
+
+		.block-admin-list .btn {
+			font-size: 10px;
+			padding: 4px;
+		}
+
+/* MEDIA QUERIES */
+
+@media ( min-width: 768px ) {
+	.buttons-group {
+		margin: 40px 0;
+	}
+
+	.block-admin-list {
+		width: 500px;
+	}
+
+	.block-admin-list .btn {
+		font-size: 14px;
+		padding: 6px 12px;
+	}
+
+	.block-admin-list .main-title {
+		font-size: 70px;
+	}
+
+	.table {
+		font-size: 16px;
+		margin-bottom: 20px;
+	}
+		.table td {
+			padding: 8px;
+		}
 }
+

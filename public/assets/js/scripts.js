@@ -209,7 +209,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	$scope.privateUser = [];
 	$scope.toPrivate = function(id) {
 
-		$scope.id = id;
+		// $scope.id = id;
 
 		$http.get('/users/private/' + id).then(function(response) {
 			$scope.privateUser.push({username: response.data.username, avatar: response.data.avatar, online: response.data.online});

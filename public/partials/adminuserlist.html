@@ -9,7 +9,7 @@
 				<div class="col-xs-12">
 					<table class="table aligncenter">
 						<thead>
-							<tr class="aligncenter">
+							<tr>
 								<th>User</th>
 								<th>Password</th>
 								<th>Avatar</th>
@@ -22,7 +22,11 @@
 								<td>{{users.username}}</td>
 								<td>{{users.password}}</td>
 								<td><img class="table-avatar" ng-src="{{users.avatar.src}}"></td>
-								<td>{{users.online}}</td>
+								<td>
+									<span class="status" ng-class="{'green': users.online, 'red': !users.online}"> 
+										<i class="fa fa-circle"></i>
+									</span>
+								</td>
 								<td>
 									<button class="btn btn-danger" ng-click="removeUser(users._id)">Delete</button>
 								</td>
