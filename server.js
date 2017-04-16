@@ -134,3 +134,14 @@ app.put('/users/password/:id', function(req, res){
 });
 
 // If the user wants to change avatar
+app.put('/users/avatar/:id', function(req, res){
+	var id = req.params.id;
+	db.users.findAndModify({
+		query: {_id: mongojs.ObjectId(id)},
+		update: {$set: {avatar: req.body.avatar}},
+		new: true }, 
+		function(err, doc){
+			res.json(doc);
+		}
+	);
+});

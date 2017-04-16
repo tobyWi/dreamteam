@@ -73,7 +73,7 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
 
-app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', '$timeout', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation, $timeout){
+app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', '$timeout', '$state', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation, $timeout, $state){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
 	$scope.id = $sessionStorage.id;
@@ -105,11 +105,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	$scope.successfyllyChangedPassword = false;
 	$scope.changeYourPassword = function(id){
 		if ($scope.users.password) {
-			$http.get('/users/' + id).then(function(res, req){
-			});
-			$scope.users.username = $sessionStorage.username;
-			$scope.users.id = $sessionStorage.id;
-			$scope.users.avatar = $sessionStorage.avatar;
 			$http.put('/users/password/' + id, $scope.users).then(function(res){
 				// Show a message for the user that change was successful
 				$scope.successfyllyChangedPassword = true;
@@ -123,27 +118,42 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 					$scope.successfyllyChangedPassword = false;
 					$scope.users.password = '';
 					$scope.confirmNewPassword = '';
+					//To refresh page
+					$state.reload();	
+				}, 1500);
+			});
+		}
+	};
+
+	$scope.successfyllyChangedAvatar = false;
+	$scope.changeAvatar = function(id){
+		console.log($scope.users.avatar);
+		console.log(id);
+		if ($scope.users.avatar) {
+
+			$http.put('/users/avatar/' + id, $scope.users).then(function(res){
+				$sessionStorage.avatar = $scope.users.avatar.src;
+				$scope.successfyllyChangedAvatar = true;
+				$timeout(function(){
+					//To refresh page so that you can see the new avatar
+					$state.reload();	
 				}, 1000);
 			});
 		}
 	};
 
-	$scope.changeAvatar = function(){
-		
-	};
-
-	$scope.goodbye = false;
+	$scope.successfyllyUnregistered = false;
 	$scope.unregisterAccount = function (id) {
 		$scope.wrongPassword = false;
 		if ( $scope.unregisterPasswordConfirm === $sessionStorage.password ) {
 			$http.delete('/users/3/' + id).then(function(res){
-				$scope.goodbye = true;
+				$scope.successfyllyUnregistered = true;
 				$timeout(function() {
 					delete $sessionStorage.id;
 					delete $sessionStorage.username;
 					delete $sessionStorage.avatar;
 					$location.path('/login');
-				}, 1500);
+				}, 1000);
 			});
 		} else {
 			$scope.wrongPassword = true;

@@ -109,7 +109,7 @@
 								<br />
 								<button class="btn btn-danger" ng-click="unregisterAccount(id)">Unregister</button>
 								<p ng-show="wrongPassword">Wrong password!</p>
-								<p ng-show="goodbye" class="successfulMessage">Successfully unregistered. Bye!</p>
+								<p ng-show="successfyllyUnregistered" class="successfulMessage">Successfully unregistered. Bye!</p>
 							</form>
 						</div>
 					</div>
@@ -145,7 +145,7 @@
 									<button class="btn btn-danger" ng-disabled="!users.password || tooLong || tooShort || regex || confirmNewPassword != users.password " ng-click="changeYourPassword(id)">Change password</button>
 								</div>
 								<p class="successfulMessage" ng-show="successfyllyChangedPassword">You successfully changed password!</p>
-							</div> <!-- chooseNewPassword -->
+							</div> <!-- /chooseNewPassword -->
 						</form>
 					</div>
 				</div>
@@ -155,11 +155,12 @@
 						<div id="changeAvatar">
 							<button class="btn btn-danger right" ng-click="editAvatar()">X</button>
 							<h2>Change avatar</h2>
-							<form name="changeAvatar" novalidate class="inline">
+							<form name="changeAvatars" novalidate class="inline">
 								<avatar-dropdown title="Choose a new avatar"></avatar-dropdown>
 								<br />
-								<button class="btn btn-danger" ng-click="changeAvatar()">Change avatar</button>
+								<button class="btn btn-danger" ng-click="changeAvatar(id)">Change avatar</button>
 							</form>
+							<p class="successfulMessage" ng-show="successfyllyChangedAvatar">You successfully changed your avatar</p>
 						</div>
 					</div>
 				</div>
