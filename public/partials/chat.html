@@ -7,8 +7,8 @@
 			<div class="col-xs-9 text-right">
 				<button class="btn btn-primary" ng-click="editProfile()"><i class="fa fa-cog"></i></button>
 				<span ng-show="username == 'admin'"> <!-- Admin panel -->
-					<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
-					<!-- Add other admin-only features here -->
+					<button type="button" ng-click="adminUserList()" class="btn btn-info"><i class="fa fa-users"></i></button>
+					<button class="btn btn-info" ng-click="goToSearch()"><i class="fa fa-search"></i></button>
 				</span>
 				<button type="button" ng-click="logout()" class="btn btn-danger" id="logout">Log Out{{online}}</button>
 			</div>

@@ -33,6 +33,10 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 		url: '/public',
 		templateUrl: 'partials/public.html',
 		css: 'css/style.css'
+	}).state('chat.search', {
+		url: '/search',
+		templateUrl: 'partials/search-results.html',
+		css: 'css/style.css'
 	});
 }]);
 // ---------------------------------------------- AVATARS/VALUE ----------------------------------------------------//
@@ -207,13 +211,17 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	//	allMessages();
 	//}, 500);
 
+	$scope.goToSearch = function(){
+		$location.path('/chat/search');
+	};
+
 	//Sidebar list all users
-	var chatLoad = function() {
+	var loadAllUsersIntoSidebar = function() {
 		$http.get('/users').then(function(response) {
 			$scope.userList = response.data;
 		});
 	};
-	chatLoad();
+	loadAllUsersIntoSidebar();
 
 	// PRIVATE CHAT COLLECT DATA
 	$scope.privateUser = [];
