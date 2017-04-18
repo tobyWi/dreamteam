@@ -1,25 +1,26 @@
-<header id="header">
-	<div class="container-fluid">
+
+<header>
+	<div class="container" id="header">
 		<div class="row">
 			<div class="col-xs-3">
 				<h1>CHAT</h1>
 			</div>
 			<div class="col-xs-9 text-right">
 				<button class="btn btn-primary" ng-click="editProfile()"><i class="fa fa-cog"></i></button>
-				<span ng-show="username == 'admin'"> <!-- Admin panel -->
-					<button type="button" ng-click="adminUserList()" class="btn btn-info">Admin User List</button>
-					<!-- Add other admin-only features here -->
+				<span ng-show="username == 'admin'">  <!-- Admin panel -->
+					<button type="button" ng-click="adminUserList()" class="btn btn-info"><i class="fa fa-users"></i></button>
+					<button class="btn btn-info" ng-click="goToSearch()"><i class="fa fa-search"></i></button>
 				</span>
 				<button type="button" ng-click="logout()" class="btn btn-danger" id="logout">Log Out{{online}}</button>
 			</div>
 		</div>
 	</div>
-</header>
+</header> 
 <div id="wrap">
 	<main class="main">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
-				<div class="col-xs-3 text-center" id="sidebar">
+				<div class="hidden-xs col-sm-3 text-center" id="sidebar">
 					<!-- Sidebar -->
 					<aside ng-controller="sidebarController">
 						<div class="row">
@@ -30,51 +31,40 @@
 										{{ username }}
 									</strong>
 								</h2>
-								<div class="tabs">
-									<h4 ng-class="{ active: isSet(1) }">
-										<a ui-sref="chat.public" ng-click="setTab(1)">Public</a>
-									</h4>
-									<h4 ng-class="{ active: isSet(2) }">
-										<a ng-click="setTab(2)">Private</a>
-									</h4>
-								</div>
 							</div>
 						</div>
-
-						<!-- Public chat sidebar -->
-						<div ng-show="isSet(1)" style="position: relative;">
-							<table class="all-users">
-								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini animated bounceInLeft aligncenter">
-									<td><img ng-src="{{ user.avatar.src }}"></td>
-									<td style="width: 100%"><span class="username">{{ user.username }}</span></td>
-									<td>
-										<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
-											<i class="fa fa-circle"></i>
-										</span>
-										<span class="send-message" ng-click="toPrivate(user._id)">  <!-- function is here -->
-											<a ui-sref="chat.private">
-												<i class="fa fa-comment"></i>
-											</a>
-										</span>
-									</td>
-								</tr>
-							</table>
-						</div>
-
-						<!-- Private chat sidebar -->
-						<div ng-show="isSet(2)" style="position: relative;">
-							<table class="all-users">
-								<tr ng-repeat="user in privateUser | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter">
-									<td><img ng-src="{{ user.avatar.src }}" /></td>
-									<td style="width: 70%"><span class="username">{{ user.username }}</span></td>
-									<td>
-										<span ng-class="{'green': user.online, 'red': !user.online}">
-											<i class="fa fa-circle"></i>
-										</span>
-									</td>
-									<td><i class="fa fa-times-circle" ng-click="noPrivate($index)"></i></td>
-								</tr>
-							</table>
+						<div class="row">
+							<div class="col-xs-12 text-center sidebar-bottom">
+								<h2>ALL CONVERSATIONS:</h2>
+								<table class="all-users">
+									<!-- public chat -->
+									<tr class="aligncenter mini animated bounceIn public-row">
+										<td>
+											<i class="fa fa-slack"></i>
+										</td>
+										<td style="width: 70%">
+											<a ui-sref="chat.public" class="username">PUBLIC CHAT</a>
+										</td>
+										<td>
+											<i class="fa fa-users"></i>
+										</td>
+									</tr>
+									<!-- all users, click to start a private chat -->
+									<tr ng-repeat="user in userList | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter private-row">
+										<td>
+											<img ng-src="{{ user.avatar.src }}" />
+										</td>
+										<td style="width: 70%">
+											<a class="username" ng-click="getPrivateConversation(user._id)">{{ user.username }}</a>
+										</td>
+										<td>
+											<span ng-class="{'green': user.online, 'red': !user.online}">
+												<i class="fa fa-circle"></i>
+											</span>
+										</td>
+									</tr>
+								</table>
+							</div>
 						</div>
 
 						<!-- Sidebar footer -->
@@ -109,7 +99,7 @@
 								<br />
 								<button class="btn btn-danger" ng-click="unregisterAccount(id)">Unregister</button>
 								<p ng-show="wrongPassword">Wrong password!</p>
-								<p ng-show="goodbye" class="successfulMessage">Successfully unregistered. Bye!</p>
+								<p ng-show="successfyllyUnregistered" class="successfulMessage">Successfully unregistered. Bye!</p>
 							</form>
 						</div>
 					</div>
@@ -145,7 +135,7 @@
 									<button class="btn btn-danger" ng-disabled="!users.password || tooLong || tooShort || regex || confirmNewPassword != users.password " ng-click="changeYourPassword(id)">Change password</button>
 								</div>
 								<p class="successfulMessage" ng-show="successfyllyChangedPassword">You successfully changed password!</p>
-							</div> <!-- chooseNewPassword -->
+							</div> <!-- /chooseNewPassword -->
 						</form>
 					</div>
 				</div>
@@ -155,18 +145,20 @@
 						<div id="changeAvatar">
 							<button class="btn btn-danger right" ng-click="editAvatar()">X</button>
 							<h2>Change avatar</h2>
-							<form name="changeAvatar" novalidate class="inline">
+							<form name="changeAvatars" novalidate class="inline">
 								<avatar-dropdown title="Choose a new avatar"></avatar-dropdown>
 								<br />
-								<button class="btn btn-danger" ng-click="changeAvatar()">Change avatar</button>
+								<button class="btn btn-danger" ng-click="changeAvatar(id)">Change avatar</button>
 							</form>
+							<p class="successfulMessage" ng-show="successfyllyChangedAvatar">You successfully changed your avatar</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-9" ui-view>
+				<div class="col-xs-12 col-sm-9" ui-view>
 					<!-- public/private chat messages here -->
 				</div>
 			</div>
 		</div>
 	</main>
 </div>
+<!-- </div> -->

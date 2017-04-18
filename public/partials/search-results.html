@@ -1,0 +1,30 @@
+<section class="content mt-20" ng-controller="chatController">
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<form name="searchForm" novalidate>
+				<input type="text" ng-model="searchField" id="searchInput" />
+				<br />
+				<input type="radio" ng-model="search" value="members" name="searchChoise" checked /> members
+				<input type="radio" ng-model="search" value="messages" name="searchChoise" /> messages
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<ul class="text-center chatarea" ng-show="search == 'members'">
+				<li ng-repeat="user in userList | filter:searchField" class="searchResults">{{ user.username }}</li>
+			</ul>
+			<ul class="text-center chatarea" ng-show="search == 'messages'">
+				<li ng-repeat="message in allMessages | filter:searchField" class="searchResults">
+					<p>"{{ message.messages.content }}"</p>
+					<strong>Sent by: {{ message.messages.sender }} (in the public chat)</strong>
+				</li>
+				<li ng-repeat="privatemessage in privateMessages | filter:searchField " class="searchResults">
+					<p>"{{ privatemessage.content }}" <p>
+					<strong>Sent by: {{ privatemessage.sender }} </strong>
+					<strong> To: {{ privatemessage.reciever }}</strong>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>

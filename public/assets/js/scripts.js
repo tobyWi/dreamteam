@@ -33,6 +33,10 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
 		url: '/public',
 		templateUrl: 'partials/public.html',
 		css: 'css/style.css'
+	}).state('chat.search', {
+		url: '/search',
+		templateUrl: 'partials/search-results.html',
+		css: 'css/style.css'
 	});
 }]);
 // ---------------------------------------------- AVATARS/VALUE ----------------------------------------------------//
@@ -73,7 +77,7 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
 
-app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', '$timeout', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation, $timeout){
+app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', '$timeout', '$state', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation, $timeout, $state){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
 	$scope.id = $sessionStorage.id;
@@ -105,11 +109,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	$scope.successfyllyChangedPassword = false;
 	$scope.changeYourPassword = function(id){
 		if ($scope.users.password) {
-			$http.get('/users/' + id).then(function(res, req){
-			});
-			$scope.users.username = $sessionStorage.username;
-			$scope.users.id = $sessionStorage.id;
-			$scope.users.avatar = $sessionStorage.avatar;
 			$http.put('/users/password/' + id, $scope.users).then(function(res){
 				// Show a message for the user that change was successful
 				$scope.successfyllyChangedPassword = true;
@@ -123,27 +122,42 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 					$scope.successfyllyChangedPassword = false;
 					$scope.users.password = '';
 					$scope.confirmNewPassword = '';
+					//To refresh page
+					$state.reload();	
+				}, 1500);
+			});
+		}
+	};
+
+	$scope.successfyllyChangedAvatar = false;
+	$scope.changeAvatar = function(id){
+		console.log($scope.users.avatar);
+		console.log(id);
+		if ($scope.users.avatar) {
+
+			$http.put('/users/avatar/' + id, $scope.users).then(function(res){
+				$sessionStorage.avatar = $scope.users.avatar.src;
+				$scope.successfyllyChangedAvatar = true;
+				$timeout(function(){
+					//To refresh page so that you can see the new avatar
+					$state.reload();	
 				}, 1000);
 			});
 		}
 	};
 
-	$scope.changeAvatar = function(){
-		
-	};
-
-	$scope.goodbye = false;
+	$scope.successfyllyUnregistered = false;
 	$scope.unregisterAccount = function (id) {
 		$scope.wrongPassword = false;
 		if ( $scope.unregisterPasswordConfirm === $sessionStorage.password ) {
 			$http.delete('/users/3/' + id).then(function(res){
-				$scope.goodbye = true;
+				$scope.successfyllyUnregistered = true;
 				$timeout(function() {
 					delete $sessionStorage.id;
 					delete $sessionStorage.username;
 					delete $sessionStorage.avatar;
 					$location.path('/login');
-				}, 1500);
+				}, 1000);
 			});
 		} else {
 			$scope.wrongPassword = true;
@@ -174,43 +188,33 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	});
 
 	// ------ Get all messages in public chat
-	// var allMessages = function() {
-	// 	$http.get('/conversations').then(function(response){
-	// 		$scope.allMessages = response.data;
-	// 	});
-	// };
-	// allMessages(); // To load all messages in the beginning
 
-	// $scope.sendMessage = function(){
-	// 	if ($scope.conversations) {
-	// 		$scope.conversations.messages.sender = $sessionStorage.username;
-	// 		$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
-	// 		$scope.conversations.messages.date = new Date();
+	var allMessages = function() {
+		$http.get('/conversations').then(function(response){
+			$scope.allMessages = response.data;
+		});
+	};
+	allMessages(); // To load all messages in the beginning
 
-	// 		!function($){
+	var privateMessages = function() {
+		$http.get('/privateMessage').then(function(res){
+			$scope.privateMessages = res.data;
+		});
+	};
+	privateMessages();
 
-	// 			var socket = io.connect('http://localhost:3000');
-	// 			var $messageForm = $('#send-message');
-	// 			var $messageBox = $('#message');
-	// 			var $chat = $('#chatarea');
+	$scope.sendMessage = function(){
+		if ($scope.conversations) {
+			$scope.conversations.messages.sender = $sessionStorage.username;
+			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
+			$scope.conversations.messages.date = new Date();
 
-	// 			$messageForm.submit(function(event) {
-	// 				event.preventDefault();
-	// 				socket.emit('send message', $messageBox.val());
-	// 				$messageBox.val('');
-	// 			});
-
-	// 			socket.on('new message', function(data) {
-	// 				$chat.append(data + '<br />');
-	// 			});
-
-	// 		}(jQuery);
 			
-	// 		// $http.post('/conversations', $scope.conversations).then(function(response) {
-	// 			$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
-	// 		// });
-	// 	}
-	// };
+			// $http.post('/conversations', $scope.conversations).then(function(response) {
+				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
+			// });
+		}
+	};
 
 	// ------------------------------------SOCKET.IO-------------------------------------//
 
@@ -248,37 +252,81 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 			// 	$messageBox.val('');
 			// });
 
-		}(jQuery);
+			}(jQuery);
 
 	// };
 
 	// ---------------------------------------------------------------------------------//
+
+	$scope.sendPrivateMessage = function(){
+		if ($scope.privateMessage) {
+			console.log($sessionStorage.reciever);
+			$scope.privateMessage.sender = $sessionStorage.username;
+			$scope.privateMessage.reciever = $sessionStorage.reciever;
+			$scope.privateMessage.date = new Date();
+			$scope.privateMessage.senderavatar = $sessionStorage.avatar;
+				
+			$http.post('/privateMessage', $scope.privateMessage).then(function(res){
+				$scope.privateMessage.content = '';
+			});
+
+		} 
+	};
+
 	//$interval(function(){
 	//	allMessages();
 	//}, 500);
 
+	$scope.goToSearch = function(){
+		$location.path('/chat/search');
+	};
+
 	//Sidebar list all users
-	var chatLoad = function() {
+	var loadAllUsersIntoSidebar = function() {
 		$http.get('/users').then(function(response) {
 			$scope.userList = response.data;
 		});
 	};
-	chatLoad();
+	loadAllUsersIntoSidebar();
+
+
 
 	// PRIVATE CHAT COLLECT DATA
-	$scope.privateUser = [];
-	$scope.toPrivate = function(id) {
-
-		// $scope.id = id;
-
-		$http.get('/users/private/' + id).then(function(response) {
-			$scope.privateUser.push({username: response.data.username, avatar: response.data.avatar, online: response.data.online});
-			// $sessionStorage.privateId.push(response.data.username);
+	$scope.getPrivateConversation = function(id) {
+		delete $sessionStorage.reciever;
+		// Find the username of the user you clicked, and save it
+		$http.get('/users').then(function(res){
+			for ( var i = 0; i < res.data.length; i++ ){
+				if ( res.data[i]._id === id ) {
+					$sessionStorage.reciever = res.data[i].username;
+				}	
+			}
 		});
+
+		$scope.privateConversation = [];
+		var privateMessages = function(){
+			$scope.privateConversation.splice(0, $scope.privateConversation.length);
+			$http.get('/privateMessage').then(function(res){
+				console.log(res);
+				for ( var i = 0; i < res.data.length; i++ ) {
+					console.log(res);
+					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.reciever === res.data[i].reciever) ) {
+						$scope.privateConversation.push(res.data[i]);
+					} else if ( ($sessionStorage.username === res.data[i].reciever) && ($sessionStorage.reciever === res.data[i].sender) )
+						$scope.privateConversation.push(res.data[i]);
+				}
+			});
+		};
+		privateMessages();
+		$location.path('/chat/private');
 	};
 
-	$scope.noPrivate = function($index) {
-		$scope.privateUser.splice($index,1);	
+	$scope.toPrivate = function(id) {
+		$http.get('/users/private/' + id).then(function(response) {
+			console.log(response);
+			// $sessionStorage.privateId.push(response.data.username);
+		});
+
 	};
 
 	// LOGOUT
@@ -351,7 +399,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 		$location.path('/login');
 	};
 	$scope.chatBack = function() {
-		$location.path('/chat');	
+		$location.path('/chat/public');	
 	};
 }]);
 
@@ -414,12 +462,6 @@ app.factory('validation', [function(){
 app.directive('avatarDropdown', [function(){
 	return {
 		restrict: 'E',
-		/*
-		*** Modify this, needs its own scope and controllers scope  ***
-		scope: {
-			'title': '@'
-		},
-		*/
 		templateUrl: '../../templates/avatar-dropdown.html'
 	};
 }]);
