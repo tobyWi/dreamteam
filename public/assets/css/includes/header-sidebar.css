@@ -100,7 +100,7 @@
 	#sidebar .all-users {
 		height: 270px;
 		text-align: left;
-		overflow-y: scroll; 
+		width: 100%; 
 	}
 
 	#sidebar .all-users td {
