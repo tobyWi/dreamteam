@@ -30,43 +30,31 @@
 										{{ username }}
 									</strong>
 								</h2>
-								<div class="tabs">
-									<h4 ng-class="{ active: isSet(1) }">
-										<a ui-sref="chat.public" ng-click="setTab(1)">Public</a>
-									</h4>
-									<h4 ng-class="{ active: isSet(2) }">
-										<a ng-click="setTab(2)">Private</a>
-									</h4>
-								</div>
 							</div>
 						</div>
-
-						<!-- Public chat sidebar -->
-						<div ng-show="isSet(1)" style="position: relative;">
+						<div style="position: relative;">
+							<h2>ALL CONVERSATIONS:</h2>
 							<table class="all-users">
-								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini animated bounceInLeft aligncenter">
-									<td><img ng-src="{{ user.avatar.src }}"></td>
-									<td style="width: 100%"><span class="username" ng-click="toPrivate(user._id)">{{ user.username }}</span></td>
+								<!-- public chat -->
+								<tr class="aligncenter mini animated bounceIn public-row">
 									<td>
-										<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
-											<i class="fa fa-circle"></i>
-										</span>
-										<span class="send-message" ng-click="toPrivate(user._id)">  <!-- function is here -->
-											<a ui-sref="chat.private">
-												<i class="fa fa-comment"></i>
-											</a>
-										</span>
+										<i class="fa fa-slack"></i>
+									</td>
+									<td style="width: 70%">
+										<a ui-sref="chat.public" class="username">PUBLIC CHAT</a>
+									</td>
+									<td>
+										<i class="fa fa-users"></i>
 									</td>
 								</tr>
-							</table>
-						</div>
-
-						<!-- Private chat sidebar -->
-						<div ng-show="isSet(2)" style="position: relative;">
-							<table class="all-users">
-								<tr ng-repeat="user in userList | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter">
-									<td><img ng-src="{{ user.avatar.src }}" /></td>
-									<td style="width: 70%"><span class="username" ng-click="getPrivateConversation(user._id)">{{ user.username }}</span></td>
+								<!-- all users, click to start a private chat -->
+								<tr ng-repeat="user in userList | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter private-row">
+									<td>
+										<img ng-src="{{ user.avatar.src }}" />
+									</td>
+									<td style="width: 70%">
+										<a class="username" ng-click="getPrivateConversation(user._id)">{{ user.username }}</a>
+									</td>
 									<td>
 										<span ng-class="{'green': user.online, 'red': !user.online}">
 											<i class="fa fa-circle"></i>
