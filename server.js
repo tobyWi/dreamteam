@@ -102,14 +102,6 @@ app.post('/conversations/', function(req, res) {
 	});
 });
 
-app.get('/users/private/:id', function(req, res) {
-	var id = req.params.id;
-	console.log(id);
-	db.users.find({_id: mongojs.ObjectId(id)}, function (err, doc) {
-		res.json(doc);
-	});
-});
-
 // ------------------------------------ MESSAGES/PRIVATE-------------------------------------//
 app.get('/privateMessage', function(req, res) {
 	db.privateMessage.find(function(err, docs){
@@ -117,8 +109,18 @@ app.get('/privateMessage', function(req, res) {
 	});
 });
 
+// Send a private message
 app.post('/privateMessage/', function(req, res) {
 	db.privateMessage.insert(req.body, function(err, doc) {
+		res.json(doc);
+	});
+});
+
+// Get the ID of the user you want to send a message to
+app.get('/users/private/:id', function(req, res) {
+	var id = req.params.id;
+	console.log(id);
+	db.users.find({_id: mongojs.ObjectId(id)}, function (err, doc) {
 		res.json(doc);
 	});
 });

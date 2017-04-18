@@ -19,6 +19,11 @@
 					"{{ message.messages.content }}" <br />
 					<strong>Sent by: {{ message.messages.sender }} (in the public chat)</strong>
 				</li>
+				<li ng-repeat="privatemessage in privateMessages | filter:searchField " class="searchResults">
+					"{{ privatemessage.content }}" <br />
+					<strong>Sent by: {{ privatemessage.sender }} </strong>
+					<strong> To: {{ privatemessage.reciever }}</strong>
+				</li>
 			</ul>
 		</div>
 	</div>

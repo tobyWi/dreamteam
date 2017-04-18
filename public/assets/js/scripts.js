@@ -195,6 +195,13 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	};
 	allMessages(); // To load all messages in the beginning
 
+	var privateMessages = function() {
+		$http.get('/privateMessage').then(function(res){
+			$scope.privateMessages = res.data;
+		});
+	};
+	privateMessages();
+
 	$scope.sendMessage = function(){
 		if ($scope.conversations) {
 			$scope.conversations.messages.sender = $sessionStorage.username;
@@ -213,6 +220,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 			$scope.privateMessage.sender = $sessionStorage.username;
 			$scope.privateMessage.reciever = $sessionStorage.reciever;
 			$scope.privateMessage.date = new Date();
+			$scope.privateMessage.senderavatar = $sessionStorage.avatar;
 				
 			$http.post('/privateMessage', $scope.privateMessage).then(function(res){
 				$scope.privateMessage.content = '';
