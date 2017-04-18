@@ -16,7 +16,7 @@
 			</ul>
 			<ul class="text-center" ng-show="search == 'messages'">
 				<li ng-repeat="message in allMessages | filter:searchField" class="searchResults">
-					{{ message.messages.content }} <br />
+					"{{ message.messages.content }}" <br />
 					<strong>Sent by: {{ message.messages.sender }} (in the public chat)</strong>
 				</li>
 			</ul>

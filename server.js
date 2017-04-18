@@ -83,11 +83,11 @@ app.put('/users/1/:id', function(req, res) {
 });
 
 
-// ------------------------------------ MESSAGES -------------------------------------//
+// ------------------------------------ MESSAGES/PUBLIC -------------------------------------//
 // Checks & displays any messages sent to the server/database.
 
 app.get('/conversations', function(request, res) {
-	console.log("Get - conversations");
+	console.log("GET - conversations");
 
 	db.conversations.find(function(err, docs) {
 		res.json(docs);
@@ -105,11 +105,23 @@ app.post('/conversations/', function(req, res) {
 app.get('/users/private/:id', function(req, res) {
 	var id = req.params.id;
 	console.log(id);
-	db.users.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
+	db.users.find({_id: mongojs.ObjectId(id)}, function (err, doc) {
 		res.json(doc);
 	});
 });
 
+// ------------------------------------ MESSAGES/PRIVATE-------------------------------------//
+app.get('/privateMessage', function(req, res) {
+	db.privateMessage.find(function(err, docs){
+		res.json(docs);
+	});
+});
+
+app.post('/privateMessage/', function(req, res) {
+	db.privateMessage.insert(req.body, function(err, doc) {
+		res.json(doc);
+	});
+});
 
 // ----------------------------------- EDIT USER ----------------------------------- //
 // If the user wants to unregister

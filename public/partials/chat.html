@@ -46,7 +46,7 @@
 							<table class="all-users">
 								<tr ng-repeat="user in userList | orderBy : '-online'" class="mini animated bounceInLeft aligncenter">
 									<td><img ng-src="{{ user.avatar.src }}"></td>
-									<td style="width: 100%"><span class="username">{{ user.username }}</span></td>
+									<td style="width: 100%"><span class="username" ng-click="toPrivate(user._id)">{{ user.username }}</span></td>
 									<td>
 										<span class="status" ng-class="{'green': user.online, 'red': !user.online}"> 
 											<i class="fa fa-circle"></i>
@@ -64,15 +64,14 @@
 						<!-- Private chat sidebar -->
 						<div ng-show="isSet(2)" style="position: relative;">
 							<table class="all-users">
-								<tr ng-repeat="user in privateUser | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter">
+								<tr ng-repeat="user in userList | orderBy : '-online' track by $index" class="mini animated bounceInLeft aligncenter">
 									<td><img ng-src="{{ user.avatar.src }}" /></td>
-									<td style="width: 70%"><span class="username">{{ user.username }}</span></td>
+									<td style="width: 70%"><span class="username" ng-click="getPrivateConversation(user._id)">{{ user.username }}</span></td>
 									<td>
 										<span ng-class="{'green': user.online, 'red': !user.online}">
 											<i class="fa fa-circle"></i>
 										</span>
 									</td>
-									<td><i class="fa fa-times-circle" ng-click="noPrivate($index)"></i></td>
 								</tr>
 							</table>
 						</div>
