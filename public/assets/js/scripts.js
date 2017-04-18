@@ -174,25 +174,85 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	});
 
 	// ------ Get all messages in public chat
-	var allMessages = function() {
-		$http.get('/conversations').then(function(response){
-			$scope.allMessages = response.data;
-		});
-	};
-	allMessages(); // To load all messages in the beginning
+	// var allMessages = function() {
+	// 	$http.get('/conversations').then(function(response){
+	// 		$scope.allMessages = response.data;
+	// 	});
+	// };
+	// allMessages(); // To load all messages in the beginning
 
-	$scope.sendMessage = function(){
-		if ($scope.conversations) {
-			$scope.conversations.messages.sender = $sessionStorage.username;
-			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
-			$scope.conversations.messages.date = new Date();
+	// $scope.sendMessage = function(){
+	// 	if ($scope.conversations) {
+	// 		$scope.conversations.messages.sender = $sessionStorage.username;
+	// 		$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
+	// 		$scope.conversations.messages.date = new Date();
+
+	// 		!function($){
+
+	// 			var socket = io.connect('http://localhost:3000');
+	// 			var $messageForm = $('#send-message');
+	// 			var $messageBox = $('#message');
+	// 			var $chat = $('#chatarea');
+
+	// 			$messageForm.submit(function(event) {
+	// 				event.preventDefault();
+	// 				socket.emit('send message', $messageBox.val());
+	// 				$messageBox.val('');
+	// 			});
+
+	// 			socket.on('new message', function(data) {
+	// 				$chat.append(data + '<br />');
+	// 			});
+
+	// 		}(jQuery);
 			
-			$http.post('/conversations', $scope.conversations).then(function(response) {
-				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
-			});
-		}
-	};
+	// 		// $http.post('/conversations', $scope.conversations).then(function(response) {
+	// 			$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
+	// 		// });
+	// 	}
+	// };
 
+	// ------------------------------------SOCKET.IO-------------------------------------//
+
+	// $scope.sendMessage = function(){
+
+		!function($){
+
+			var socket = io.connect();
+			var $messageForm = $('#send-message');
+			var $messageBox = $('#message');
+			var $chat = $('#chatarea');
+
+			$messageForm.submit(function(event) {
+
+				event.preventDefault();
+				socket.emit('send message', $messageBox.val(), function(data) {
+					$chat.append('45' + '<b>' + data + '</b>');
+				});
+				$messageBox.val();
+
+			});
+
+			socket.on('new message', function(data) {
+				$chat.append('<b>' + data + '<br />');
+				$messageBox.val('');
+			});
+
+			// $messageBox.val('');
+
+			// $messageForm.submit(function(event) {
+			// 	event.preventDefault();
+			// 	socket.emit('send message', $messageBox.val(), function(data) {
+			// 		$chat.append('<span class="error">' + data + '</span><br />');
+			// 	});
+			// 	$messageBox.val('');
+			// });
+
+		}(jQuery);
+
+	// };
+
+	// ---------------------------------------------------------------------------------//
 	//$interval(function(){
 	//	allMessages();
 	//}, 500);

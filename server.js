@@ -1,18 +1,40 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var mongojs = require('mongojs');
 var db = mongojs('chatdatabase', ['users', 'conversations']);
 var bodyParser = require('body-parser');
 
-app.use(express.static(__dirname + "/public"));
+// ------------------------------------ SOCKET.IO -------------------------------------//
+
+var server = require('http').createServer(app),
+	io = require('socket.io').listen(server);
+
+// app.get('/', function(req, res) {
+// 	res.sendFile(__dirname + '/public');
+// });
+
+io.sockets.on('connection', function(socket) {
+	socket.on('send message', function(data) {
+		io.sockets.emit('new message', data);
+	});
+});
+
+server.listen(3000, function() {
+	console.log("Socket Trials Server has started!")
+});
+
+// ------------------------------------------------------------------------------------//
+
+app.use(express.static(path.join(__dirname + '/public')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 
 
 // See your work in a browser by going to "localhost:3000"
-app.listen(3000, function(){
-	console.log("Chat server has started");
-});
+// app.listen(3000, function(){
+// 	console.log("Chat server has started");
+// });
 
 // ------------------------------------ USERS -------------------------------------//
 // Checks & displays any messages sent to the server/database.

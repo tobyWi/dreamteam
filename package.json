@@ -10,7 +10,8 @@
     "gulp-jshint": "^2.0.4",
     "gulp-live-server": "0.0.30",
     "jshint": "^2.9.4",
-    "mongojs": "^2.4.0"
+    "mongojs": "^2.4.0",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {},
   "scripts": {
