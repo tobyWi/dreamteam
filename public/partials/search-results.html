@@ -16,11 +16,11 @@
 			</ul>
 			<ul class="text-center" ng-show="search == 'messages'">
 				<li ng-repeat="message in allMessages | filter:searchField" class="searchResults">
-					"{{ message.messages.content }}" <br />
+					<p>"{{ message.messages.content }}"</p>
 					<strong>Sent by: {{ message.messages.sender }} (in the public chat)</strong>
 				</li>
 				<li ng-repeat="privatemessage in privateMessages | filter:searchField " class="searchResults">
-					"{{ privatemessage.content }}" <br />
+					<p>"{{ privatemessage.content }}" <p>
 					<strong>Sent by: {{ privatemessage.sender }} </strong>
 					<strong> To: {{ privatemessage.reciever }}</strong>
 				</li>

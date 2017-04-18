@@ -272,10 +272,10 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 						$scope.privateConversation.push(res.data[i]);
 				}
 			});
-		}
+		};
 		privateMessages();
 		$location.path('/chat/private');
-	}
+	};
 
 	$scope.toPrivate = function(id) {
 		$http.get('/users/private/' + id).then(function(response) {
