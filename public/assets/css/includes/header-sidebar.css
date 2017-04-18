@@ -7,8 +7,6 @@
 	background-color: #B0BEC5;;
 	line-height: 70px;
 	color: white;
-	/*position: fixed;
-	width: 100%;*/
 	z-index: 900;
 }
 
@@ -36,7 +34,6 @@
 	box-shadow: 1px 6px 10px 0 rgba(0, 0, 0, 0.14),
                   1px 1px 18px 0 rgba(0, 0, 0, 0.12),
                   1px 1px 3px -1px rgba(0, 0, 0, 0.4);
-	/*position: fixed;*/
 	z-index: 79;
 	max-height: 620px;
 	/*max-width: 240px;*/
@@ -80,11 +77,8 @@
 	}
 
 	#sidebar .copy {
-		/*position: fixed;
-		bottom: 0;*/
 		width: 200px;
 		border-top: 1px solid #ddd;
-	/*	left: 0;*/
 		padding: 5px;
 	}
 
@@ -106,7 +100,7 @@
 	#sidebar .all-users {
 		height: 270px;
 		text-align: left;
-		overflow-y: scroll; 
+		width: 100%; 
 	}
 
 	#sidebar .all-users td {
@@ -121,12 +115,6 @@
 			cursor: pointer;
 		}
 
-		/*.send-message-field {
-			position: fixed;
-			bottom: 0;
-			left: 250px;
-		}
-*/
 		#sidebar .all-users td:hover .username{	
 			font-weight: 700;
 			cursor: pointer;

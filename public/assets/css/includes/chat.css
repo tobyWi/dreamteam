@@ -106,6 +106,7 @@ p.messagedate {
 
 
 @media (max-height: 1024px) {
+
 	#header {
 		line-height: 50px;
 	}
@@ -119,9 +120,7 @@ p.messagedate {
 
 	.send-message-field textarea {
 		min-height: 50px;
-
 	}
-
 }
 
 @media (min-height: 320px) {
@@ -136,9 +135,7 @@ p.messagedate {
 
 	.chatarea {
 		max-height: 200px;
-	}
-
-	
+	}	
 }
 
 
@@ -147,7 +144,6 @@ p.messagedate {
 	.chatarea {
 		max-height: 240px;
 	}
-
 }
 
 @media (min-height: 568px) {
@@ -199,7 +195,6 @@ p.messagedate {
 	#sidebar {
 		max-height: 900px;
 	}
-
 }
 
 @media (min-height: 1300px) {
