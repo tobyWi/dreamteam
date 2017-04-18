@@ -195,6 +195,13 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	};
 	allMessages(); // To load all messages in the beginning
 
+	var privateMessages = function() {
+		$http.get('/privateMessage').then(function(res){
+			$scope.privateMessages = res.data;
+		});
+	};
+	privateMessages();
+
 	$scope.sendMessage = function(){
 		if ($scope.conversations) {
 			$scope.conversations.messages.sender = $sessionStorage.username;
@@ -205,6 +212,21 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
+	};
+
+	$scope.sendPrivateMessage = function(){
+		if ($scope.privateMessage) {
+			console.log($sessionStorage.reciever);
+			$scope.privateMessage.sender = $sessionStorage.username;
+			$scope.privateMessage.reciever = $sessionStorage.reciever;
+			$scope.privateMessage.date = new Date();
+			$scope.privateMessage.senderavatar = $sessionStorage.avatar;
+				
+			$http.post('/privateMessage', $scope.privateMessage).then(function(res){
+				$scope.privateMessage.content = '';
+			});
+
+		} 
 	};
 
 	//$interval(function(){
@@ -223,20 +245,44 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	};
 	loadAllUsersIntoSidebar();
 
+
+
 	// PRIVATE CHAT COLLECT DATA
-	$scope.privateUser = [];
-	$scope.toPrivate = function(id) {
-
-		// $scope.id = id;
-
-		$http.get('/users/private/' + id).then(function(response) {
-			$scope.privateUser.push({username: response.data.username, avatar: response.data.avatar, online: response.data.online});
-			// $sessionStorage.privateId.push(response.data.username);
+	$scope.getPrivateConversation = function(id) {
+		delete $sessionStorage.reciever;
+		// Find the username of the user you clicked, and save it
+		$http.get('/users').then(function(res){
+			for ( var i = 0; i < res.data.length; i++ ){
+				if ( res.data[i]._id === id ) {
+					$sessionStorage.reciever = res.data[i].username;
+				}	
+			}
 		});
+
+		$scope.privateConversation = [];
+		var privateMessages = function(){
+			$scope.privateConversation.splice(0, $scope.privateConversation.length);
+			$http.get('/privateMessage').then(function(res){
+				console.log(res);
+				for ( var i = 0; i < res.data.length; i++ ) {
+					console.log(res);
+					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.reciever === res.data[i].reciever) ) {
+						$scope.privateConversation.push(res.data[i]);
+					} else if ( ($sessionStorage.username === res.data[i].reciever) && ($sessionStorage.reciever === res.data[i].sender) )
+						$scope.privateConversation.push(res.data[i]);
+				}
+			});
+		};
+		privateMessages();
+		$location.path('/chat/private');
 	};
 
-	$scope.noPrivate = function($index) {
-		$scope.privateUser.splice($index,1);	
+	$scope.toPrivate = function(id) {
+		$http.get('/users/private/' + id).then(function(response) {
+			console.log(response);
+			// $sessionStorage.privateId.push(response.data.username);
+		});
+
 	};
 
 	// LOGOUT
@@ -309,7 +355,7 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 		$location.path('/login');
 	};
 	$scope.chatBack = function() {
-		$location.path('/chat');	
+		$location.path('/chat/public');	
 	};
 }]);
 
@@ -372,12 +418,6 @@ app.factory('validation', [function(){
 app.directive('avatarDropdown', [function(){
 	return {
 		restrict: 'E',
-		/*
-		*** Modify this, needs its own scope and controllers scope  ***
-		scope: {
-			'title': '@'
-		},
-		*/
 		templateUrl: '../../templates/avatar-dropdown.html'
 	};
 }]);

@@ -143,10 +143,19 @@ ul {
 	margin-top: 20px;
 }
 
-ul .searchResults {
-	border-bottom: 1px solid black;
-	padding: 20px;
-	margin-bottom: 20px;
-	width: 50%;
-	margin: 0 auto;
-}
+	ul .searchResults {
+		border-bottom: 1px solid black;
+		padding: 20px;
+		margin-bottom: 20px;
+		width: 50%;
+		margin: 0 auto;
+	}
+
+	ul .searchResults strong {
+		font-weight: 500;
+		font-size: 12px;
+	}
+
+	ul .searchResults p {
+		font-size: 18px;
+	}

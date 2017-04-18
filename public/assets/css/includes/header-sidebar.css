@@ -43,6 +43,7 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 	box-shadow: 10px 3px 4px rgba(0, 0, 0, 0.14),
+
 }
 	#sidebar h2 {
 		font-size: 10px;
@@ -69,6 +70,7 @@
 	#sidebar .sidebar-top {
 		background-color: whitesmoke;
 		padding-top: 30px;
+		padding-bottom: 20px;
 	}
 
 	#sidebar .sidebar-top a {
@@ -191,9 +193,38 @@
 }
 
 .green {
-	color: #64DD17;
+	color: #00C853;
 }
 
+#sidebar a {
+	color: black;
+	font-weight: 500;
+	//text-transform: uppercase;
+	text-decoration: none;
+}
+#sidebar a:hover {
+	font-weight: 700;
+	text-decoration: none;
+}
+#sidebar a:active {
+	background-color: black;
+}
+
+#sidebar table {
+	margin-top: 15px;
+}
+
+#sidebar .public-row td{
+	margin-bottom: 15px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#sidebar .private-row td{
+	margin-bottom: 15px;
+	background-color: rgba(229, 115, 115, 0.5);
+}
+
+span.fa-users,
 span.green,
 span.red {
 	float: right;
@@ -211,4 +242,3 @@ span.red {
 	position: relative;
 	box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.8), 0 1px -1px -3px rgba(0, 0, 0, 0.12);
 }
-
