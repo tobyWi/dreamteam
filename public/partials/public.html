@@ -2,7 +2,7 @@
 	<div class="row">
 		<div scroll-glue-bottom id="chatarea" class="col-xs-12 chatarea">
 			<div class="row" ng-repeat="message in allMessages">
-				<div class="col-xs-5 message-box" ng-class="{'col-xs-push-6 marginright': isUserSender(message.messages.sender), 'marginleft': !isUserSender(message.messages.sender)}">
+				<div class="col-xs-5 message-box" ng-class="{'col-xs-push-6 marginright my-messages': isUserSender(message.messages.sender), 'marginleft your-messages': !isUserSender(message.messages.sender)}">
 					<img ng-src="{{ message.messages.senderavatar }}" class="image-float-left">
 					<strong>{{ message.messages.sender }}:</strong><br/>
 					<i>{{ message.messages.content }}</i>

@@ -1,4 +1,11 @@
 /*Chat styles*/
+.my-messages {
+	background-color: rgba(100, 181, 246, 0.3)!important;
+}
+
+.your-messages {
+	background-color: rgba(102, 187, 106, 0.3)!important;
+}
 
 .fadeInDown {
     -webkit-animation-duration: 3s;
