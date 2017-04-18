@@ -18,6 +18,7 @@
 	padding: 5px;
 	overflow: hidden;	
 	margin-bottom: 20px;
+	margin-top: 20px;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
 				0 1px 5px 0 rgba(0, 0, 0, 0.12),
   				0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -45,43 +46,163 @@
 
 .content {
 	color: black;
-	position: absolute;
+	/*position: absolute;
 	left: 250px;
-	top: 100px;
+	top: 100px;*/
 	width: 100%;
 }
 
 p.messagedate {
 	font-size: 10px;
-	right: 0;
-	bottom: 0;
-	position: absolute;
+	/*right: 0;*/
+	/*bottom: 0;
+	position: absolute;*/
 	margin: 2px;
 }
 
 .chatarea {
-	height: 600px;
 	overflow-y: scroll;
+	/*margin-top: 100px;*/
+	max-height: 580px;
+	margin-top: 20px;
 }
 .all-users {
 	overflow-y: scroll;
-	height:500px;
 }
 .send-message-field {
+	position: fixed;
+    width: 100%;
+    bottom: 0;
+
+    background-color: white;
+    margin-right: 50px;
+    padding-bottom: 20px;
 	
 }
 	.send-message-field button {
-		height: 80px;
+		/*height: 80px;
 		width: 100px;
 		position: fixed;
 		bottom: 10px;
-		left: 750px;
+		left: 750px;*/
+
 	}
 	.send-message-field textarea {
-		position: fixed;
-		bottom: 10px;
+		/*position: fixed;
+		bottom: 10px;*/
 		border-radius: 5px;
 		resize: none;
-		width: 450px;
-		height: 80px;
+		min-width: 300px;
+		min-height: 80px;
 	}
+
+
+
+@media (max-height: 1024px) {
+	#header {
+		line-height: 50px;
+	}
+	#header h1 {
+		font-size: 40px;
+	}
+
+	.send-message-field {
+		padding-bottom: 10px;
+	}
+
+	.send-message-field textarea {
+		min-height: 50px;
+
+	}
+
+}
+
+@media (min-height: 320px) {
+
+	.chatarea {
+		max-height: 160px;
+	}	
+}
+
+
+@media (min-height: 360px) {
+
+	.chatarea {
+		max-height: 200px;
+	}
+
+	
+}
+
+
+@media (min-height: 412px) {
+
+	.chatarea {
+		max-height: 240px;
+	}
+
+}
+
+@media (min-height: 568px) {
+
+	.chatarea {
+		max-height: 400px;
+	}
+}
+
+
+
+@media (min-height: 640px) {
+
+	.chatarea {
+		max-height: 440px;
+	}
+}
+
+
+@media (min-height: 732px) {
+
+	.chatarea {
+		max-height: 540px;
+	}
+
+	#sidebar {
+		max-height: 680px;
+	}
+}
+
+@media (min-height: 768px) {
+
+	.chatarea {
+		max-height: 600px;
+	}
+	#sidebar {
+		max-height: 680px;
+	}
+}
+
+
+
+@media (min-height: 1024px) {
+
+	.chatarea {
+		max-height: 830px;
+	}
+
+	#sidebar {
+		max-height: 900px;
+	}
+
+}
+
+@media (min-height: 1300px) {
+
+	.chatarea {
+		max-height: 1120px;
+	}
+
+	#sidebar {
+		max-height: 1250px;
+	}
+}
+

@@ -5,11 +5,11 @@
                   0 1px 18px 0 rgba(0, 0, 0, 0.12),
                   0 1px 3px -1px rgba(0, 0, 0, 0.4);
 	background-color: #B0BEC5;;
-	line-height: 100px;
+	line-height: 70px;
 	color: white;
-	position: fixed;
-	width: 100%;
-	z-index: 98;
+	/*position: fixed;
+	width: 100%;*/
+	z-index: 900;
 }
 
 	#header h1 {
@@ -30,18 +30,19 @@
 /* Sidebar Styles */
 
 #sidebar {	
+	margin-top: 20px;
 	background-color: #ECEFF1;
 	color: black;
 	box-shadow: 1px 6px 10px 0 rgba(0, 0, 0, 0.14),
                   1px 1px 18px 0 rgba(0, 0, 0, 0.12),
                   1px 1px 3px -1px rgba(0, 0, 0, 0.4);
-	position: fixed;
-	height: 100%;
-	top: 100px;
+	/*position: fixed;*/
 	z-index: 79;
-	width: 240px;
-	
-      box-shadow: 10px 3px 4px rgba(0, 0, 0, 0.14),
+	max-height: 620px;
+	/*max-width: 240px;*/
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-shadow: 10px 3px 4px rgba(0, 0, 0, 0.14),
 }
 	#sidebar h2 {
 		font-size: 10px;
@@ -77,11 +78,11 @@
 	}
 
 	#sidebar .copy {
-		position: fixed;
-		bottom: 0;
+		/*position: fixed;
+		bottom: 0;*/
 		width: 200px;
 		border-top: 1px solid #ddd;
-		left: 0;
+	/*	left: 0;*/
 		padding: 5px;
 	}
 
@@ -118,12 +119,12 @@
 			cursor: pointer;
 		}
 
-		.send-message-field {
+		/*.send-message-field {
 			position: fixed;
 			bottom: 0;
 			left: 250px;
 		}
-
+*/
 		#sidebar .all-users td:hover .username{	
 			font-weight: 700;
 			cursor: pointer;

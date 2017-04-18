@@ -1,12 +1,13 @@
-<header id="header">
-	<div class="container-fluid">
+
+<header>
+	<div class="container" id="header">
 		<div class="row">
 			<div class="col-xs-3">
 				<h1>CHAT</h1>
 			</div>
 			<div class="col-xs-9 text-right">
 				<button class="btn btn-primary" ng-click="editProfile()"><i class="fa fa-cog"></i></button>
-				<span ng-show="username == 'admin'"> <!-- Admin panel -->
+				<span ng-show="username == 'admin'">  <!-- Admin panel -->
 					<button type="button" ng-click="adminUserList()" class="btn btn-info"><i class="fa fa-users"></i></button>
 					<button class="btn btn-info" ng-click="goToSearch()"><i class="fa fa-search"></i></button>
 				</span>
@@ -14,12 +15,12 @@
 			</div>
 		</div>
 	</div>
-</header>
+</header> 
 <div id="wrap">
 	<main class="main">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
-				<div class="col-xs-3 text-center" id="sidebar">
+				<div class="hidden-xs col-sm-3 text-center" id="sidebar">
 					<!-- Sidebar -->
 					<aside ng-controller="sidebarController">
 						<div class="row">
@@ -164,10 +165,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-9" ui-view>
+				<div class="col-xs-12 col-sm-9" ui-view>
 					<!-- public/private chat messages here -->
 				</div>
 			</div>
 		</div>
 	</main>
 </div>
+<!-- </div> -->
