@@ -192,12 +192,58 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 			$scope.conversations.messages.sender = $sessionStorage.username;
 			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
 			$scope.conversations.messages.date = new Date();
+
 			
 			$http.post('/conversations', $scope.conversations).then(function(response) {
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
 		}
 	};
+
+	// ------------------------------------SOCKET.IO-------------------------------------//
+
+	
+
+		// !function($){
+
+		// 	var socket = io.connect();
+		// 	// var $messageForm = $('#send-message');
+		// 	var $messageBox = $('#message');
+		// 	var $chat = $('#chatarea');
+
+
+		// 	$scope.sendMessage = function(){
+				
+		// 		// $scope.message.messages.content = $chat;
+
+		// 		if ($scope.conversations) {
+		// 			$scope.conversations.messages.sender = $sessionStorage.username;
+		// 			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
+		// 			$scope.conversations.messages.date = new Date();
+		// 		}	
+				
+		// 		socket.emit('send message', $messageBox.val(), function(data) {
+		// 		});
+		// 		$messageBox.val();
+				
+		// 		$http.post('/conversations', $scope.conversations).then(function(response) {
+		// 			$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
+		// 		});
+		// 	};
+
+		// 	socket.on('new message', function(data) {
+		// 		$chat.append(data + '<br />');
+		// 		// console.log(data);
+		// 		// return data;
+		// 	});
+
+
+
+		// }(jQuery);
+
+	
+
+	// ---------------------------------------------------------------------------------//
 
 	$scope.sendPrivateMessage = function(){
 		if ($scope.privateMessage) {
@@ -264,6 +310,18 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		clearSessionStorage();
 		$location.path('/login');
 	};
+
+	$scope.adminUserList = function() {
+		$location.path('/adminuserlist');
+	};
+
+	//show sidebar responsive
+
+	$scope.showSidebar = function(){
+    $(this).toggleClass('fa-bars fa-close');
+    $('#sidebar').slideToggle().css('display','block');
+  };
+
 }]);
 
 //------------------------------------------------ADMINUSERCONTROLLER -------------------------------------------//
