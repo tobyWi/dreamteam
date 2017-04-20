@@ -161,7 +161,6 @@ p.messagedate {
 	#sidebar {
 		max-height: 680px;
 	}
-
 }
 
 @media (min-height: 768px) {
@@ -169,9 +168,13 @@ p.messagedate {
 	.chatarea {
 		max-height: 600px;
 	}
+	
+}
+
+@media (max-width: 734px){
 	#sidebar {
-		max-height: 680px;
-	}
+		display: none;
+		}
 }
 
 
