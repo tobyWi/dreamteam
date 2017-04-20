@@ -80,10 +80,8 @@ p.messagedate {
 	position: fixed;
     width: 100%;
     bottom: 0;
-
-    background-color: white;
     margin-right: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 	
 }
 	.send-message-field button {
@@ -100,35 +98,21 @@ p.messagedate {
 		border-radius: 5px;
 		resize: none;
 		min-width: 300px;
-		min-height: 80px;
-	}
-
-
-
-@media (max-height: 1024px) {
-
-	#header {
-		line-height: 50px;
-	}
-	#header h1 {
-		font-size: 30px;
-	}
-
-	.send-message-field {
-		padding-bottom: 10px;
-	}
-
-	.send-message-field textarea {
 		min-height: 50px;
 	}
-}
+
+
+
 
 @media (min-height: 320px) {
 
 	.chatarea {
 		max-height: 160px;
 	}	
-}
+
+	.edit-profile-modal .modal-content {
+		margin: 3% auto;
+	}
 
 
 @media (min-height: 360px) {
@@ -151,6 +135,10 @@ p.messagedate {
 	.chatarea {
 		max-height: 400px;
 	}
+
+	.edit-profile-modal .modal-content {
+		margin: 20% auto;
+	}
 }
 
 
@@ -160,6 +148,7 @@ p.messagedate {
 	.chatarea {
 		max-height: 440px;
 	}
+
 }
 
 
@@ -172,8 +161,6 @@ p.messagedate {
 	#sidebar {
 		max-height: 680px;
 	}
-
-
 }
 
 @media (min-height: 768px) {
@@ -189,6 +176,7 @@ p.messagedate {
 		display: none;
 		}
 }
+
 
 @media (min-height: 1024px) {
 

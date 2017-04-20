@@ -19,7 +19,7 @@
 							name="password" 
 							ng-change="errorMessagePassword=false" 
 							ng-keypress="($event.charCode==13)?logIn():return" />
-						<show-password-eye></show-password-eye>
+						<show-password-eye class="hidden-xs"></show-password-eye>
 						<p ng-show="errorMessagePassword" class="errorMessage">Invalid password</p>
 						<br />
 						<a ui-sref="register">

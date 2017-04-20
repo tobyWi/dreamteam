@@ -83,8 +83,8 @@
 							<h2>Edit profile </h2>
 							<p>What do you want to edit {{ username }}? </p>
 						</div>
-						<button class="btn btn-primary gigantic" ng-click="editPassword()">Change password</button>
-						<button class="btn btn-primary gigantic" ng-click="editAvatar()">Change avatar</button>
+						<button class="btn btn-primary gigantic" ng-click="editPassword()">Change password</button><br />
+						<button class="btn btn-primary gigantic" ng-click="editAvatar()">Change avatar</button><br />
 						<button class="btn btn-primary gigantic" ng-click="unregisterAccountModal()">Unregister</button>
 					</div>
 				</div>
@@ -142,9 +142,9 @@
 				</div>
 				<!-- Change avatar modal -->
 				<div class="edit-profile-modal" ng-show="changeAvatarModal">
-					<div class="modal-content">
+					<div class="modal-content aligncenter">
 						<div id="changeAvatar">
-							<button class="btn btn-danger right" ng-click="editAvatar()">X</button>
+							<button class="btn btn-danger right" ng-click="editAvatar()">X</button><br />
 							<h2>Change avatar</h2>
 							<form name="changeAvatars" novalidate class="inline">
 								<avatar-dropdown title="Choose a new avatar"></avatar-dropdown>
