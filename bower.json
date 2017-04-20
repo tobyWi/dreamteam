@@ -30,6 +30,7 @@
     "ngstorage": "^0.3.11",
     "angular-scroll-glue": "^2.2.0",
     "animate.css": "^3.5.2",
-    "livereload-js": "^2.2.1"
+    "livereload-js": "^2.2.1",
+    "jquery": "^3.2.1"
   }
 }
