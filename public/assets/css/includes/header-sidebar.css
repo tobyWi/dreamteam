@@ -37,7 +37,6 @@
 	max-height: 620px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	z-index: 999;
 }
 	#sidebar h2 {
 		font-size: 10px;
