@@ -17,8 +17,6 @@ app.listen(3000, function(){
 // ------------------------------------ USERS -------------------------------------//
 // Checks & displays any messages sent to the server/database.
 app.get('/users', function(request, res) {
-	console.log("GET - users");
-
 	db.users.find(function(err, docs) {
 		//console.log(docs);
 		res.json(docs);
@@ -55,7 +53,6 @@ app.get('/users/:id', function(req, res) {
 // login
 app.put('/users/:id', function(req, res) {
 	var id = req.params.id;
-	console.log("test");
 	db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
 		update: {$set: { online: true }},
 		new: true}, function (err, doc) {
@@ -64,7 +61,6 @@ app.put('/users/:id', function(req, res) {
 });
 
 app.post('/users/:id', function(req,res) {
-	console.log(req.body);
 	db.users.insert(req.body, function(req, res) {
 		res.json(doc);
 	});
@@ -87,8 +83,6 @@ app.put('/users/1/:id', function(req, res) {
 // Checks & displays any messages sent to the server/database.
 
 app.get('/conversations', function(request, res) {
-	console.log("GET - conversations");
-
 	db.conversations.find(function(err, docs) {
 		res.json(docs);
 	});
@@ -119,7 +113,6 @@ app.post('/privateMessage/', function(req, res) {
 // Get the ID of the user you want to send a message to
 app.get('/users/private/:id', function(req, res) {
 	var id = req.params.id;
-	console.log(id);
 	db.users.find({_id: mongojs.ObjectId(id)}, function (err, doc) {
 		res.json(doc);
 	});

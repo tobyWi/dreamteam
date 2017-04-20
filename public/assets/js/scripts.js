@@ -54,25 +54,11 @@ app.value('avatars', [
 		{name: 'Doggy style', src:'assets/img/av11.png'}
     ]);
 
-//------------------------------------------------ MAINCONTROLLER -------------------------------------------//
-
-app.controller('mainController', ['$scope', '$location', function($scope, $location){
-	$scope.currentPath = $location.path();
-}]);
-
 //------------------------------------------------ SIDEBARCONTROLLER -------------------------------------------//
 
 app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', function($scope, $location, $sessionStorage){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
-	
-	$scope.tab = 1;
-	$scope.setTab = function(newTab){
-		$scope.tab = newTab;
-	};
-	$scope.isSet = function(tabNum){
-		return $scope.tab === tabNum;
-	};	
 }]);
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
@@ -114,7 +100,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 				$scope.successfyllyChangedPassword = true;
 				// Change sessionstorage to the current password
 				$sessionStorage.password = $scope.users.password;
-				// Return to editprofile modal
 				$timeout(function(){
 					$scope.confirmOldPassword = true; // Next time you press change passwords, this will show again
 					$scope.chooseNewPassword = false;
@@ -131,10 +116,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	$scope.successfyllyChangedAvatar = false;
 	$scope.changeAvatar = function(id){
-		console.log($scope.users.avatar);
-		console.log(id);
 		if ($scope.users.avatar) {
-
 			$http.put('/users/avatar/' + id, $scope.users).then(function(res){
 				$sessionStorage.avatar = $scope.users.avatar.src;
 				$scope.successfyllyChangedAvatar = true;
@@ -146,16 +128,21 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		}
 	};
 
+	function clearSessionStorage() {
+		delete $sessionStorage.id;
+		delete $sessionStorage.username;
+		delete $sessionStorage.avatar;
+		delete $sessionStorage.reciever;
+	}
+
 	$scope.successfyllyUnregistered = false;
 	$scope.unregisterAccount = function (id) {
 		$scope.wrongPassword = false;
-		if ( $scope.unregisterPasswordConfirm === $sessionStorage.password ) {
+		if ( $scope.unregisterPasswordConfirm == $sessionStorage.password ) {
 			$http.delete('/users/3/' + id).then(function(res){
 				$scope.successfyllyUnregistered = true;
 				$timeout(function() {
-					delete $sessionStorage.id;
-					delete $sessionStorage.username;
-					delete $sessionStorage.avatar;
+					clearSessionStorage();
 					$location.path('/login');
 				}, 1000);
 			});
@@ -169,12 +156,10 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		$scope.chooseNewPassword = false;
 		$scope.incorrectPassword = false;
 		if ($scope.oldPassword == $sessionStorage.password) {
-			console.log('Correct!');
 			$scope.chooseNewPassword = true;
 			$scope.confirmOldPassword = false;
 			$scope.oldPassword = '';
 		} else {
-			console.log('incorrect password');
 			$scope.incorrectPassword = true;
 		}
 	};
@@ -188,18 +173,18 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	});
 
 	// ------ Get all messages in public chat
-	var allMessages = function() {
+	function allMessages() {
 		$http.get('/conversations').then(function(response){
 			$scope.allMessages = response.data;
 		});
-	};
+	}
 	allMessages(); // To load all messages in the beginning
 
-	var privateMessages = function() {
-		$http.get('/privateMessage').then(function(res){
-			$scope.privateMessages = res.data;
+	function privateMessages() {
+		$http.get('/privateMessage').then(function(response){
+			$scope.privateMessages = response.data;
 		});
-	};
+	}
 	privateMessages();
 
 	$scope.sendMessage = function(){
@@ -216,7 +201,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	$scope.sendPrivateMessage = function(){
 		if ($scope.privateMessage) {
-			console.log($sessionStorage.reciever);
 			$scope.privateMessage.sender = $sessionStorage.username;
 			$scope.privateMessage.reciever = $sessionStorage.reciever;
 			$scope.privateMessage.date = new Date();
@@ -229,23 +213,21 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		} 
 	};
 
-	//$interval(function(){
-	//	allMessages();
-	//}, 500);
-
 	$scope.goToSearch = function(){
 		$location.path('/chat/search');
 	};
 
+	$scope.adminUserList = function() {
+		$location.path('/adminuserlist');
+	};
+
 	//Sidebar list all users
-	var loadAllUsersIntoSidebar = function() {
+	function loadAllUsersIntoSidebar() {
 		$http.get('/users').then(function(response) {
 			$scope.userList = response.data;
 		});
-	};
+	}
 	loadAllUsersIntoSidebar();
-
-
 
 	// PRIVATE CHAT COLLECT DATA
 	$scope.getPrivateConversation = function(id) {
@@ -261,11 +243,8 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 		$scope.privateConversation = [];
 		var privateMessages = function(){
-			$scope.privateConversation.splice(0, $scope.privateConversation.length);
 			$http.get('/privateMessage').then(function(res){
-				console.log(res);
 				for ( var i = 0; i < res.data.length; i++ ) {
-					console.log(res);
 					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.reciever === res.data[i].reciever) ) {
 						$scope.privateConversation.push(res.data[i]);
 					} else if ( ($sessionStorage.username === res.data[i].reciever) && ($sessionStorage.reciever === res.data[i].sender) )
@@ -273,46 +252,30 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 				}
 			});
 		};
-		privateMessages();
+
 		$location.path('/chat/private');
-	};
-
-	$scope.toPrivate = function(id) {
-		$http.get('/users/private/' + id).then(function(response) {
-			console.log(response);
-			// $sessionStorage.privateId.push(response.data.username);
-		});
-
+		privateMessages();
 	};
 
 	// LOGOUT
 	$scope.logout = function() {
 		$http.put('/users/1/' + $sessionStorage.id, $scope.users).then(function(response) {
     	});
-		delete $sessionStorage.id;
-		delete $sessionStorage.username;
-		delete $sessionStorage.avatar;
-		
+		clearSessionStorage();
 		$location.path('/login');
 	};
-
-	$scope.adminUserList = function() {
-		$location.path('/adminuserlist');
-	};
-
 }]);
 
 //------------------------------------------------ADMINUSERCONTROLLER -------------------------------------------//
 
 app.controller('adminuserlistController', ['$scope', '$location', '$http', '$sessionStorage', function($scope, $location, $http, $sessionStorage){
 	
-	var refreshList = function() {
+	function refreshList() {
     	$http.get('/users').then(function(response) {
-	    	console.log("Japp I got the shit I wanted.  All the users in the database.");
 	    	$scope.userList = response.data;
 	    	$scope.users = null;
 	    });
-    };
+    }
 
 	refreshList();
 
@@ -325,7 +288,6 @@ app.controller('adminuserlistController', ['$scope', '$location', '$http', '$ses
 		    }
 		};
 		$scope.id = id;
-
 		$http.get('/users/' + id).then(function(response) {
 			$scope.users = response.data;
 		});
@@ -378,9 +340,7 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
 							$sessionStorage.password = response.data[i].password;
-							$http.put('/users/' + $sessionStorage.id, $scope.users).then(function(response) {
-					    	});
-							return;   // Here shit happens
+							return;
 						} else {
 							$scope.errorMessageUsername = false;
 							$scope.errorMessagePassword = true;
@@ -390,7 +350,6 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 						$scope.errorMessageUsername = true;
 					}
 				}
-
 			});
 		}
 	};
@@ -408,9 +367,6 @@ app.factory('validation', [function(){
 		regex: function(value){
 			var letters = /^[0-9a-zA-Z]+$/;
 			return !letters.test(value);
-		},
-		usernameTaken: function(value){
-			
 		}
 	};
 }]);
@@ -465,11 +421,8 @@ app.controller('registerController', ['$scope','$location', '$http', 'validation
 
 	$scope.registerSubmit = function() {
 		$http.post('/users', $scope.users).then(function(response) {
-
 			var modal = document.getElementById('login-modal');
-
 			modal.style.display = "block";
-
 			window.onclick = function(event) {
 			    if (event.target == modal) {
 			        modal.style.display = "none";
@@ -479,8 +432,7 @@ app.controller('registerController', ['$scope','$location', '$http', 'validation
 	};
 
 	$scope.modalLogin = function(){
-		$location.path('login');  
-		console.log('registered');
+		$location.path('login');
 	};
 
 }]);
