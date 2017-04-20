@@ -15,8 +15,13 @@ var server = require('http').createServer(app),
 // });
 
 io.sockets.on('connection', function(socket) {
+	
 	socket.on('send message', function(data) {
 		io.sockets.emit('new message', data);
+	});
+
+	socket.on('send private', function(data) {
+		io.sockets.emit('new private message', data);
 	});
 });
 
