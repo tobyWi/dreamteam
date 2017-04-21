@@ -139,7 +139,7 @@ app.put('/users/1/:id', function(req, res) {
 
 app.get('/conversations', function(request, res) {
 	db.conversations.find(function(err, docs) {
-		io.sockets.emit('new message', doc);
+		io.sockets.emit('new message', docs);
         	res.status(200).send("ok");
 	});
 });
