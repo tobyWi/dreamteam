@@ -35,10 +35,6 @@ var server = require('http').createServer(app),
 	io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function(socket) {
-	
-	socket.on('send message', function(data) {
-		io.sockets.emit('new message', data);
-	});
 
 	socket.on('send private', function(data) {
 		io.sockets.emit('new private message', data);
@@ -143,7 +139,8 @@ app.put('/users/1/:id', function(req, res) {
 
 app.get('/conversations', function(request, res) {
 	db.conversations.find(function(err, docs) {
-		res.json(docs);
+		io.sockets.emit('new message', doc);
+        	res.status(200).send("ok");
 	});
 });
 
