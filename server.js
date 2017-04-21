@@ -2,17 +2,37 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var mongojs = require('mongojs');
+var mongoose = require('mongoose');
 var db = mongojs('chatdatabase', ['users', 'conversations']);
 var bodyParser = require('body-parser');
+
+// ------------------------------------ MONGOOSE -------------------------------------//
+
+	//  SERVER SIDE WORKS PERFECTLY.  HAVEN'T WENT FURTHER ON THE CLIENT SIDE
+
+	// mongoose.Promise = global.Promise;
+	// mongoose.connect('mongodb://localhost/chatdatabase', function(err) {
+	// 	console.log("Mongoose Connected good and well!");
+	// });
+
+	// var chatSchema = mongoose.Schema({
+	// 	username: String,
+	// 	messages: {
+	// 		content: String,
+	// 		date: Date
+	// 	}
+	// });
+
+	// var Chat = mongoose.model('Message', chatSchema);
+
+
+
+
 
 // ------------------------------------ SOCKET.IO -------------------------------------//
 
 var server = require('http').createServer(app),
 	io = require('socket.io').listen(server);
-
-// app.get('/', function(req, res) {
-// 	res.sendFile(__dirname + '/public');
-// });
 
 io.sockets.on('connection', function(socket) {
 	
@@ -23,6 +43,18 @@ io.sockets.on('connection', function(socket) {
 	socket.on('send private', function(data) {
 		io.sockets.emit('new private message', data);
 	});
+
+	// socket.on('send goose', function(data) {
+	// 	console.log("server has received");
+	// 	var msg = data.trim();
+	// 	console.log(msg);
+	// 	var newMsg = new Chat({messages: {content: msg}});
+	// 	console.log(newMsg);
+	// 	newMsg.save(function(err) {
+	// 		if(err) throw err;
+	// 		io.sockets.emit('new goose', newMsg);
+	// 	});
+	// });
 });
 
 server.listen(3000, function() {

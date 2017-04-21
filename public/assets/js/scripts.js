@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage', 'luegg.directives']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngStorage', 'luegg.directives', 'btford.socket-io']);
 
 //------------------------------------------------ CONFIG -------------------------------------------//
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -63,7 +63,7 @@ app.controller('sidebarController', ['$scope', '$location', '$sessionStorage', f
 
 //------------------------------------------------ CHATCONTROLLER -------------------------------------------//
 
-app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'validation', '$timeout', '$state', function($scope, $location, $http, $sessionStorage, $interval, avatars, validation, $timeout, $state){
+app.controller('chatController', ['$scope', '$location', '$http', '$sessionStorage', '$interval', 'avatars', 'chatSocket', 'validation', '$timeout', '$state', function($scope, $location, $http, $sessionStorage, $interval, avatars, chatSocket, validation, $timeout, $state){
 	$scope.username = $sessionStorage.username;
 	$scope.avatar = $sessionStorage.avatar;
 	$scope.id = $sessionStorage.id;
@@ -173,6 +173,13 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	});
 
 	// ------ Get all messages in public chat
+
+	// $interval(function(){
+	// 	$http.get('/conversations').then(function(response){
+	// 		$scope.allMessages = response.data;
+	// 	});
+	// }, 1000);
+
 	function allMessages() {
 		$http.get('/conversations').then(function(response){
 			$scope.allMessages = response.data;
@@ -187,59 +194,81 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	}
 	privateMessages();
 
-	$scope.sendMessage = function(){
-		if ($scope.conversations) {
-			$scope.conversations.messages.sender = $sessionStorage.username;
-			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
-			$scope.conversations.messages.date = new Date();
+	//  NORMAL MESSAGES (WORKS BUT DOESN'T UPDATE PROPERLY WITH SCROLL BOTTOM BUG)
 
+	// $scope.sendMessage = function(){
+	// 	if ($scope.conversations) {
+	// 		$scope.conversations.messages.sender = $sessionStorage.username;
+	// 		$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
+	// 		$scope.conversations.messages.date = new Date();
+
+			
+	// 		$http.post('/conversations', $scope.conversations).then(function(response) {
+	// 			$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
+	// 		});
+	// 	}
+	// };
+
+	// MONGOOSE SHIT
+
+	// var socket = io.connect()
+	// var $messageForm = $('#send-message');
+	// var $messageBox = $('#message');
+	// var $chat = $('#chat');
+
+	// $scope.sendMessage = function(){
+	// 	event.preventDefault();
+	// 	socket.emit('send goose', $messageBox.val(), function(data) {
+	// 	});
+	// 	$messageBox.val('');
+	// };
+
+	// socket.on('new goose', function(data) {
+	// 	console.log(data);
+	// 	$chat.append(data + '<br />');
+	// });
+
+	// ------------------------------------SOCKET.IO-------------------------------------//
+
+
+		var $messageBox = $('#message');
+		var $chat = $('#chatarea');
+
+
+		$scope.sendMessage = function(){
+
+			if ($scope.conversations) {
+				$scope.conversations.messages.sender = $sessionStorage.username;
+				$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
+				$scope.conversations.messages.date = new Date();
+			}
+
+			chatSocket.emit('send message', $messageBox.val(), function(data) {
+			});
 			
 			$http.post('/conversations', $scope.conversations).then(function(response) {
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 			});
-		}
-	};
+		};
 
-	// ------------------------------------SOCKET.IO-------------------------------------//
+		chatSocket.addListener('new message', function(data) {
+			// $chat.append(data + '<br />');
+			$scope.tempMess = [];
+			$scope.tempMess.push({'conversations': {'messages': {'content': data}}});
+			console.log($scope.tempMess);
+		});
 
-	
+		$scope.conversations = {};
 
-		// !function($){
+		$scope.$watch(function() {
+			return $scope.conversations;
+		}, function() {
+			console.log("message box: " + $scope.conversations);
+		});
 
-		// 	var socket = io.connect();
-		// 	// var $messageForm = $('#send-message');
-		// 	var $messageBox = $('#message');
-		// 	var $chat = $('#chatarea');
-
-
-		// 	$scope.sendMessage = function(){
-				
-		// 		// $scope.message.messages.content = $chat;
-
-		// 		if ($scope.conversations) {
-		// 			$scope.conversations.messages.sender = $sessionStorage.username;
-		// 			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
-		// 			$scope.conversations.messages.date = new Date();
-		// 		}	
-				
-		// 		socket.emit('send message', $messageBox.val(), function(data) {
-		// 		});
-		// 		$messageBox.val();
-				
-		// 		$http.post('/conversations', $scope.conversations).then(function(response) {
-		// 			$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
-		// 		});
-		// 	};
-
-		// 	socket.on('new message', function(data) {
-		// 		$chat.append(data + '<br />');
-		// 		// console.log(data);
-		// 		// return data;
-		// 	});
-
-
-
-		// }(jQuery);
+		// At the moment $scope.conversations = data;  ie the stuff that you type into the box. 		
+		// I need to get this to $scope.conversations.messages.content;
+		// This is the key to everything.
 
 	
 
@@ -442,6 +471,10 @@ app.directive('showPasswordEye', [function(){
 		templateUrl: '../../templates/show-password.html'
 	};
 }]);
+
+app.factory('chatSocket', function (socketFactory) {
+  return socketFactory();
+});
 
 
 //------------------------------------------------ REGISTERCONTROLLER -------------------------------------------//

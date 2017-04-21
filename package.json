@@ -11,6 +11,7 @@
     "gulp-live-server": "0.0.30",
     "jshint": "^2.9.4",
     "mongojs": "^2.4.0",
+    "mongoose": "^4.9.5",
     "socket.io": "^1.7.3"
   },
   "devDependencies": {},
