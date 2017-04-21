@@ -140,7 +140,7 @@ app.put('/users/1/:id', function(req, res) {
 app.get('/conversations', function(request, res) {
 	db.conversations.find(function(err, docs) {
 		io.sockets.emit('new message', doc);
-        	res.status(200);
+        	res.status(200).send("ok");
 	});
 });
 
