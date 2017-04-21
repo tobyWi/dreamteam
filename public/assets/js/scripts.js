@@ -242,9 +242,6 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 				$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
 				$scope.conversations.messages.date = new Date();
 			}
-
-			chatSocket.emit('send message', $messageBox.val(), function(data) {
-			});
 			
 			$http.post('/conversations', $scope.conversations).then(function(response) {
 				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
@@ -252,10 +249,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		};
 
 		chatSocket.addListener('new message', function(data) {
-			// $chat.append(data + '<br />');
-			$scope.tempMess = [];
-			$scope.tempMess.push({'conversations': {'messages': {'content': data}}});
-			console.log($scope.tempMess);
+			$scope.allMessages.push(data);
 		});
 
 		$scope.conversations = {};
