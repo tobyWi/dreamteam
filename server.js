@@ -139,8 +139,7 @@ app.put('/users/1/:id', function(req, res) {
 
 app.get('/conversations', function(request, res) {
 	db.conversations.find(function(err, docs) {
-		io.sockets.emit('new message', docs);
-        	res.status(200).send("ok");
+		res.json(docs);
 	});
 });
 
@@ -148,7 +147,8 @@ app.get('/conversations', function(request, res) {
 
 app.post('/conversations/', function(req, res) {
 	db.conversations.insert(req.body, function(err, doc) {
-		res.json(doc);
+        io.sockets.emit('new message', doc);
+        res.status(200).send("ok");
 	});
 });
 
@@ -189,7 +189,7 @@ app.put('/users/password/:id', function(req, res){
 	db.users.findAndModify({
 		query: {_id: mongojs.ObjectId(id)},
 		update: {$set: {password: req.body.password}},
-		new: true }, 
+		new: true },
 		function(err, doc){
 			res.json(doc);
 		}
@@ -202,7 +202,7 @@ app.put('/users/avatar/:id', function(req, res){
 	db.users.findAndModify({
 		query: {_id: mongojs.ObjectId(id)},
 		update: {$set: {avatar: req.body.avatar}},
-		new: true }, 
+		new: true },
 		function(err, doc){
 			res.json(doc);
 		}
