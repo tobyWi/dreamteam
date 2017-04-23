@@ -92,6 +92,7 @@
 		width: 200px;
 		border-top: 1px solid #ddd;
 		padding: 5px;
+		margin: 0 auto;
 	}
 
 	#sidebar img {
@@ -208,6 +209,8 @@
 }
 #sidebar a:active {
 	background-color: black;
+    color: white;
+    padding: 10px;
 }
 
 #sidebar table {

@@ -13,12 +13,12 @@
 	-webkit-animation-iteration-count: 1; 
 }
 
-.hinge {
+/*.hinge {
     -webkit-animation-duration: 3s;
 	-webkit-animation-delay: 3s;
 	-webkit-animation-iteration-count: 1;
 }
-
+*/
 .message-box {
 	word-wrap: break-word;
 	background-color: white;
@@ -38,7 +38,6 @@
 .message-box.marginleft {
 	margin-left: 30px;
 }
-
 
 .message-box img {
 	height: 40px;
@@ -101,8 +100,18 @@ p.messagedate {
 		min-height: 50px;
 	}
 
+.chat-with {
+	position: fixed;
+    z-index: 567;
+    background: white;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+    right: 32%;
+}
 
 
+/*  MEDIA QUERIES */
 
 @media (min-height: 320px) {
 

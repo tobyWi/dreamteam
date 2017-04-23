@@ -132,7 +132,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
-		delete $sessionStorage.reciever;
+		delete $sessionStorage.receiver;
 	}
 
 	$scope.successfyllyUnregistered = false;
@@ -172,115 +172,57 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		}
 	});
 
-	// ------ Get all messages in public chat
+	// ------------------------------PUBLIC CHAT-------------------------------------//
+	
+	// To load all messages in the beginning
 
-	// $interval(function(){
-	// 	$http.get('/conversations').then(function(response){
-	// 		$scope.allMessages = response.data;
-	// 	});
-	// }, 1000);
-
-	function allMessages() {
+	(function allMessages() {
 		$http.get('/conversations').then(function(response){
 			$scope.allMessages = response.data;
 		});
-	}
-	allMessages(); // To load all messages in the beginning
+	})();
 
-	function privateMessages() {
-		$http.get('/privateMessage').then(function(response){
-			$scope.privateMessages = response.data;
+	$scope.sendMessage = function(){
+
+		if ($scope.conversations) {
+			$scope.conversations.messages.sender = $sessionStorage.username;
+			$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
+			$scope.conversations.messages.date = new Date();
+		}
+		
+		$http.post('/conversations', $scope.conversations).then(function(response) {
+			$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
 		});
-	}
-	privateMessages();
+	};
 
-	//  NORMAL MESSAGES (WORKS BUT DOESN'T UPDATE PROPERLY WITH SCROLL BOTTOM BUG)
-
-	// $scope.sendMessage = function(){
-	// 	if ($scope.conversations) {
-	// 		$scope.conversations.messages.sender = $sessionStorage.username;
-	// 		$scope.conversations.messages.senderavatar = $sessionStorage.avatar;	
-	// 		$scope.conversations.messages.date = new Date();
-
-			
-	// 		$http.post('/conversations', $scope.conversations).then(function(response) {
-	// 			$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
-	// 		});
-	// 	}
-	// };
-
-	// MONGOOSE SHIT
-
-	// var socket = io.connect()
-	// var $messageForm = $('#send-message');
-	// var $messageBox = $('#message');
-	// var $chat = $('#chat');
-
-	// $scope.sendMessage = function(){
-	// 	event.preventDefault();
-	// 	socket.emit('send goose', $messageBox.val(), function(data) {
-	// 	});
-	// 	$messageBox.val('');
-	// };
-
-	// socket.on('new goose', function(data) {
-	// 	console.log(data);
-	// 	$chat.append(data + '<br />');
-	// });
-
-	// ------------------------------------SOCKET.IO-------------------------------------//
+	chatSocket.addListener('new message', function(data) {
+		$scope.allMessages.push(data);
+	});
 
 
-		var $messageBox = $('#message');
-		var $chat = $('#chatarea');
 
-
-		$scope.sendMessage = function(){
-
-			if ($scope.conversations) {
-				$scope.conversations.messages.sender = $sessionStorage.username;
-				$scope.conversations.messages.senderavatar = $sessionStorage.avatar;
-				$scope.conversations.messages.date = new Date();
-			}
-			
-			$http.post('/conversations', $scope.conversations).then(function(response) {
-				$scope.conversations.messages.content = ''; // Empty the textarea after sending the message
-			});
-		};
-
-		chatSocket.addListener('new message', function(data) {
-			$scope.allMessages.push(data);
-		});
-
-		$scope.conversations = {};
-
-		$scope.$watch(function() {
-			return $scope.conversations;
-		}, function() {
-			console.log("message box: " + $scope.conversations);
-		});
-
-		// At the moment $scope.conversations = data;  ie the stuff that you type into the box. 		
-		// I need to get this to $scope.conversations.messages.content;
-		// This is the key to everything.
-
-	
-
-	// ---------------------------------------------------------------------------------//
+	// ------------------------------PRIVATE CHAT-------------------------------------//
 
 	$scope.sendPrivateMessage = function(){
 		if ($scope.privateMessage) {
 			$scope.privateMessage.sender = $sessionStorage.username;
-			$scope.privateMessage.reciever = $sessionStorage.reciever;
+			$scope.privateMessage.receiver = $sessionStorage.receiver;
+			$scope.privateMessage.senderavatar = $sessionStorage.avatar;		
 			$scope.privateMessage.date = new Date();
-			$scope.privateMessage.senderavatar = $sessionStorage.avatar;
-				
-			$http.post('/privateMessage', $scope.privateMessage).then(function(res){
-				$scope.privateMessage.content = '';
-			});
-
 		} 
+
+		$http.post('/privateMessage', $scope.privateMessage).then(function(response){
+			$scope.privateMessage.content = '';
+		});
 	};
+
+
+	chatSocket.addListener('new private message', function(data) {
+		console.log("1");
+		$scope.privateConversation.push(data); //   Prints out twice….………First here….
+	});
+
+	// Internal page links
 
 	$scope.goToSearch = function(){
 		$location.path('/chat/search');
@@ -300,24 +242,31 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	// PRIVATE CHAT COLLECT DATA
 	$scope.getPrivateConversation = function(id) {
-		delete $sessionStorage.reciever;
+		delete $sessionStorage.receiver;
 		// Find the username of the user you clicked, and save it
 		$http.get('/users').then(function(res){
 			for ( var i = 0; i < res.data.length; i++ ){
 				if ( res.data[i]._id === id ) {
-					$sessionStorage.reciever = res.data[i].username;
-				}	
+					$sessionStorage.receiver = res.data[i].username;
+					$scope.chatWith = $sessionStorage.receiver;  // Enables user to see who they are chatting with
+					console.log("2");
+				}
 			}
 		});
 
 		$scope.privateConversation = [];
-		var privateMessages = function(){
+
+		function privateMessages() {
 			$http.get('/privateMessage').then(function(res){
 				for ( var i = 0; i < res.data.length; i++ ) {
-					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.reciever === res.data[i].reciever) ) {
+					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.receiver === res.data[i].receiver) ) {
+						$scope.privateConversation.push(res.data[i]);  // ……and then here for the second time
+						console.log("3");
+					} 
+					else if ( ($sessionStorage.username === res.data[i].receiver) && ($sessionStorage.receiver === res.data[i].sender) ) {
+						console.log("4");
 						$scope.privateConversation.push(res.data[i]);
-					} else if ( ($sessionStorage.username === res.data[i].reciever) && ($sessionStorage.reciever === res.data[i].sender) )
-						$scope.privateConversation.push(res.data[i]);
+					}
 				}
 			});
 		};
