@@ -1,4 +1,4 @@
-<section class="content" ng-controller="chatController">
+<section class="content">
 	<div class="row">
 		<div scroll-glue-bottom id="chatarea" class="col-xs-12 chatarea">
 			<div class="row">
@@ -6,6 +6,7 @@
 					<p class="chat-with">Private Chat with {{chatWith}}</p>
 				</div>
 			</div>
+			<!-- {{privateConversation}} -->
 			<div class="row" ng-repeat="message in privateConversation track by $index">
 				<div class="col-xs-5 message-box" ng-class="{'col-xs-push-6 marginright': isUserSender(message.sender), 'marginleft': !isUserSender(message.sender)}">
 					<img ng-src="{{ message.senderavatar }}" class="image-float-left">
@@ -18,7 +19,7 @@
 	</div>	
 	<div class="row">
 		<div class="col-xs-12 send-message-field">
-			<textarea id="privMsg" scroll-glue="glued" ng-keypress="($event.charCode==13)?sendPrivateMessage():return" ng-model="privateMessage.content"></textarea>
+			<textarea scroll-glue="glued" ng-keypress="($event.charCode==13)?sendPrivateMessage():return" ng-model="privateMessage.content"></textarea>
 			<br />
 			<button class="scroll btn btn-success" ng-click="sendPrivateMessage(privateMessage)" ng-model="glued" >Send</button>			
 		</div>
