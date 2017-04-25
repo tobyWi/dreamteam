@@ -132,7 +132,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		delete $sessionStorage.id;
 		delete $sessionStorage.username;
 		delete $sessionStorage.avatar;
-		delete $sessionStorage.receiver;
+		delete $sessionStorage.reciever;
 	}
 
 	$scope.successfyllyUnregistered = false;
@@ -204,23 +204,24 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	// ------------------------------PRIVATE CHAT-------------------------------------//
 
 	$scope.sendPrivateMessage = function(){
-		if ($scope.privateMessage) {
+		if ($scope.privateMessage && ($scope.privateMessage.content)) {
 			$scope.privateMessage.sender = $sessionStorage.username;
-			$scope.privateMessage.receiver = $sessionStorage.receiver;
+			$scope.privateMessage.reciever = $sessionStorage.reciever;
 			$scope.privateMessage.senderavatar = $sessionStorage.avatar;		
 			$scope.privateMessage.date = new Date();
 		} 
 
 		$http.post('/privateMessage', $scope.privateMessage).then(function(response){
 			$scope.privateMessage.content = '';
+			$scope.getPrivateConversation($sessionStorage.recieverid);
 		});
 	};
 
 
-	chatSocket.addListener('new private message', function(data) {
-		console.log("1");
-		$scope.privateConversation.push(data); //   Prints out twice….………First here….
-	});
+	//chatSocket.addListener('new private message', function(data) {
+	//	console.log("1");
+	//	$scope.privateConversation.push(data); //   Prints out twice….………First here….
+	//});
 
 	// Internal page links
 
@@ -242,37 +243,38 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	// PRIVATE CHAT COLLECT DATA
 	$scope.getPrivateConversation = function(id) {
-		delete $sessionStorage.receiver;
+		delete $sessionStorage.reciever;
+		delete $sessionStorage.recieverid;
+		$sessionStorage.recieverid = id;
 		// Find the username of the user you clicked, and save it
 		$http.get('/users').then(function(res){
 			for ( var i = 0; i < res.data.length; i++ ){
 				if ( res.data[i]._id === id ) {
-					$sessionStorage.receiver = res.data[i].username;
-					$scope.chatWith = $sessionStorage.receiver;  // Enables user to see who they are chatting with
-					console.log("2");
+					$sessionStorage.reciever = res.data[i].username;
+					$scope.chatWith = $sessionStorage.reciever;  // Enables user to see who they are chatting with
 				}
 			}
 		});
 
-		$scope.privateConversation = [];
+		$location.path('/chat/private');
+		privateMessages();
 
 		function privateMessages() {
+			$scope.privateConversation = [];
+
 			$http.get('/privateMessage').then(function(res){
 				for ( var i = 0; i < res.data.length; i++ ) {
-					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.receiver === res.data[i].receiver) ) {
+					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.reciever === res.data[i].reciever) ) {
+						// alert(1);
 						$scope.privateConversation.push(res.data[i]);  // ……and then here for the second time
-						console.log("3");
 					} 
-					else if ( ($sessionStorage.username === res.data[i].receiver) && ($sessionStorage.receiver === res.data[i].sender) ) {
-						console.log("4");
+					else if ( ($sessionStorage.username === res.data[i].reciever) && ($sessionStorage.reciever === res.data[i].sender) ) {
+						// alert(2);
 						$scope.privateConversation.push(res.data[i]);
 					}
 				}
 			});
 		}
-
-		$location.path('/chat/private');
-		privateMessages();
 	};
 
 	// LOGOUT

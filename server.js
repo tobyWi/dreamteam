@@ -127,8 +127,7 @@ app.get('/privateMessage', function(req, res) {
 // Send a private message
 app.post('/privateMessage/', function(req, res) {
 	db.privateMessage.insert(req.body, function(err, doc) {
-		io.sockets.emit('new private message', doc);
-        res.status(200).send("ok");
+		res.json(doc);
 	});
 });
 

@@ -47,7 +47,7 @@
 		<div class="col-xs-12 send-message-field">
 			<textarea scroll-glue="glued" ng-keypress="($event.charCode==13)?sendPrivateMessage():return" ng-model="privateMessage.content"></textarea>
 			<br />
-			<button class="scroll btn btn-success" ng-click="sendPrivateMessage(privateMessage)" ng-model="glued" >Send</button>			
+			<button class="scroll btn btn-success" ng-click="sendPrivateMessage()" ng-model="glued" >Send</button>			
 		</div>
 	</div>
 </section>
