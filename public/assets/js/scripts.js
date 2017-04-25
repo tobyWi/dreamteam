@@ -269,7 +269,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 					}
 				}
 			});
-		};
+		}
 
 		$location.path('/chat/private');
 		privateMessages();
