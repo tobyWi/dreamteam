@@ -5,24 +5,17 @@ var mongojs = require('mongojs');
 var db = mongojs('chatdatabase', ['users', 'conversations']);
 var bodyParser = require('body-parser');
 
+
 // ------------------------------------ SOCKET.IO -------------------------------------//
 
 var server = require('http').createServer(app),
 	io = require('socket.io').listen(server);
 
-// app.get('/', function(req, res) {
-// 	res.sendFile(__dirname + '/public');
-// });
-
 io.sockets.on('connection', function(socket) {
-	
-	socket.on('send message', function(data) {
-		io.sockets.emit('new message', data);
-	});
 
-	socket.on('send private', function(data) {
-		io.sockets.emit('new private message', data);
-	});
+	// socket.on('send private', function(data) {
+	// 	io.sockets.emit('new private message', data);
+	// });
 });
 
 server.listen(3000, function() {
@@ -119,7 +112,8 @@ app.get('/conversations', function(request, res) {
 
 app.post('/conversations/', function(req, res) {
 	db.conversations.insert(req.body, function(err, doc) {
-		res.json(doc);
+        io.sockets.emit('new message', doc);
+        res.status(200).send("ok");
 	});
 });
 
@@ -133,7 +127,8 @@ app.get('/privateMessage', function(req, res) {
 // Send a private message
 app.post('/privateMessage/', function(req, res) {
 	db.privateMessage.insert(req.body, function(err, doc) {
-		res.json(doc);
+		io.sockets.emit('new private message', doc);
+        res.status(200).send("ok");
 	});
 });
 
@@ -160,7 +155,7 @@ app.put('/users/password/:id', function(req, res){
 	db.users.findAndModify({
 		query: {_id: mongojs.ObjectId(id)},
 		update: {$set: {password: req.body.password}},
-		new: true }, 
+		new: true },
 		function(err, doc){
 			res.json(doc);
 		}
@@ -173,7 +168,7 @@ app.put('/users/avatar/:id', function(req, res){
 	db.users.findAndModify({
 		query: {_id: mongojs.ObjectId(id)},
 		update: {$set: {avatar: req.body.avatar}},
-		new: true }, 
+		new: true },
 		function(err, doc){
 			res.json(doc);
 		}
