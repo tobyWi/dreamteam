@@ -203,6 +203,8 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 
 	// ------------------------------PRIVATE CHAT-------------------------------------//
 
+	$scope.privateMessage = {};
+
 	$scope.sendPrivateMessage = function(){
 		if ($scope.privateMessage) {
 			$scope.privateMessage.sender = $sessionStorage.username;

@@ -101,7 +101,7 @@ p.messagedate {
 		min-height: 50px;
 	}
 
-.chatarea p.chatWith {
+.chatWith {
 	position: fixed;
     z-index: 567;
     background: white;
