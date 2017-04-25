@@ -30,7 +30,7 @@
 		<div scroll-glue-bottom class="col-xs-12 chatarea">
 			<div class="row">
 				<div class="col-xs-12">
-					<p class="chatWith">Private Chat with {{chatWith}}</p>
+					<p id="chatWith">Private Chat with {{chatWith}}</p>
 				</div>
 			</div>
 			<div class="row" ng-repeat="message in privateConversation track by $index">
@@ -44,10 +44,17 @@
 		</div>
 	</div>	
 	<div class="row">
-		<div class="col-xs-12 send-message-field">
-			<textarea scroll-glue="glued" ng-keypress="($event.charCode==13)?sendPrivateMessage():return" ng-model="privateMessage.content"></textarea>
-			<br />
-			<button class="scroll btn btn-success" ng-click="sendPrivateMessage()" ng-model="glued" >Send</button>			
+		<div class="row">
+			<div class="send-message-field">
+				<div class="col-xs-9">
+					<form id="send-message">
+						<textarea id="message" scroll-glue="glued" ng-keypress="($event.charCode==13)?sendPrivateMessage():return" ng-model="conversations.messages.content"></textarea>
+					</form> 
+				</div>
+				<div class="col-xs-3">		
+					<button class="scroll btn btn-success" ng-click="sendPrivateMessage()" ng-model="glued" >Send</button>
+				</div>
+			</div>	
 		</div>
 	</div>
 </section>

@@ -52,7 +52,7 @@
 	max-height: 620px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	z-index: 99;
+	z-index: 1;
 }
 	#sidebar h2 {
 		font-size: 10px;
@@ -250,4 +250,4 @@ span.red {
 	#sidebar {
 		z-index: 1;
 	}
-}
+
