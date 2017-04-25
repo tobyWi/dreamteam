@@ -370,6 +370,7 @@ app.controller('loginController', ['$scope', '$location', '$http', '$sessionStor
 							$sessionStorage.username = response.data[i].username;
 							$sessionStorage.avatar = response.data[i].avatar.src;
 							$sessionStorage.password = response.data[i].password;
+							$http.put('/users/' + $sessionStorage.id);
 							return;
 						} else {
 							$scope.errorMessageUsername = false;

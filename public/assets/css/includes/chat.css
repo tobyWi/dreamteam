@@ -59,7 +59,7 @@
 }
 
 p.messagedate {
-	font-size: 10px;
+	font-size: 9px;
 	/*right: 0;*/
 	/*bottom: 0;
 	position: absolute;*/
@@ -77,26 +77,27 @@ p.messagedate {
 }
 .send-message-field {
 	position: fixed;
-    width: 100%;
+    min-width: 50%;
     bottom: 0;
     margin-right: 50px;
     padding-bottom: 10px;
-	
+    margin-left: 12px;
 }
+
 	.send-message-field button {
 		/*height: 80px;
 		width: 100px;
 		position: fixed;
 		bottom: 10px;
 		left: 750px;*/
-
 	}
+
 	.send-message-field textarea {
 		/*position: fixed;
 		bottom: 10px;*/
 		border-radius: 5px;
 		resize: none;
-		min-width: 300px;
+		min-width: 100%;
 		min-height: 50px;
 	}
 
@@ -169,6 +170,10 @@ p.messagedate {
 
 	#sidebar {
 		max-height: 680px;
+	}
+
+	.send-message-field {
+		min-width: 70% !important;
 	}
 }
 
