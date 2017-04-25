@@ -36,7 +36,7 @@
 }
 
 .block input, .block-register input, .avatar-select {
-	max-width: 300px;
+	max-width: 240px;
 	margin: 0 auto;
 	height: 40px;
 	border: 0;
@@ -268,5 +268,9 @@
 		.table td {
 			padding: 8px;
 		}
+
+	.block input, .block-register input, .avatar-select {
+		max-width: 300px;
+	}
 }
 

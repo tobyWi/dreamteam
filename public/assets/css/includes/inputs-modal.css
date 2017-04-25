@@ -112,7 +112,7 @@ textarea:focus, input:focus{
 
 		.edit-profile-modal .gigantic {
 			margin-top: 20px;
-            min-width: 200px;
+            min-width: 145px;
 
 		}
 
@@ -185,3 +185,13 @@ ul {
 	ul .searchResults p {
 		font-size: 18px;
 	}
+
+
+/* MEDIA QUERIES */
+
+@media ( min-width: 768px ) {
+	.edit-profile-modal .gigantic {
+        min-width: 200px;
+
+	}
+}

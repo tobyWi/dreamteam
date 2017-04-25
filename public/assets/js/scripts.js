@@ -318,9 +318,9 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	//show sidebar responsive
 
 	$scope.showSidebar = function(){
-    $(this).toggleClass('fa-bars fa-close');
-    $('#sidebar').slideToggle().css('display','block');
-  };
+	    $(this).toggleClass('fa-bars fa-close');
+	    $('#sidebar').slideToggle().css('display','block');
+	};
 
 }]);
 
