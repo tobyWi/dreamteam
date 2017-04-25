@@ -247,4 +247,9 @@ span.red {
 }
 
 
+@media ( min-width: 768px ) {
+	#sidebar {
+		z-index: 1;
+	}
+}
 
