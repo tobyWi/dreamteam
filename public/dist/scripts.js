@@ -204,7 +204,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	// ------------------------------PRIVATE CHAT-------------------------------------//
 
 	$scope.sendPrivateMessage = function(){
-		if ($scope.privateMessage && ($scope.privateMessage.content)) {
+		if ($scope.privateMessage) {
 			$scope.privateMessage.sender = $sessionStorage.username;
 			$scope.privateMessage.reciever = $sessionStorage.reciever;
 			$scope.privateMessage.senderavatar = $sessionStorage.avatar;		
@@ -217,14 +217,7 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 		});
 	};
 
-
-	//chatSocket.addListener('new private message', function(data) {
-	//	console.log("1");
-	//	$scope.privateConversation.push(data); //   Prints out twice….………First here….
-	//});
-
 	// Internal page links
-
 	$scope.goToSearch = function(){
 		$location.path('/chat/search');
 	};
@@ -265,11 +258,9 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 			$http.get('/privateMessage').then(function(res){
 				for ( var i = 0; i < res.data.length; i++ ) {
 					if ( ($sessionStorage.username === res.data[i].sender) && ($sessionStorage.reciever === res.data[i].reciever) ) {
-						// alert(1);
-						$scope.privateConversation.push(res.data[i]);  // ……and then here for the second time
+						$scope.privateConversation.push(res.data[i]);
 					} 
 					else if ( ($sessionStorage.username === res.data[i].reciever) && ($sessionStorage.reciever === res.data[i].sender) ) {
-						// alert(2);
 						$scope.privateConversation.push(res.data[i]);
 					}
 				}
