@@ -1,4 +1,7 @@
 var gulp = require('gulp'),
+	uglify = require('gulp-uglify'),
+	rename = require('gulp-rename'),
+	ngAnnotate = require('gulp-ng-annotate');
 	gulpLiveServer = require('gulp-live-server'),
 	jshint = require('gulp-jshint');
 
@@ -25,7 +28,22 @@ gulp.task('server', function() {
 	});
 });
 
+gulp.task('uglify', function() {
+	return gulp.src('public/assets/js/scripts.js')
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest('public/dist'))
+		.pipe(rename('script.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('public/dist'));
+
+});
+
+gulp.task('watch', function() {
+	gulp.watch('*.js', ['ngAnnotate', 'rename', 'uglify']);
+});
+
 
 // FINAL
 
-gulp.task('default', ['jshint', 'server']);
+gulp.task('default', ['jshint', 'uglify', 'server', 'watch']);
+
