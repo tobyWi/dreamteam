@@ -44,10 +44,17 @@
 		</div>
 	</div>	
 	<div class="row">
-		<div class="col-xs-12 send-message-field">
-			<textarea scroll-glue="glued" ng-keypress="($event.charCode==13)?sendPrivateMessage():return" ng-model="privateMessage.content"></textarea>
-			<br />
-			<button class="scroll btn btn-success" ng-click="sendPrivateMessage(privateMessage)" ng-model="glued" >Send</button>			
+		<div class="row">
+			<div class="send-message-field">
+				<div class="col-xs-9">
+					<form id="send-message">
+						<textarea id="message" scroll-glue="glued" ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="conversations.messages.content"></textarea>
+					</form> 
+				</div>
+				<div class="col-xs-3">		
+					<button class="scroll btn btn-success" ng-click="sendMessage()" ng-model="glued" >Send</button>
+				</div>
+			</div>	
 		</div>
 	</div>
 </section>
