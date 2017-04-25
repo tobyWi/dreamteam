@@ -1,20 +1,16 @@
-<section class="content"  ng-controller="chatController">
+<section class="content" ng-controller="chatController">
 	<div class="row">
-
-		<!-- <div id="chatarea" style="margin:30px 0 0 30px;"></div> -->
-		<!-- <form id="send-message" style="margin:300px 0 0 30px;">
-			<input id="message" size="35">
-			<input type="submit" ng-click="sendMessage()">
-		</form> -->
-
-		<div scroll-glue-bottom class="col-xs-12 chatarea">
+		<div scroll-glue-bottom class="col-xs-12 chatarea" id="chatarea">
+			<div class="row">
+				<div class="col-xs-12">
+					<p class="chat-with">Public Chat</p>
+				</div>
+			</div>
 			<div class="row" ng-repeat="message in allMessages">
 				<div class="col-xs-5 message-box" ng-class="{'col-xs-push-6 marginright my-messages': isUserSender(message.messages.sender), 'marginleft your-messages': !isUserSender(message.messages.sender)}">
 					<img ng-src="{{ message.messages.senderavatar }}" class="image-float-left">
 					<strong>{{ message.messages.sender }}:</strong><br/>
 					<i>{{ message.messages.content }}</i>
-					<!-- <div id="chatarea" style="border:1px solid black;min-height:10px;"></div> -->
-					<div id="chatarea"></div>
 					<p class="messagedate">{{ message.messages.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
 				</div>
 			</div>
@@ -24,7 +20,7 @@
 		<form id="send-message" class="col-xs-12 send-message-field">
 			<textarea id="message" scroll-glue="glued" ng-keypress="($event.charCode==13)?sendMessage():return" ng-model="conversations.messages.content"></textarea>
 			<br />
-			<button class="scroll btn btn-success" ng-click="sendMessage()" ng-model="glued" >Send</button>			
+			<button class="scroll btn btn-success" ng-click="sendMessage()" ng-model="glued">Send</button>			
 		</form> 
 	</div>
 </section>
