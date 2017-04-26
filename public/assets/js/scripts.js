@@ -236,6 +236,13 @@ app.controller('chatController', ['$scope', '$location', '$http', '$sessionStora
 	}
 	loadAllUsersIntoSidebar();
 
+	function allPrivateMessages() {
+		$http.get('/privateMessage').then(function(response) {
+			$scope.allPrivateMessages = response.data;
+		});
+	}
+	allPrivateMessages();
+
 	// PRIVATE CHAT COLLECT DATA
 	$scope.getPrivateConversation = function(id) {
 		delete $sessionStorage.reciever;
