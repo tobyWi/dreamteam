@@ -103,12 +103,12 @@ p.messagedate {
 
 .chatWith {
 	position: fixed;
-    z-index: 567;
+    z-index: 1;
     background: white;
     padding: 10px;
     border: 1px solid black;
     border-radius: 6px;
-    right: 32%;
+    left: 32%;
 }
 
 
