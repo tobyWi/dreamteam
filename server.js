@@ -5,31 +5,13 @@ var mongojs = require('mongojs');
 var db = mongojs('chatdatabase', ['users', 'conversations']);
 var bodyParser = require('body-parser');
 
-// ------------------------------------ SOCKET.IO -------------------------------------//
 
-var server = require('http').createServer(app),
-	io = require('socket.io').listen(server);
 
-// app.get('/', function(req, res) {
-// 	res.sendFile(__dirname + '/public');
-// });
 
-io.sockets.on('connection', function(socket) {
-	
-	socket.on('send message', function(data) {
-		io.sockets.emit('new message', data);
-	});
-
-	socket.on('send private', function(data) {
-		io.sockets.emit('new private message', data);
-	});
+app.listen(3000, function() {
+	console.log("Server has started!")
 });
 
-server.listen(3000, function() {
-	console.log("Socket Trials Server has started!")
-});
-
-// ------------------------------------------------------------------------------------//
 
 app.use(express.static(path.join(__dirname + '/public')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
@@ -42,6 +24,21 @@ app.use(bodyParser.json());
 // });
 
 // ------------------------------------ USERS -------------------------------------//
+//Tobbe Komplettering
+
+app.get('/users/page', function (req, res) {
+    var id = req.query.id + 0;	
+    var options = {
+	    "limit": 10,
+	    "skip": id + 0,
+	    "sort": "username"
+	}
+
+    db.users.find(options);
+});
+
+
+
 // Checks & displays any messages sent to the server/database.
 app.get('/users', function(request, res) {
 	db.users.find(function(err, docs) {
@@ -49,6 +46,7 @@ app.get('/users', function(request, res) {
 		res.json(docs);
 	});
 });
+
 
 // Adding a user to the database (users)
 app.post('/users/', function(req, res) {
