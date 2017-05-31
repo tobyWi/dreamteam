@@ -43,6 +43,7 @@ app.get('/users', function(request, res) {
 	});
 });
 
+
 // Adding a user to the database (users)
 app.post('/users/', function(req, res) {
 	//console.log(req.body);
@@ -117,6 +118,8 @@ app.post('/conversations/', function(req, res) {
 	});
 });
 
+
+
 // ------------------------------------ MESSAGES/PRIVATE-------------------------------------//
 app.get('/privateMessage', function(req, res) {
 	db.privateMessage.find(function(err, docs){
@@ -172,4 +175,13 @@ app.put('/users/avatar/:id', function(req, res){
 			res.json(doc);
 		}
 	);
+});
+
+// kompleteringen
+
+app.get('/conversations', function (request, res) {
+    db.conversations.find(function(err, docs) {
+		console.log("Found the following records");
+		console.log(docs);
+	});
 });
