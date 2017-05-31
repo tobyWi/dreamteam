@@ -26,18 +26,13 @@ app.use(bodyParser.json());
 // ------------------------------------ USERS -------------------------------------//
 //Tobbe Komplettering
 
-app.get('/users/page', function (req, res) {
-    var id = req.query.id + 0;	
-    var options = {
-	    "limit": 10,
-	    "skip": id + 0,
-	    "sort": "username"
-	}
-
-    db.users.find(options);
-});
-
-
+app.get('/page', function(request, response) {
+    var numberOfUsers = 5; 
+    var skip = (request.query.id * pageSize) - pageSize;
+    db.users.find({}).limit(pageSize).skip(skip, function (error, document) {
+        response.send(document);
+    })
+})
 
 // Checks & displays any messages sent to the server/database.
 app.get('/users', function(request, res) {
