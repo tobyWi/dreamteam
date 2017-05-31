@@ -28,8 +28,8 @@ app.use(bodyParser.json());
 
 app.get('/page/:id', function(request, response) {
     var numberOfUsers = 5; 
-    var skip = (request.params.id * numberOfUsers) - numberOfUsers;
-    db.users.find({}).limit(numberOfUsers).skip(skip, function (error, document) {
+    var skipValue = (request.params.id * numberOfUsers) - numberOfUsers;
+    db.users.find({}).limit(numberOfUsers).skip(skipValue, function (error, document) {
         response.send(document);
     })
 })
