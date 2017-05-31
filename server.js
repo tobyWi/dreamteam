@@ -26,10 +26,10 @@ app.use(bodyParser.json());
 // ------------------------------------ USERS -------------------------------------//
 //Tobbe Komplettering
 
-app.get('/page', function(request, response) {
+app.get('/page/:id', function(request, response) {
     var numberOfUsers = 5; 
-    var skip = (request.query.id * pageSize) - pageSize;
-    db.users.find({}).limit(pageSize).skip(skip, function (error, document) {
+    var skip = (request.params.id * numberOfUsers) - numberOfUsers;
+    db.users.find({}).limit(numberOfUsers).skip(skip, function (error, document) {
         response.send(document);
     })
 })
